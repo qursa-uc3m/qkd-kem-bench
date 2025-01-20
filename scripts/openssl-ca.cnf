@@ -57,6 +57,7 @@ providers = provider_sect
 [provider_sect]
 default = default_sect
 qkdkemprovider = qkdkem_sect
+oqs = oqsprov_sect
 
 # The fips section name should match the section name inside the
 # included fipsmodule.cnf.
@@ -77,6 +78,9 @@ activate = 1
 module = qkdkemprovider.so
 activate = 1
 
+[oqsprov_sect]
+module = oqsprovider.so
+activate = 1
 
 ####################################################################
 [ ca ]
