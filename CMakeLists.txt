@@ -73,22 +73,55 @@ include_directories(/usr/local/include/qkd-etsi-api)
 message(STATUS "QKD ETSI API found: ${QKD_ETSI_API_LIB}")
 
 # Hints the compiler on the fact that the provider is being compiled into a static library.
-function(targets_set_static_provider)
-  foreach(target ${ARGN})
-    target_compile_definitions(${target} PRIVATE "OQS_PROVIDER_STATIC")
-    if(NOT target STREQUAL qkdkemprovider)
-      target_link_libraries(${target} PRIVATE qkdkemprovider)
-    endif()
-  endforeach()
-endfunction()
+#function(targets_set_static_provider)
+#  foreach(target ${ARGN})
+#    target_compile_definitions(${target} PRIVATE "OQS_PROVIDER_STATIC")
+#    if(NOT target STREQUAL qkdkemprovider)
+#      target_link_libraries(${target} PRIVATE qkdkemprovider)
+#    endif()
+#  endforeach()
+#endfunction()
 
-# Provider module
-add_subdirectory(oqsprov)
+# Add the provider library
+include(FetchContent)
 
-# Testing
+# QDK-KEM-Provider
+FetchContent_Declare(
+    oqsprov_qkd
+    GIT_REPOSITORY https://github.com/qursa-uc3m/qkd-kem-provider.git
+    GIT_TAG main
+)
+
+# OQS Provider (standard version)
+FetchContent_Declare(
+    oqsprov_base
+    GIT_REPOSITORY https://github.com/open-quantum-safe/oqs-provider.git
+    GIT_TAG 0.8.0  # Specific release version for stability
+)
+
+# Make the content available
+FetchContent_GetProperties(oqsprov_qkd)
+if(NOT oqsprov_qkd_POPULATED)
+    FetchContent_Populate(oqsprov_qkd)
+endif()
+
+# Make the base OQS provider content available
+FetchContent_GetProperties(oqsprov_base)
+if(NOT oqsprov_base_POPULATED)
+    FetchContent_Populate(oqsprov_base)
+endif()
+
+# Set output directories
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+# QKD provider will generate qkdkemprovider.so
+add_subdirectory(${oqsprov_qkd_SOURCE_DIR}/oqsprov ${CMAKE_BINARY_DIR}/qkdprov)
+# Base provider will generate oqsprovider.so
+add_subdirectory(${oqsprov_base_SOURCE_DIR}/oqsprov ${CMAKE_BINARY_DIR}/oqsprov)
+
+
+# Add testing - now the benchmark will be built after the provider
 include(CTest)
 enable_testing()
 add_subdirectory(test)
-
-# Examples
-add_subdirectory(examples)

@@ -25,7 +25,7 @@ if [ $# -gt 0 ]; then
       rm -rf _build
    fi
    if [ "$1" == "-F" ]; then
-      rm -rf _build openssl liboqs .local
+      rm -rf _build openssl liboqs .local _deps
    fi
 fi
 
