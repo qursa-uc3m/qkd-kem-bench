@@ -1,0 +1,5 @@
+_build
+.local
+benchmarks
+build
+liboqs
