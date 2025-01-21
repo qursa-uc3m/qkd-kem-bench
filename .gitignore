@@ -1,5 +1,5 @@
 _build
 .local
-benchmarks
+#benchmarks
 build
 liboqs

@@ -215,7 +215,7 @@ int main(int argc, char *argv[]) {
     struct tm *tm = localtime(&t);
     strftime(timestamp, sizeof(timestamp), "%Y%m%d", tm);
 
-    snprintf(benchmark_dir, sizeof(benchmark_dir), "../../benchmarks");
+    snprintf(benchmark_dir, sizeof(benchmark_dir), "../../benchmarks/data");
 
     // Create benchmarks directory with full permissions
     if (mkdir(benchmark_dir, 0755) == -1 && errno != EEXIST) {
