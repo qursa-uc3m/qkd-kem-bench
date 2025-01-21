@@ -12,57 +12,37 @@ from config import (KEM_FAMILIES, KEM_COMPARISON,
 
 def kem_data_process(csv_path):
     """
-    Reads a CSV file and filters for KEM algorithms with 'qkd_' prefix.
-    Adds a TotalTime column that sums KeyGen, Encaps, and Decaps times.
+    Reads a CSV file and processes KEM algorithm data based on the file type.
+    For OQS data, includes only base algorithms (without prefixes like p256_, x25519_, etc.)
+    For QKDKEMProvider data, includes only QKD prefixed algorithms.
     
     Args:
-        csv_path (str): Path to the CSV file
-        
+        csv_path (str): Path to the CSV file. Expected to contain either 'oqs' 
+                       or 'qkdkemprovider' in the filename.
+    
     Returns:
-        pd.DataFrame: Filtered DataFrame with added TotalTime column
+        pd.DataFrame: DataFrame with added TotalTime column
     """
     # Read CSV file
     df = pd.read_csv(csv_path)
     
-    # Filter for algorithms with 'qkd_' prefix
-    qkd_mask = df['Algorithm'].str.startswith('qkd_')
-    filtered_df = df[qkd_mask].copy()
-    
-    # Add TotalTime column (sum of KeyGen, Encaps, and Decaps times)
-    filtered_df['TotalTime(ms)'] = (filtered_df['KeyGen(ms)'] + 
-                               filtered_df['Encaps(ms)'] + 
-                               filtered_df['Decaps(ms)'])
-    
-    return filtered_df
-
-def load_comparison_data(csv_path):
-    """
-    Reads a CSV file and filters for both standard and QKD versions of main KEM families.
-    
-    Args:
-        csv_path (str): Path to the CSV file
-        
-    Returns:
-        pd.DataFrame: Filtered DataFrame with added TotalTime column
-    """
-    # Read CSV file
-    df = pd.read_csv(csv_path)
-    
-    # Get all algorithms we want to compare
-    algorithms_to_keep = []
-    for family in KEM_COMPARISON.values():
-        algorithms_to_keep.extend(family['standard'])
-        algorithms_to_keep.extend(family['qkd'])
-    
-    # Filter for our algorithms of interest
-    filtered_df = df[df['Algorithm'].isin(algorithms_to_keep)].copy()
+     # Apply filtering only for OQS data
+    if 'oqs' in csv_path.lower():
+        # Standard OQS data - exclude:
+        # 1. Algorithms with underscore
+        # 2. SecP256r1MLKEM768 and X25519MLKEM768
+        exclude_list = ['SecP256r1MLKEM768', 'X25519MLKEM768']
+        df = df[
+            (~df['Algorithm'].str.contains('_')) & 
+            (~df['Algorithm'].isin(exclude_list))
+        ].copy()
     
     # Add TotalTime column
-    filtered_df['TotalTime'] = (filtered_df['KeyGen(ms)'] + 
-                               filtered_df['Encaps(ms)'] + 
-                               filtered_df['Decaps(ms)'])
+    df['TotalTime(ms)'] = (df['KeyGen(ms)'] +
+                          df['Encaps(ms)'] +
+                          df['Decaps(ms)'])
     
-    return filtered_df
+    return df
 
 def kem_data_summary(df, warmup=3):
     """
@@ -118,36 +98,6 @@ def compute_ops_percent(df):
         percentages[col] = (percentages[col] / total) * 100
         
     return percentages
-
-def generate_comparison_stats(df):
-    """
-    Generates summary statistics for comparative analysis.
-    
-    Args:
-        df (pd.DataFrame): Input DataFrame from load_comparison_data
-        
-    Returns:
-        pd.DataFrame: Summary statistics DataFrame
-    """
-    # Group by Algorithm and calculate statistics
-    summary_stats = df.groupby('Algorithm').agg({
-        'Iteration': 'count',
-        'KeyGen(ms)': ['mean', 'std', 'min', 'max'],
-        'Encaps(ms)': ['mean', 'std', 'min', 'max'],
-        'Decaps(ms)': ['mean', 'std', 'min', 'max'],
-        'TotalTime': ['mean', 'std', 'min', 'max']
-    }).round(3)
-    
-    # Flatten column names
-    summary_stats.columns = [
-        f'{col[0]}_{col[1]}' if col[1] else col[0] 
-        for col in summary_stats.columns
-    ]
-    
-    # Rename count column
-    summary_stats = summary_stats.rename(columns={'Iteration_count': 'NumIterations'})
-    
-    return summary_stats
 
 # -- -- DATA PLOTTING -- -- #
 
@@ -394,9 +344,19 @@ def plot_kems_fast(input_df, error_suffix="_std", plot_title="fast_kems.png", y_
     """
     
     # Filter and sort algorithms
-    cutoff_alg = 'qkd_frodo976aes'
+    cutoff_str = "frodo976aes"  # Common identifier for both datasets
     input_df = input_df.sort_values('TotalTime_mean')
-    cutoff_idx = input_df.index.get_loc(cutoff_alg) + 1
+    
+    # Find the cutoff index using string matching
+    cutoff_idx = None
+    for idx, alg in enumerate(input_df.index):
+        if cutoff_str in alg:  # This will match both 'frodo976aes' and 'qkd_frodo976aes'
+            cutoff_idx = idx + 1
+            break
+            
+    if cutoff_idx is None:
+        raise ValueError(f"Cutoff algorithm containing '{cutoff_str}' not found in dataset")
+        
     fast_df = input_df.iloc[:cutoff_idx]
     
     # Setup plot dimensions
@@ -497,8 +457,14 @@ def plot_kem_family(input_df, family, error_suffix="_std", plot_title=None, log_
     if family not in KEM_FAMILIES:
         raise ValueError(f"Unknown family '{family}'. Available families: {list(KEM_FAMILIES.keys())}")
     
-    # Filter algorithms for the selected family
-    family_algs = KEM_FAMILIES[family]
+    # Determine if we're dealing with QKD or standard algorithms
+    is_qkd = any('qkd_' in alg for alg in input_df.index)
+    
+    # Get base algorithms and add prefix if needed
+    base_algs = KEM_FAMILIES[family]
+    family_algs = [f'qkd_{alg}' if is_qkd else alg for alg in base_algs]
+    
+    # Filter existing algorithms and create DataFrame
     family_df = input_df.loc[family_algs].sort_values('TotalTime_mean')
     
     # Setup plot dimensions
@@ -592,7 +558,7 @@ def plot_kem_family(input_df, family, error_suffix="_std", plot_title=None, log_
                 dpi=300)
     plt.show()
     
-def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.png"):
+def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.png", print_percents=False):
     """
     Creates a stacked bar plot showing the percentage contribution of each operation.
     
@@ -600,7 +566,14 @@ def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.pn
         input_df: DataFrame containing the KEM timing data
         family: Optional string to filter for specific algorithm family
         plot_title: Output filename for the plot
+        print_percents: Boolean to control printing of numerical percentages (default: False)
     """
+     # Determine if we're dealing with QKD or standard algorithms
+    is_qkd = any('qkd_' in alg for alg in input_df.index)
+    
+    # Function to add prefix to algorithm names
+    def add_prefix(algs):
+        return [f'qkd_{alg}' if is_qkd else alg for alg in algs]
     
     # Filter and sort data
     if family is not None:
@@ -613,7 +586,9 @@ def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.pn
         # Group by families when plotting all algorithms
         df_to_plot = pd.DataFrame()
         for fam in KEM_FAMILIES:
-            family_data = input_df.loc[KEM_FAMILIES[fam]].sort_values('TotalTime_mean')
+            base_algs = KEM_FAMILIES[fam]
+            family_algs = add_prefix(base_algs)
+            family_data = input_df.loc[family_algs].sort_values('TotalTime_mean')
             df_to_plot = pd.concat([df_to_plot, family_data])
 
     # Calculate percentages
@@ -693,16 +668,20 @@ def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.pn
                 loc='upper center',
                 bbox_to_anchor=(0.5, 1.1),
                 ncol=len(labels))
-    
+
     # Add title if showing a specific family
     if family is not None:
-        ax.set_title(f'{family.upper()} Family', fontsize=FONT_SIZES['fig_title'], pad=20)
+        prefix = "QKD-" if is_qkd else ""
+        ax.set_title(f'{prefix}{family.upper()} Family', fontsize=FONT_SIZES['fig_title'], pad=20)
     
     # Add family separators when plotting all algorithms
     if family is None:
         prev_family = None
         for i, alg in enumerate(percentages.index):
-            current_family = next(fam for fam, algs in KEM_FAMILIES.items() if alg in algs)
+            # Remove qkd_ prefix for family lookup if present
+            base_alg = alg.replace('qkd_', '') if is_qkd else alg
+            current_family = next(fam for fam, algs in KEM_FAMILIES.items() 
+                                if any(base_alg.startswith(a) for a in algs))
             if prev_family != current_family and i > 0:
                 ax.axvline(x=i-0.5, color='black', linestyle='--', alpha=0.3, linewidth=1)
             prev_family = current_family
@@ -718,9 +697,10 @@ def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.pn
                 dpi=300)
     plt.show()
 
-    # Print numerical percentages
-    print("\nOperation Percentages:")
-    print(percentages.round(2))
+    if print_percents:
+        # Print numerical percentages
+        print("\nOperation Percentages:")
+        print(percentages.round(2))
     
 def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime', 
                        overhead=False, plot_title=None):
@@ -728,18 +708,17 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime',
     Creates a comparative plot of standard vs QKD versions of KEMs.
     
     Args:
-        comparison_stats: DataFrame with summary statistics
+        comparison_stats: DataFrame with hierarchical index (Variant, Algorithm)
         family: KEM family to analyze ('kyber', 'mlkem', etc.) or None for all
         operation: Which timing to compare ('TotalTime', 'all')
         overhead: If True, plots overhead percentage instead of times
         plot_title: Optional filename for saving the plot
     """
-    
-    # Get data based on family selection
-    if family is not None and family not in KEM_COMPARISON:
+    # Validate family selection
+    if family is not None and family not in KEM_FAMILIES:
         raise ValueError(f"Unknown family '{family}'. Available families: {list(KEM_FAMILIES.keys())}")
     
-    families_to_plot = [family] if family else KEM_COMPARISON.keys()
+    families_to_plot = [family] if family else KEM_FAMILIES.keys()
     operations = ['KeyGen(ms)', 'Encaps(ms)', 'Decaps(ms)']
     
     # Create figure
@@ -762,26 +741,23 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime',
                   width=AXES_STYLE['minor_tick_width'])
     
     if operation == 'all':
-        # Plot all operations
         x_positions = []
         x_labels = []
         current_x = 0
         width = 0.15
         
-        # Define color palettes - one for standard, one for QKD
-        std_color = "#9fcf69"  # Green for standard
-        qkd_color = "#33acdc"  # Blue for QKD
+        std_color = "#9fcf69"
+        qkd_color = "#33acdc"
         
         for fam in families_to_plot:
-            std_algs = KEM_COMPARISON[fam]['standard']
-            qkd_algs = KEM_COMPARISON[fam]['qkd']
+            base_algs = KEM_FAMILIES[fam]
             
-            for std_alg, qkd_alg in zip(std_algs, qkd_algs):
+            for base_alg in base_algs:
                 for i, op in enumerate(operations):
-                    std_val = comparison_stats.loc[std_alg, f"{op}_mean"]
-                    qkd_val = comparison_stats.loc[qkd_alg, f"{op}_mean"]
+                    # Access data using hierarchical index
+                    std_val = comparison_stats.loc[('Standard', base_alg), f"{op}_mean"]
+                    qkd_val = comparison_stats.loc[('QKD', base_alg), f"{op}_mean"]
                     
-                    # Add space between operation groups
                     x_offset = i * (3 * width)
                     
                     # Plot bars
@@ -800,8 +776,8 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime',
                                fontsize=FONT_SIZES['annotation'])
                 
                 x_positions.append(current_x + 3*width)
-                x_labels.append(std_alg.replace('_', '\_'))
-                current_x += 10*width  # Increased spacing between algorithms
+                x_labels.append(base_alg.replace('_', '\_'))
+                current_x += 10*width
                 
             # Add separator between families if plotting all
             if not family and fam != list(families_to_plot)[-1]:
@@ -821,13 +797,14 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime',
         labels = []
         
         for fam in families_to_plot:
-            std_algs = KEM_COMPARISON[fam]['standard']
-            qkd_algs = KEM_COMPARISON[fam]['qkd']
-            
+            base_algs = KEM_FAMILIES[fam]
             op_col = f"{operation}_mean"
-            std_data.extend([comparison_stats.loc[alg, op_col] for alg in std_algs])
-            qkd_data.extend([comparison_stats.loc[alg, op_col] for alg in qkd_algs])
-            labels.extend(std_algs)
+            
+            for base_alg in base_algs:
+                # Access data using hierarchical index
+                std_data.append(comparison_stats.loc[('Standard', base_alg), op_col])
+                qkd_data.append(comparison_stats.loc[('QKD', base_alg), op_col])
+                labels.append(base_alg)
         
         x = np.arange(len(labels))
         width = 0.35
@@ -837,7 +814,6 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime',
             ax.bar(x, overhead_data, width, color=colors[0], 
                    edgecolor='black', linewidth=1)
             
-            # Add percentage labels
             for i, v in enumerate(overhead_data):
                 ax.text(i, v, f'{v:.1f}\%', ha='center', va='bottom', 
                        fontsize=FONT_SIZES['annotation'])
