@@ -6,5 +6,6 @@ benchmarks/__pycache__
 build
 liboqs
 liboqs/_build
+benchmarks/__pycache__
 
 

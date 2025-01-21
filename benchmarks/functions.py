@@ -721,6 +721,24 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime',
     families_to_plot = [family] if family else KEM_FAMILIES.keys()
     operations = ['KeyGen(ms)', 'Encaps(ms)', 'Decaps(ms)']
     
+    # Define operation-specific labels
+    operation_labels = {
+        'standard': {
+            'KeyGen(ms)': r'\textbf{Key Generation Time (ms)}',
+            'Encaps(ms)': r'\textbf{Encapsulation Time (ms)}',
+            'Decaps(ms)': r'\textbf{Decapsulation Time (ms)}',
+            'TotalTime': r'\textbf{Time (ms)}',
+            'all': r'\textbf{Total Time (ms)}'
+        },
+        'overhead': {
+            'KeyGen(ms)': r'\textbf{Key Generation Overhead (\%)}',
+            'Encaps(ms)': r'\textbf{Encapsulation Overhead (\%)}',
+            'Decaps(ms)': r'\textbf{Decapsulation Overhead (\%)}',
+            'TotalTime': r'\textbf{Total Time Overhead (\%)}',
+            'all': r'\textbf{Time Overhead (\%)}'
+        }
+    }
+    
     # Create figure
     fig, ax = plt.subplots(figsize=(20, 10))
     
@@ -751,7 +769,6 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime',
         
         for fam in families_to_plot:
             base_algs = KEM_FAMILIES[fam]
-            
             for base_alg in base_algs:
                 for i, op in enumerate(operations):
                     # Access data using hierarchical index
@@ -828,12 +845,12 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime',
                           rotation=45, ha='right', fontsize=FONT_SIZES['tick_label'])
     
     # Set labels and grid
-    if overhead:
-        ax.set_ylabel(r'\textbf{Overhead (\%)}', fontsize=FONT_SIZES['axes_label'],
-                     labelpad=AXES_STYLE['label_pad'])
-    else:
-        ax.set_ylabel(r'\textbf{Time (ms)}', fontsize=FONT_SIZES['axes_label'],
-                     labelpad=AXES_STYLE['label_pad'])
+     # Set labels and grid
+    label_type = 'overhead' if overhead else 'standard'
+    ylabel = operation_labels[label_type].get(operation, operation_labels[label_type]['all'])
+    ax.set_ylabel(ylabel, fontsize=FONT_SIZES['axes_label'],
+                 labelpad=AXES_STYLE['label_pad'])
+    
     ax.set_xlabel(r'\textbf{Algorithm}', fontsize=FONT_SIZES['axes_label'],
                  labelpad=AXES_STYLE['label_pad'])
     
