@@ -9,7 +9,7 @@ show_help() {
     echo ""
     echo "Options:"
     echo "  -b, --bench N    Run benchmarks with N iterations"
-    echo "  -p, --provider P Choose provider (qkdkem or oqs)"
+    echo "  -p, --provider P Choose provider (qkdkemprovider or oqs)"
     echo "  -h, --help       Show this help message"
     echo ""
     echo "Example: $0 --bench 1000"
@@ -19,18 +19,64 @@ show_help() {
 setup_environment() {
     export OPENSSL_APP=openssl
     export OPENSSL_MODULES="${BASE_DIR}/_build/lib"
-    export OPENSSL_CONF="${BASE_DIR}/test/openssl-ca.cnf"
+    export OPENSSL_CONF="${BASE_DIR}/scripts/openssl-ca.cnf"
 
     # Set up library paths
     if [ -d "${BASE_DIR}/.local/lib64" ]; then
         export LD_LIBRARY_PATH="${BASE_DIR}/.local/lib64"
     elif [ -d "${BASE_DIR}/.local/lib" ]; then
         export LD_LIBRARY_PATH="${BASE_DIR}/.local/lib"
+    else
+        echo "❌ Neither lib64 nor lib directory found in .local/"
+        return 1
     fi
 
     # Set OSX specific library path if needed
     if [ -z "${DYLD_LIBRARY_PATH}" ]; then
         export DYLD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
+    fi
+
+    return 0
+}
+
+# Check if OpenSSL providers are available
+check_providers() {
+    # Map provider names to their corresponding .so files
+    declare -A provider_files=(
+        ["qkdkemprovider"]="qkdkemprovider.so"
+        ["oqs"]="oqsprovider.so"
+    )
+    local missing_providers=()
+    local has_error=0
+
+    echo "Checking OpenSSL providers..."
+    echo "Provider modules status:"
+    for provs in "${!provider_files[@]}"; do
+        printf "  %-20s: " "${provider_files[$provs]}"
+        if [ -f "${OPENSSL_MODULES}/${provider_files[$provs]}" ]; then
+            if [ -r "${OPENSSL_MODULES}/${provider_files[$provs]}" ]; then
+                echo "✅ Found and readable"
+            else
+                echo "❌ Found but not readable"
+                has_error=1
+            fi
+        else
+            echo "❌ Not found"
+            missing_providers+=("$provs")
+            has_error=1
+        fi
+    done
+
+    # Final status check
+    if [ $has_error -eq 1 ]; then
+        echo "❌ Provider check failed:"
+        if [ ${#missing_providers[@]} -gt 0 ]; then
+            echo "   Missing providers: ${missing_providers[*]}"
+        fi
+        return 1
+    else
+        echo "✅ All providers found and accessible"
+        return 0
     fi
 }
 
@@ -40,7 +86,7 @@ run_kem_bench() {
     local provider=$2
 
     case $provider in 
-        qkdkem)
+        qkdkemprovider)
             echo "Running QKD KEM benchmarks with $iterations iterations..."
             ;;
         oqs)
@@ -48,7 +94,7 @@ run_kem_bench() {
             ;;
         *)
             echo "❌ Invalid provider: $provider"
-            echo "Valid options are: qkdkem, oqs"
+            echo "Valid options are: qkdkemprovider, oqs"
             return 1
             ;;
     esac
@@ -78,7 +124,7 @@ run_kem_bench() {
 
 main() {
     local bench_iterations=0
-    local provider="qkdkem" # Default provider
+    local provider="qkdkemprovider" # Default provider
 
     # Parse command line arguments
     while [[ $# -gt 0 ]]; do
@@ -100,10 +146,11 @@ main() {
                     provider=$1
                     shift
                 else
-                    echo "Error: --provider requires a provider name (qkdkem or oqs)"
+                    echo "Error: --provider requires a provider name (qkdkemprovider or oqs)"
                     show_help
                     exit 1
                 fi
+                ;;
             -h|--help)
                 show_help
                 exit 0
@@ -125,8 +172,15 @@ main() {
     # Setup environment
     setup_environment
 
+    # Providers check
+    if ! check_providers; then
+        echo "Fatal: Provider check failed"
+        exit 1
+    fi
+
+
     # Run benchmarks
-    run_kem_bench $bench_iterations
+    run_kem_bench $bench_iterations $provider
     exit $?
 }
 
