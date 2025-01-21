@@ -1,5 +1,8 @@
 _build
 .local
-#benchmarks
+data
 build
 liboqs
+liboqs/_build
+__pycache__
+
