@@ -3,7 +3,9 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 else()
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 endif()
+
 project(qkd-kem-provider LANGUAGES C)
+
 set(OQSPROVIDER_VERSION_TEXT "0.1.0-dev")
 set(CMAKE_C_STANDARD 11)
 set_property(GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS ON)
@@ -117,8 +119,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # QKD provider will generate qkdkemprovider.so
 add_subdirectory(${oqsprov_qkd_SOURCE_DIR}/oqsprov ${CMAKE_BINARY_DIR}/qkdprov)
+
 # Base provider will generate oqsprovider.so
 add_subdirectory(${oqsprov_base_SOURCE_DIR}/oqsprov ${CMAKE_BINARY_DIR}/oqsprov)
+
 
 
 # Add testing - now the benchmark will be built after the provider
