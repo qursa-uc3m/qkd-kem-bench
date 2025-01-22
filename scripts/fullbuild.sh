@@ -75,6 +75,25 @@ if [ -z "$OPENSSL_INSTALL" ]; then
  fi
 fi
 
+if [ ! -z "$OPENSSL_INSTALL" ]; then
+    # If OPENSSL_INSTALL is set, ensure proper library paths
+    if [ -d "$OPENSSL_INSTALL/lib64" ]; then
+        export LD_LIBRARY_PATH="$OPENSSL_INSTALL/lib64:$LD_LIBRARY_PATH"
+        # Create lib symlink if it doesn't exist (some systems need this)
+        if [ ! -d "$OPENSSL_INSTALL/lib" ]; then
+            ln -sf "$OPENSSL_INSTALL/lib64" "$OPENSSL_INSTALL/lib"
+        fi
+    fi
+    if [ -d "$OPENSSL_INSTALL/lib" ]; then
+        export LD_LIBRARY_PATH="$OPENSSL_INSTALL/lib:$LD_LIBRARY_PATH"
+    fi
+    # Ensure CMake finds the right OpenSSL
+    export CMAKE_PREFIX_PATH="$OPENSSL_INSTALL:$CMAKE_PREFIX_PATH"
+    # Add explicit OpenSSL flags for builds
+    export CFLAGS="-I$OPENSSL_INSTALL/include $CFLAGS"
+    export LDFLAGS="-L$OPENSSL_INSTALL/lib64 -L$OPENSSL_INSTALL/lib -Wl,-rpath,$OPENSSL_INSTALL/lib64 -Wl,-rpath,$OPENSSL_INSTALL/lib $LDFLAGS"
+fi
+
 # Check whether liboqs is built or has been configured:
 if [ -z $liboqs_DIR ]; then
  if [ ! -f ".local/lib/liboqs.$STATLIBEXT" ]; then
@@ -124,20 +143,32 @@ if [ -z $liboqs_DIR ]; then
  export liboqs_DIR=$(pwd)/.local
 fi
 
-# Check whether provider is built:
-if [ ! -f "_build/lib/qkdkemprovider.$SHLIBEXT" ]; then
-   echo "qkdkemprovider (_build/lib/qkdkemprovider.$SHLIBEXT) not built: Building..."
+# Check whether providers are built:
+if [ ! -f "_build/lib/qkdkemprovider.$SHLIBEXT" ] || [ ! -f "_build/lib/oqsprovider.$SHLIBEXT" ]; then
+   echo "Providers not built or incomplete: Building..."
    # for full debug build add: -DCMAKE_BUILD_TYPE=Debug
    #BUILD_TYPE="-DCMAKE_BUILD_TYPE=Debug"
    BUILD_TYPE=""
+   
    # for omitting public key in private keys add -DNOPUBKEY_IN_PRIVKEY=ON
    if [ -z "$OPENSSL_INSTALL" ]; then
        cmake $CMAKE_PARAMS $CMAKE_OPENSSL_LOCATION $BUILD_TYPE $OQSPROV_CMAKE_PARAMS -S . -B _build && cmake --build _build
    else
        cmake $CMAKE_PARAMS -DOPENSSL_ROOT_DIR=$OPENSSL_INSTALL $BUILD_TYPE $OQSPROV_CMAKE_PARAMS -S . -B _build && cmake --build _build
    fi
+   
    if [ $? -ne 0 ]; then
      echo "provider build failed. Exiting."
+     exit -1
+   fi
+   
+   # Verify both providers were built successfully
+   if [ ! -f "_build/lib/qkdkemprovider.$SHLIBEXT" ]; then
+     echo "qkdkemprovider build failed - missing library. Exiting."
+     exit -1
+   fi
+   if [ ! -f "_build/lib/oqsprovider.$SHLIBEXT" ]; then
+     echo "oqsprovider build failed - missing library. Exiting."
      exit -1
    fi
 fi
