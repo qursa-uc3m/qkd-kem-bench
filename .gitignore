@@ -5,6 +5,7 @@ benchmarks/plots
 benchmarks/__pycache__
 build
 /liboqs*
+/certs*
 liboqs/_build
 benchmarks/__pycache__/*.pyc
 

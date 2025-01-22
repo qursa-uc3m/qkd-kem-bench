@@ -70,6 +70,8 @@ def run_tls_test():
         # Give the server a moment to start
         time.sleep(2)
         
+        # Starts here - Timing
+        
         # Run client
         print(f"\nRunning client with {kex_name}...")
         client_cmd = [
@@ -86,6 +88,8 @@ def run_tls_test():
             input='Q'.encode(),
             env=env
         )
+        
+        # Ends here - Timing
         
         # Check result
         if "SSL handshake has read" in client_output:

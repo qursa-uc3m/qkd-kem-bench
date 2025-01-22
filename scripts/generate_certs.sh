@@ -1,23 +1,38 @@
 #!/bin/bash
 
+BASE_DIR=$(pwd)
+
 if [ "$OPENSSL" = "" ]; then
-   #OPENSSL=/usr/local/bin/oqs_openssl
-   OPENSSL=/usr/local/bin/oqs_openssl3
+    if [ ! -z "$OPENSSL_INSTALL" ]; then
+        OPENSSL="${OPENSSL_INSTALL}/bin/openssl"
+    elif [ -f "${BASE_DIR}/.local/bin/openssl" ]; then
+        OPENSSL="${BASE_DIR}/.local/bin/openssl"
+    else
+        OPENSSL="/opt/oqs_openssl3/bin/openssl"
+    fi
 fi
-# add provider path if not defined
+
 if [ "$PROVIDER_PATH" = "" ]; then
-   PROVIDER_PATH=/opt/oqs_openssl3/oqs-provider/_build/lib
+    PROVIDER_PATH="${BASE_DIR}/_build/lib"
 fi
 
 # Create directory structure
-CERT_BASE_DIR="."
+CERT_BASE_DIR="${BASE_DIR}/certs"
 DILITHIUM_DIR="${CERT_BASE_DIR}/dilithium"
 FALCON_DIR="${CERT_BASE_DIR}/falcon"
 RSA_DIR="${CERT_BASE_DIR}/rsa"
 
+mkdir -p ${CERT_BASE_DIR}
 mkdir -p ${DILITHIUM_DIR}
 mkdir -p ${FALCON_DIR}
 mkdir -p ${RSA_DIR}
+
+# Verify OpenSSL version
+echo "========== OPENSSL VERSION INFO =========="
+echo ""
+echo "Running OpenSSL from: $OPENSSL"
+$OPENSSL version|| { echo "Error: OpenSSL binary not found or not executable."; exit 1; }
+echo ""
 
 # Generate conf files.
 printf "\
@@ -62,6 +77,9 @@ keyUsage               = critical, digitalSignature\n\
 extendedKeyUsage       = critical, serverAuth,clientAuth\n\
 basicConstraints       = critical, CA:false\n" > entity.conf
 
+
+echo "========== GENERATING CERTIFICATES =========="
+echo ""
 ###############################################################################
 # Dilithium2
 ###############################################################################
@@ -78,6 +96,8 @@ ${OPENSSL} req -new -config entity.conf -key ${DILITHIUM_DIR}/dilithium2_entity_
 
 echo "Generating DILITHIUM2 entity certificate..."
 ${OPENSSL} x509 -req -in ${DILITHIUM_DIR}/dilithium2_entity_req.pem -CA ${DILITHIUM_DIR}/dilithium2_root_cert.pem -CAkey ${DILITHIUM_DIR}/dilithium2_root_key.pem -extfile entity.conf -extensions x509v3_extensions -days 1095 -set_serial 257 -out ${DILITHIUM_DIR}/dilithium2_entity_cert.pem -provider-path ${PROVIDER_PATH} -provider oqsprovider -provider default
+
+echo ""
 
 ###############################################################################
 # Dilithium3
@@ -96,6 +116,7 @@ ${OPENSSL} req -new -config entity.conf -key ${DILITHIUM_DIR}/dilithium3_entity_
 echo "Generating DILITHIUM3 entity certificate..."
 ${OPENSSL} x509 -req -in ${DILITHIUM_DIR}/dilithium3_entity_req.pem -CA ${DILITHIUM_DIR}/dilithium3_root_cert.pem -CAkey ${DILITHIUM_DIR}/dilithium3_root_key.pem -extfile entity.conf -extensions x509v3_extensions -days 1095 -set_serial 513 -out ${DILITHIUM_DIR}/dilithium3_entity_cert.pem -provider-path ${PROVIDER_PATH} -provider oqsprovider -provider default
 
+echo ""
 ###############################################################################
 # Dilithium5
 ###############################################################################
@@ -113,6 +134,7 @@ ${OPENSSL} req -new -config entity.conf -key ${DILITHIUM_DIR}/dilithium5_entity_
 echo "Generating DILITHIUM5 Level 5 entity certificate..."
 ${OPENSSL} x509 -req -in ${DILITHIUM_DIR}/dilithium5_entity_req.pem -CA ${DILITHIUM_DIR}/dilithium5_root_cert.pem -CAkey ${DILITHIUM_DIR}/dilithium5_root_key.pem -extfile entity.conf -extensions x509v3_extensions -days 1095 -set_serial 1025 -out ${DILITHIUM_DIR}/dilithium5_entity_cert.pem -provider-path ${PROVIDER_PATH} -provider oqsprovider -provider default
 
+echo ""
 ###############################################################################
 # Falcon NIST Level 1
 ###############################################################################
@@ -130,6 +152,7 @@ ${OPENSSL} req -new -config entity.conf -key ${FALCON_DIR}/falcon_level1_entity_
 echo "Generating Falcon NIST Level 1 entity certificate..."
 ${OPENSSL} x509 -req -in ${FALCON_DIR}/falcon_level1_entity_req.pem -CA ${FALCON_DIR}/falcon_level1_root_cert.pem -CAkey ${FALCON_DIR}/falcon_level1_root_key.pem -extfile entity.conf -extensions x509v3_extensions -days 1095 -set_serial 513 -out ${FALCON_DIR}/falcon_level1_entity_cert.pem -provider-path ${PROVIDER_PATH} -provider oqsprovider -provider default
 
+echo ""
 ###############################################################################
 # Falcon NIST Level 5
 ###############################################################################
@@ -147,6 +170,7 @@ ${OPENSSL} req -new -config entity.conf -key ${FALCON_DIR}/falcon_level5_entity_
 echo "Generating Falcon NIST Level 5 entity certificate..."
 ${OPENSSL} x509 -req -in ${FALCON_DIR}/falcon_level5_entity_req.pem -CA ${FALCON_DIR}/falcon_level5_root_cert.pem -CAkey ${FALCON_DIR}/falcon_level5_root_key.pem -extfile entity.conf -extensions x509v3_extensions -days 1095 -set_serial 1025 -out ${FALCON_DIR}/falcon_level5_entity_cert.pem -provider-path ${PROVIDER_PATH} -provider oqsprovider -provider default
 
+echo ""
 ###############################################################################
 # RSA 2048
 ###############################################################################
@@ -164,6 +188,7 @@ ${OPENSSL} req -new -config entity.conf -key ${RSA_DIR}/rsa_2048_entity_key.pem 
 echo "Generating RSA 2048 entity certificate..."
 ${OPENSSL} x509 -req -in ${RSA_DIR}/rsa_2048_entity_req.pem -CA ${RSA_DIR}/rsa_2048_root_cert.pem -CAkey ${RSA_DIR}/rsa_2048_root_key.pem -extfile entity.conf -extensions x509v3_extensions -days 1095 -set_serial 513 -out ${RSA_DIR}/rsa_2048_entity_cert.pem
 
+echo ""
 ###############################################################################
 # Verify all generated certificates.
 ###############################################################################
@@ -172,6 +197,9 @@ ${OPENSSL} verify -no-CApath -check_ss_sig -provider-path ${PROVIDER_PATH} -prov
 ${OPENSSL} verify -no-CApath -check_ss_sig -provider-path ${PROVIDER_PATH} -provider oqsprovider -provider default -CAfile ${FALCON_DIR}/falcon_level1_root_cert.pem ${FALCON_DIR}/falcon_level1_entity_cert.pem
 ${OPENSSL} verify -no-CApath -check_ss_sig -provider-path ${PROVIDER_PATH} -provider oqsprovider -provider default -CAfile ${FALCON_DIR}/falcon_level5_root_cert.pem ${FALCON_DIR}/falcon_level5_entity_cert.pem
 ${OPENSSL} verify -no-CApath -check_ss_sig -CAfile ${RSA_DIR}/rsa_2048_root_cert.pem ${RSA_DIR}/rsa_2048_entity_cert.pem
+
+echo ""
+echo "========== GENERATION COMPLETED SUCCESSFULLY =========="
 
 # Cleanup temporary config files
 rm -f root.conf entity.conf
