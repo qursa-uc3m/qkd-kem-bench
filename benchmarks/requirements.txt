@@ -1,0 +1,15 @@
+# Core data analysis
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Visualization
+matplotlib>=3.7.0
+
+# Jupyter environment
+jupyter>=1.0.0
+notebook>=7.0.0
+
+# Note: The following system packages must be installed separately using your system's package manager:
+# texlive-latex-extra
+# dvipng
+# cm-super
