@@ -8,5 +8,6 @@ build
 /certs*
 liboqs/_build
 benchmarks/__pycache__/*.pyc
+scripts/__pycache__/*.pyc
 
 

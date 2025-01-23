@@ -5,39 +5,35 @@ import subprocess
 import time
 import pathlib
 
-OQS_DIR = "/opt/oqs_openssl3"
+#OQS_DIR = "/opt/oqs_openssl3"
 CERTS_DIR = "./certs"
 
 def get_test_env():
-    """Set up the environment variables for OpenSSL and QKD-KEM provider"""
-    # Get the project root directory
-    project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    
-    # Create environment dictionary starting with current environment
+    """Set up the environment variables using existing OpenSSL environment"""
     env = os.environ.copy()
     
-    # Set OpenSSL specific environment variables
-    env.update({
-        'OPENSSL_CONF': os.path.join(OQS_DIR, "oqs-provider/scripts/openssl-ca.cnf"),
-        'OPENSSL_MODULES': os.path.join(project_dir, "_build/lib"),
-        'PATH': os.path.join(OQS_DIR, ".local/bin") + os.pathsep + env.get('PATH', ''),
-        'LD_LIBRARY_PATH': os.path.join(OQS_DIR, ".local/lib64") + os.pathsep + env.get('LD_LIBRARY_PATH', '')
-    })
+    # Verify required environment variables
+    required_vars = ['OPENSSL_CONF', 'OPENSSL_MODULES', 'PATH', 'LD_LIBRARY_PATH']
+    missing_vars = [var for var in required_vars if var not in env]
+    if missing_vars:
+        raise EnvironmentError(f"Missing required environment variables: {', '.join(missing_vars)}")
     
     return env
-
-def setup_test_environment():
-    """Setup paths for OpenSSL and certificates"""
-    project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     
-    # Setup paths
-    ossl = os.path.join(OQS_DIR, ".local/bin/openssl")
-    ossl_config = os.path.join(OQS_DIR, "oqs-provider/scripts/openssl-ca.cnf")
+def setup_test_environment():
+    """Setup paths using environment variables"""
+    env = os.environ
+    
+    # Get OpenSSL path from PATH
+    path_dirs = env['PATH'].split(os.pathsep)
+    ossl_dir = next((d for d in path_dirs if os.path.exists(os.path.join(d, 'openssl'))), None)
+    if not ossl_dir:
+        raise FileNotFoundError("OpenSSL binary not found in PATH")
     
     return {
-        'ossl': ossl,
-        'ossl_config': ossl_config,
-        'project_dir': project_dir
+        'ossl': os.path.join(ossl_dir, 'openssl'),
+        'ossl_config': env['OPENSSL_CONF'],
+        'project_dir': os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     }
 
 def run_tls_test():
