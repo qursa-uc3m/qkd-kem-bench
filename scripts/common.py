@@ -41,7 +41,7 @@ def all_pq_groups(first = 0):
            ag = ag + ":" + kex
     return ag
 
-def run_subprocess(command, working_dir='.', expected_returncode=0, input=None, env=os.environ):
+def run_subprocess(command, working_dir='.', expected_returncode=0, input=None, env=os.environ, verbose=False):
     """
     Helper function to run a shell command and report success/failure
     depending on the exit status of the shell command.
@@ -50,7 +50,8 @@ def run_subprocess(command, working_dir='.', expected_returncode=0, input=None, 
     # Note we need to capture stdout/stderr from the subprocess,
     # then print it, which pytest will then capture and
     # buffer appropriately
-    print(working_dir + " > " + " ".join(command))
+    if verbose:
+        print(working_dir + " > " + " ".join(command))
     result = subprocess.run(
         command,
         input=input,
