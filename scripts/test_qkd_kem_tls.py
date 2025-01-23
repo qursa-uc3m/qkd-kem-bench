@@ -74,6 +74,7 @@ def run_tls_test():
             paths['ossl'], 's_client',
             '-connect', f'localhost:{server_port}',
             '-groups', kex_name,
+            '-CAfile', os.path.join(paths['project_dir'], f'{CERTS_DIR}/rsa/rsa_2048_root_cert.pem'),
             '-provider', 'default',
             '-provider', 'qkdkemprovider'
         ]
