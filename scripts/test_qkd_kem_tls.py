@@ -10,15 +10,44 @@ import argparse
 CERTS_DIR = "./certs"
 
 SUPPORTED_KEMS = {
-    'kyber768': {'oqs': 'kyber768', 'qkd': 'qkd_kyber768'},
-    'kyber1024': {'oqs': 'kyber1024', 'qkd': 'qkd_kyber1024'}
+    # MLKEM family
+    'mlkem512': {'oqs': 'mlkem512', 'qkd': 'qkd_mlkem512'},
+    'mlkem768': {'oqs': 'mlkem768', 'qkd': 'qkd_mlkem768'},
+    'mlkem1024': {'oqs': 'mlkem1024', 'qkd': 'qkd_mlkem1024'},
+    # BIKE family
+    'bikel1': {'oqs': 'bikel1', 'qkd': 'qkd_bikel1'},
+    'bikel3': {'oqs': 'bikel3', 'qkd': 'qkd_bikel3'},
+    'bikel5': {'oqs': 'bikel5', 'qkd': 'qkd_bikel5'},
+    # Frodo family
+    'frodo640aes': {'oqs': 'frodo640aes', 'qkd': 'qkd_frodo640aes'},
+    'frodo640shake': {'oqs': 'frodo640shake', 'qkd': 'qkd_frodo640shake'},
+    'frodo976aes': {'oqs': 'frodo976aes', 'qkd': 'qkd_frodo976aes'},
+    'frodo976shake': {'oqs': 'frodo976shake', 'qkd': 'qkd_frodo976shake'},
+    'frodo1344aes': {'oqs': 'frodo1344aes', 'qkd': 'qkd_frodo1344aes'},
+    'frodo1344shake': {'oqs': 'frodo1344shake', 'qkd': 'qkd_frodo1344shake'},
+    # HQC family
+    'hqc128': {'oqs': 'hqc128', 'qkd': 'qkd_hqc128'},
+    'hqc192': {'oqs': 'hqc192', 'qkd': 'qkd_hqc192'},
+    'hqc256': {'oqs': 'hqc256', 'qkd': 'qkd_hqc256'}
 }
 
 SUPPORTED_CERTS = {
-    'rsa': 'rsa_2048',
-    'dilithium': 'dilithium3',
-    'falcon': 'falcon_level5'
+    'rsa': {'rsa_2048', 'rsa_3072', 'rsa_4096'},
+    'mldsa': {'mldsa44', 'mldsa65', 'mldsa87'},
+    'falcon': {'falcon512', 'falcon1024'},
+    'sphincssha2' : {'sphincssha2128fsimple', 'sphincssha2128ssimple', 'sphincssha2192fsimple'},
+    'sphincsshake' : {'sphincsshake128fsimple'},
+
 }
+
+# Create a mapping from certificate variant to its type
+CERT_VARIANT_TO_TYPE = {}
+for cert_type, variants in SUPPORTED_CERTS.items():
+    for variant in variants:
+        CERT_VARIANT_TO_TYPE[variant] = cert_type
+
+# All possible certificate variants for argument choices
+ALL_CERT_VARIANTS = list(CERT_VARIANT_TO_TYPE.keys())
 
 def get_test_env():
     """Set up the environment variables using existing OpenSSL environment"""
@@ -48,7 +77,7 @@ def setup_test_environment():
         'project_dir': os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     }
 
-def run_tls_test(kem_type='kyber768', cert_type='rsa', provider='qkd', verbose=False):
+def run_tls_test(kem_type='kyber768', cert_variant='rsa_2048', provider='qkd', verbose=False):
     """Run TLS test with QKD-KEM
     provider: 'oqs' for OQS KEMs, 'qkd' for QKD-KEMs
     """
@@ -56,7 +85,7 @@ def run_tls_test(kem_type='kyber768', cert_type='rsa', provider='qkd', verbose=F
     env = get_test_env()
     paths = setup_test_environment()
     
-    # Select KEM variant based on provider
+    # Get KEM variant
     kem_variants = SUPPORTED_KEMS.get(kem_type)
     if not kem_variants:
         raise ValueError("Unsupported KEM type")
@@ -64,14 +93,12 @@ def run_tls_test(kem_type='kyber768', cert_type='rsa', provider='qkd', verbose=F
     if not kex_name:
         raise ValueError("Unsupported provider")
     
-    # Select certificate base name (only on OQS provider)
-    cert_base = SUPPORTED_CERTS.get(cert_type)
+    # Get the cert_type for the given variant
+    cert_type = CERT_VARIANT_TO_TYPE.get(cert_variant)
+    if not cert_type:
+        raise ValueError(f"Unsupported certificate variant: {cert_variant}")
     
-    if not kex_name or not cert_base:
-        raise ValueError("Unsupported KEM or certificate type")
-    
-    cert_path = f"{CERTS_DIR}/{cert_type}/{cert_base}"
-    
+    cert_path = f"{CERTS_DIR}/{cert_type}/{cert_variant}"
     server_port = 4433
     
     try:
@@ -131,24 +158,24 @@ def run_tls_test(kem_type='kyber768', cert_type='rsa', provider='qkd', verbose=F
             if verbose:
                 print("\nClient output:")
                 print(client_output)
-            return True
+            return True, handshake_time
         else:
             print(f"\nError: TLS handshake failed with {kex_name}. Time elapsed: {handshake_time:.2f} ms")
             if verbose:
                 print("\nClient output:")
                 print(client_output)
-            return False
-            
+            return False, handshake_time
+                
     except Exception as e:
         print(f"\nError during test execution: {str(e)}")
-        return False
+        return False, None
     finally:
         # Cleanup
         if 'server' in locals():
             server.kill()
             if verbose:
                 print("\nShutting down server...")
-            
+    
 def main():
     # Set up argument parser
     parser = argparse.ArgumentParser(description='Run TLS test with QKD-KEM')
@@ -159,11 +186,11 @@ def main():
                         default='kyber768', 
                         help='Key Encapsulation Method (KEM) type')
     
-    # Certificate type argument
+    # Certificate variant argument
     parser.add_argument('-c', '--cert', 
-                        choices=list(SUPPORTED_CERTS.keys()), 
-                        default='rsa', 
-                        help='Certificate type')
+                        choices=ALL_CERT_VARIANTS, 
+                        default='rsa_2048', 
+                        help='Certificate variant')
     
     # Provider type argument
     parser.add_argument('-p', '--provider', 
@@ -180,12 +207,18 @@ def main():
     args = parser.parse_args()
     
     # Run the test with parsed arguments
-    success = run_tls_test(
+    success, handshake_time = run_tls_test(
         kem_type=args.kem, 
-        cert_type=args.cert, 
+        cert_variant=args.cert, 
         provider=args.provider,
         verbose=args.verbose
     )
+    
+    # Output result for the shell script to capture
+    if success:
+        print(f"Success: TLS handshake completed successfully in {handshake_time:.2f} ms")
+    else:
+        print("Failure: TLS handshake failed")
     
     sys.exit(0 if success else 1)
 
