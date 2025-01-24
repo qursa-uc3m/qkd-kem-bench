@@ -119,7 +119,10 @@ def run_tls_test(kem_type='kyber768', cert_variant='rsa_2048', provider='qkd', v
             print("Starting server...")
             print("Server command:", ' '.join(server_cmd))
 
-        server = subprocess.Popen(server_cmd, env=env, 
+        server_env = env.copy()
+        server_env['IS_TLS_SERVER'] = '1'    
+
+        server = subprocess.Popen(server_cmd, env=server_env, 
                                 stdout=subprocess.DEVNULL if not verbose else None,
                                 stderr=subprocess.DEVNULL if not verbose else None)
         
