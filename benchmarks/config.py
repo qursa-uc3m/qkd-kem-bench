@@ -4,7 +4,7 @@
 
 # Dictionary mapping families to their algorithms
 KEM_FAMILIES = {
-    'kyber': ['kyber512', 'kyber768', 'kyber1024'],
+    #'kyber': ['kyber512', 'kyber768', 'kyber1024'],
     'mlkem': ['mlkem512', 'mlkem768', 'mlkem1024'],
     'bike': ['bikel1', 'bikel3', 'bikel5'],
     'frodo': ['frodo640aes', 'frodo640shake',
@@ -15,10 +15,10 @@ KEM_FAMILIES = {
 
 # Dictionary mapping standard KEMs to their QKD variants
 KEM_COMPARISON = {
-    'kyber': {
-        'standard': ['kyber512', 'kyber768', 'kyber1024'],
-        'qkd': ['qkd_kyber512', 'qkd_kyber768', 'qkd_kyber1024']
-    },
+    #'kyber': {
+    #    'standard': ['kyber512', 'kyber768', 'kyber1024'],
+    #    'qkd': ['qkd_kyber512', 'qkd_kyber768', 'qkd_kyber1024']
+    #},
     'mlkem': {
         'standard': ['mlkem512', 'mlkem768', 'mlkem1024'],
         'qkd': ['qkd_mlkem512', 'qkd_mlkem768', 'qkd_mlkem1024']

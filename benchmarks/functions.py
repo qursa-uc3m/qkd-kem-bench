@@ -161,13 +161,26 @@ def plot_kem_times(input_df, error_suffix="_std", plot_title="kem_times.png", y_
         plot_title: Output filename for the plot
         y_start: Starting point for y-axis (optional)
     """
+
+    # Extract all algorithm names from KEM_FAMILIES
+    algo_names = [alg for family in KEM_FAMILIES.values() for alg in family]
+
+    # Check if the input_df index contains the 'qkd_' prefix
+    has_qkd_prefix = any(idx.startswith('qkd_') for idx in input_df.index)
+    
+    # Add 'qkd_' prefix to algorithm names if necessary
+    if has_qkd_prefix:
+        algo_names = ['qkd_' + alg for alg in algo_names]
+    
+    # Filter the DataFrame based on the algorithm names
+    filter_df = input_df[input_df.index.isin(algo_names)].copy()
     
     # Sort algorithms by total time
-    input_df = input_df.sort_values('TotalTime(ms)_mean')
+    filter_df = filter_df.sort_values('TotalTime(ms)_mean')
     
     # Setup plot dimensions
     width = 0.25  # width of the bars
-    algorithms = input_df.index.tolist()  # algorithms are in the index
+    algorithms = filter_df.index.tolist()  # algorithms are in the index
     x = np.arange(len(algorithms))  # label locations
     
     # Create color palette for the three operations
@@ -184,13 +197,13 @@ def plot_kem_times(input_df, error_suffix="_std", plot_title="kem_times.png", y_
         std_col = f"{operation}{error_suffix}"
         
         container = ax.bar(x + (i-1)*width, 
-                         input_df[mean_col],
+                         filter_df[mean_col],
                          width,
                          label=operation.replace('(ms)', ''),
                          color=color,
                          edgecolor='black',
                          linewidth=1,
-                         yerr=input_df[std_col],
+                         yerr=filter_df[std_col],
                          capsize=3,
                          error_kw={'ecolor': 'black'},
                          zorder=3)
@@ -259,32 +272,48 @@ def plot_kem_total_times(input_df, error_suffix="_std", plot_title="kem_total_ti
         plot_title: Output filename for the plot
         y_start: Starting point for y-axis (optional)
     """
+
+    # Extract all algorithm names from KEM_FAMILIES
+    algo_names = [alg for family in KEM_FAMILIES.values() for alg in family]
+
+    # Check if the input_df index contains the 'qkd_' prefix
+    has_qkd_prefix = any(idx.startswith('qkd_') for idx in input_df.index)
+    
+    # Add 'qkd_' prefix to algorithm names if necessary
+    if has_qkd_prefix:
+        algo_names = ['qkd_' + alg for alg in algo_names]
+    
+    # Filter the DataFrame based on the algorithm names
+    filter_df = input_df[input_df.index.isin(algo_names)].copy()
+    
+    # Sort algorithms by total time
+    filter_df = filter_df.sort_values('TotalTime(ms)_mean')
     
     # Calculate total times and errors
-    input_df['TotalTime_mean'] = (input_df['KeyGen(ms)_mean'] + 
-                                 input_df['Encaps(ms)_mean'] + 
-                                 input_df['Decaps(ms)_mean'])
+    filter_df['TotalTime(ms)_mean'] = (filter_df['KeyGen(ms)_mean'] + 
+                                 filter_df['Encaps(ms)_mean'] + 
+                                 filter_df['Decaps(ms)_mean'])
     
-    input_df['TotalTime_std'] = np.sqrt(
-        input_df[f'KeyGen(ms){error_suffix}']**2 +
-        input_df[f'Encaps(ms){error_suffix}']**2 +
-        input_df[f'Decaps(ms){error_suffix}']**2
+    filter_df['TotalTime_std'] = np.sqrt(
+        filter_df[f'KeyGen(ms){error_suffix}']**2 +
+        filter_df[f'Encaps(ms){error_suffix}']**2 +
+        filter_df[f'Decaps(ms){error_suffix}']**2
     )
     
     # Sort by total time
-    input_df = input_df.sort_values('TotalTime_mean')
+    filter_df = filter_df.sort_values('TotalTime(ms)_mean')
     
     # Create plot
     fig, ax = plt.subplots(figsize=(20, 10))
     
     # Setup plot dimensions
     
-    algorithms = input_df.index.tolist()  # algorithms are in the index
+    algorithms = filter_df.index.tolist()  # algorithms are in the index
     x = np.arange(len(algorithms))  # label locations
     
-    x = np.arange(len(input_df.index))
-    container = ax.bar(x, input_df['TotalTime_mean'],
-                      yerr=input_df['TotalTime_std'],
+    x = np.arange(len(filter_df.index))
+    container = ax.bar(x, filter_df['TotalTime(ms)_mean'],
+                      yerr=filter_df['TotalTime_std'],
                       capsize=3,
                       color="#33acdc",
                       edgecolor='black',
@@ -345,7 +374,7 @@ def plot_kems_fast(input_df, error_suffix="_std", plot_title="fast_kems.png", y_
     
     # Filter and sort algorithms
     cutoff_str = "frodo976aes"  # Common identifier for both datasets
-    input_df = input_df.sort_values('TotalTime_mean')
+    input_df = input_df.sort_values('TotalTime(ms)_mean')
     
     # Find the cutoff index using string matching
     cutoff_idx = None
@@ -465,7 +494,7 @@ def plot_kem_family(input_df, family, error_suffix="_std", plot_title=None, log_
     family_algs = [f'qkd_{alg}' if is_qkd else alg for alg in base_algs]
     
     # Filter existing algorithms and create DataFrame
-    family_df = input_df.loc[family_algs].sort_values('TotalTime_mean')
+    family_df = input_df.loc[family_algs].sort_values('TotalTime(ms)_mean')
     
     # Setup plot dimensions
     width = 0.25  # width of the bars
@@ -568,9 +597,8 @@ def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.pn
         plot_title: Output filename for the plot
         print_percents: Boolean to control printing of numerical percentages (default: False)
     """
-     # Determine if we're dealing with QKD or standard algorithms
+    # Determine if we're dealing with QKD or standard algorithms
     is_qkd = any('qkd_' in alg for alg in input_df.index)
-    
     # Function to add prefix to algorithm names
     def add_prefix(algs):
         return [f'qkd_{alg}' if is_qkd else alg for alg in algs]
@@ -579,16 +607,17 @@ def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.pn
     if family is not None:
         if family.lower() not in KEM_FAMILIES:
             raise ValueError(f"Unknown family '{family}'. Available families: {list(KEM_FAMILIES.keys())}")
-        family_algs = KEM_FAMILIES[family.lower()]
+        base_algs = KEM_FAMILIES[family.lower()]
+        family_algs = add_prefix(base_algs)
         df_to_plot = input_df.loc[family_algs]
-        df_to_plot = df_to_plot.sort_values('TotalTime_mean')
+        df_to_plot = df_to_plot.sort_values('TotalTime(ms)_mean')
     else:
         # Group by families when plotting all algorithms
         df_to_plot = pd.DataFrame()
         for fam in KEM_FAMILIES:
             base_algs = KEM_FAMILIES[fam]
             family_algs = add_prefix(base_algs)
-            family_data = input_df.loc[family_algs].sort_values('TotalTime_mean')
+            family_data = input_df.loc[family_algs].sort_values('TotalTime(ms)_mean')
             df_to_plot = pd.concat([df_to_plot, family_data])
 
     # Calculate percentages
@@ -598,7 +627,7 @@ def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.pn
     fig, ax = plt.subplots(figsize=(20, 10))
     
     # Setup plot dimensions
-    algorithms = input_df.index.tolist()  # algorithms are in the index
+    algorithms = percentages.index.tolist()  # algorithms are in the index
     x = np.arange(len(algorithms))  # label locations
     
     # Get x-axis positions
@@ -702,7 +731,7 @@ def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.pn
         print("\nOperation Percentages:")
         print(percentages.round(2))
     
-def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime', 
+def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)', 
                        overhead=False, plot_title=None):
     """
     Creates a comparative plot of standard vs QKD versions of KEMs.
@@ -727,14 +756,14 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime',
             'KeyGen(ms)': r'\textbf{Key Generation Time (ms)}',
             'Encaps(ms)': r'\textbf{Encapsulation Time (ms)}',
             'Decaps(ms)': r'\textbf{Decapsulation Time (ms)}',
-            'TotalTime': r'\textbf{Time (ms)}',
+            'TotalTime(ms)': r'\textbf{Time (ms)}',
             'all': r'\textbf{Total Time (ms)}'
         },
         'overhead': {
             'KeyGen(ms)': r'\textbf{Key Generation Overhead (\%)}',
             'Encaps(ms)': r'\textbf{Encapsulation Overhead (\%)}',
             'Decaps(ms)': r'\textbf{Decapsulation Overhead (\%)}',
-            'TotalTime': r'\textbf{Total Time Overhead (\%)}',
+            'TotalTime(ms)': r'\textbf{Total Time Overhead (\%)}',
             'all': r'\textbf{Time Overhead (\%)}'
         }
     }
