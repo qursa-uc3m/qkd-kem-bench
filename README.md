@@ -1,8 +1,6 @@
 # qkd-kem-bench
 
-# qkd-kem-bench
-
-A comprehensive benchmarking suite for the [QKD-KEM Provider](https://github.com/qursa-uc3m/qkd-kem-provider), integrating quantum key distribution with post-quantum cryptography. This project combines:
+A benchmarking suite for the [QKD-KEM Provider](https://github.com/qursa-uc3m/qkd-kem-provider), integrating quantum key distribution with post-quantum cryptography. This project combines:
 
 - [QKD-KEM Provider](https://github.com/qursa-uc3m/qkd-kem-provider): A quantum-safe provider that integrates QKD with KEM operations
 - [QKD ETSI API](https://github.com/qursa-uc3m/qkd-etsi-api): Implementation of the ETSI QKD API standards
@@ -10,7 +8,7 @@ A comprehensive benchmarking suite for the [QKD-KEM Provider](https://github.com
 - [OpenSSL](https://github.com/openssl/openssl): Core cryptographic library (version 3.0 or higher)
 - [oqs-provider](https://github.com/open-quantum-safe/oqs-provider): Standard OpenSSL provider for quantum-safe algorithms
 
-The benchmarking utility is based on the testing framework developed by the Open Quantum Safe (OQS) project, modified to incorporate time measurements over KEM operations (Key generation, encapsulation and decapsulation). It enables performance evaluation of various quantum-safe key establishment methods, including pure QKD, pure KEM, and hybrid approaches. 
+The benchmarking utility is based on the testing framework developed by the Open Quantum Safe (OQS) project to test the oqs-provider, modified to incorporate time measurements over KEM operations (Key generation, encapsulation and decapsulation). It enables performance evaluation of various quantum-safe key establishment methods, including pure QKD, pure KEM, and hybrid approaches. 
 
 ## About the Project
 
@@ -18,10 +16,6 @@ This work is part of the QURSA (Quantum-based Resistant Architectures and Techni
 
 - Information and Computing Laboratory (I&CLab), Department of Telematic Engineering, Universidade de Vigo (UVigo)
 - Pervasive Computing Laboratory, Department of Telematic Engineering, Universidad Carlos III de Madrid (UC3M)
-
-## Protocol Overview
-
-For detailed information about the protocol specification, including the key generation, encapsulation, and decapsulation processes, please see our [Protocol Documentation](docs/protocol.md).
 
 ## Dependencies
 
