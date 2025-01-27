@@ -11,7 +11,9 @@ BASE_DIR=$(pwd)
 BENCH_DIR=${BASE_DIR}/benchmarks/data
 mkdir -p "$BENCH_DIR"
 
+echo ""
 source ./scripts/oqs_env.sh
+echo ""
 
 # Parse arguments
 ITERATIONS=10
@@ -61,7 +63,12 @@ progress_bar() {
 for kem in "${KEMS[@]}"; do
     for cert in "${CERTS[@]}"; do
         success=true
-        combination="$kem with $cert"
+        if [ "$PROVIDER" = "qkd" ]; then
+                out_kem="qkd_${kem}"
+        else
+                out_kem="$kem"
+        fi
+        combination="$out_kem with $cert"
         
         for i in $(seq 1 $ITERATIONS); do
             progress_bar "$combination" $i $ITERATIONS
@@ -74,7 +81,8 @@ for kem in "${KEMS[@]}"; do
             
             # Extract the time from the result line
             time=$(echo "$result" | awk '{print $9}')
-            echo "$kem,$cert,$i,$time" >> "$OUTPUT_FILE"
+
+            echo "$out_kem,$cert,$i,$time" >> "$OUTPUT_FILE"
         done
         
         if $success; then

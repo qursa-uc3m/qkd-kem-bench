@@ -99,6 +99,62 @@ def compute_ops_percent(df):
         
     return percentages
 
+def tls_data_summary(csv_path):
+    """
+    Reads and processes TLS benchmark data from a CSV file.
+    Organizes data by KEM family and certificate type.
+    
+    Args:
+        csv_path (str): Path to the CSV file. Expected to contain either 'oqs' 
+                       or 'qkd' in the filename.
+    
+    Returns:
+        pd.DataFrame: DataFrame with summary statistics, properly indexed and sorted
+    """
+    # Read CSV file
+    df = pd.read_csv(csv_path)
+    
+    # Determine provider type from filename
+    is_qkd = 'qkd' in csv_path.lower()
+    
+    # Group by KEM and Certificate combination
+    grouped_stats = df.groupby(['KEM', 'Cert']).agg({
+        'Time': ['count', 'mean', 'std', 'min', 'max']
+    }).round(3)
+    
+    # Flatten column names
+    grouped_stats.columns = [
+        f'Time_{col}' for col in ['count', 'mean', 'std', 'min', 'max']
+    ]
+    
+    # Sort by KEM family order defined in config
+    def get_kem_family(kem):
+        kem_name = kem.replace('qkd_', '') if is_qkd else kem
+        for family, algs in KEM_FAMILIES.items():
+            if any(kem_name.startswith(alg) for alg in algs):
+                return family
+        return 'unknown'
+    
+    # Add KEM family as a column for sorting
+    grouped_stats['Family'] = [get_kem_family(kem) for kem, _ in grouped_stats.index]
+    
+    # Sort by family (using dict order), then KEM name, then certificate
+    family_order = list(KEM_FAMILIES.keys())
+    grouped_stats = grouped_stats.reset_index()
+    grouped_stats['Family_order'] = grouped_stats['Family'].map(
+        {fam: i for i, fam in enumerate(family_order)}
+    )
+    
+    # Sort the DataFrame
+    grouped_stats = grouped_stats.sort_values(
+        ['Family_order', 'KEM', 'Cert']
+    ).set_index(['KEM', 'Cert'])
+    
+    # Drop helper columns
+    grouped_stats = grouped_stats.drop(['Family', 'Family_order'], axis=1)
+    
+    return grouped_stats
+
 # -- -- DATA PLOTTING -- -- #
 
 def apply_axes_style(ax, xlabel=None, ylabel=None, title=None):
@@ -902,5 +958,230 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)'
         if not os.path.exists("./plots"):
             os.makedirs("./plots")
         plt.savefig(os.path.join(".", "plots", plot_title), bbox_inches='tight', dpi=300)
+    
+    plt.show()
+    
+def plot_tls_kem_families(input_df, cert_type='rsa_2048', plot_title=None):
+    """
+    Plots TLS handshake times for different KEM families using a specific certificate.
+    Handles both single provider data and OQS vs QKD comparison with hierarchical index.
+    
+    Args:
+        input_df: DataFrame with TLS benchmark data processed by tls_data_process()
+           Can be single provider data or merged data with Provider level index
+        cert_type: Which certificate to analyze ('rsa_2048', 'falcon512', etc.)
+        plot_title: Optional filename for saving plot
+    """
+    # Check if we have merged data by looking at index levels
+    is_comparison = 'Provider' in input_df.index.names
+    
+    if is_comparison:
+        # For merged data, filter certificate and get both variants
+        oqs_data = input_df.xs(('OQS', cert_type), level=('Provider', 'Cert'))
+        qkd_data = input_df.xs(('QKD', cert_type), level=('Provider', 'Cert'))
+    else:
+        # Original single provider data handling
+        family_data = input_df.xs(cert_type, level='Cert')
+    
+    # Create ordered list of KEMs based on KEM_FAMILIES
+    ordered_kems = []
+    for family, algs in KEM_FAMILIES.items():
+        ordered_kems.extend(algs)
+    
+    # Create figure
+    fig, ax = plt.subplots(figsize=(20, 10))
+    
+    # Get x positions
+    x = np.arange(len(ordered_kems))
+    
+    # Use consistent colors
+    colors = list(mcolors.LinearSegmentedColormap.from_list("", 
+        ["#9fcf69", "#33acdc"])(np.linspace(0, 1, 3)))
+    
+    if is_comparison:
+        # Plot comparison (OQS vs QKD)
+        width = 0.35
+        
+        # Plot OQS bars
+        rects1 = ax.bar(x - width/2, 
+                       [oqs_data.loc[kem]['Time_mean'] for kem in ordered_kems],
+                       width, label='OQS',
+                       yerr=[oqs_data.loc[kem]['Time_std'] for kem in ordered_kems],
+                       capsize=3,
+                       color=colors[0],
+                       edgecolor='black',
+                       linewidth=1,
+                       error_kw={'ecolor': 'black'},
+                       zorder=3)
+        
+        # Plot QKD bars
+        rects2 = ax.bar(x + width/2, 
+                       [qkd_data.loc[f"qkd_{kem}"]['Time_mean'] for kem in ordered_kems],
+                       width, label='QKD',
+                       yerr=[qkd_data.loc[f"qkd_{kem}"]['Time_std'] for kem in ordered_kems],
+                       capsize=3,
+                       color=colors[1],
+                       edgecolor='black',
+                       linewidth=1,
+                       error_kw={'ecolor': 'black'},
+                       zorder=3)
+        
+        # Add legend
+        ax.legend(frameon=True, fontsize=FONT_SIZES['legend'])
+        
+    else:
+        # Original single provider plotting
+        width = 0.35
+        rects = ax.bar(x, family_data['Time_mean'], width,
+                      yerr=family_data['Time_std'],
+                      capsize=3,
+                      color=colors[1],
+                      edgecolor='black',
+                      linewidth=1,
+                      error_kw={'ecolor': 'black'},
+                      zorder=3)
+    
+    # Apply consistent styling
+    apply_axes_style(ax, 
+                    xlabel=r'\textbf{KEM Algorithm}',
+                    ylabel=r'\textbf{TLS Handshake Time (ms)}')
+    
+    # Set x-ticks with LaTeX formatting for underscores
+    ax.set_xticks(x)
+    ax.set_xticklabels([kem.replace('_', '\_') for kem in ordered_kems], 
+                       rotation=45, 
+                       horizontalalignment='right',
+                       fontsize=FONT_SIZES['tick_label'])
+    
+    # Add grid with custom styling
+    ax.grid(True, which='major', 
+            alpha=AXES_STYLE['grid_alpha'], 
+            zorder=0, 
+            linewidth=AXES_STYLE['grid_linewidth'])
+    ax.grid(True, which='minor', 
+            color=AXES_STYLE['grid_color'],
+            linestyle=AXES_STYLE['grid_linestyle'], 
+            linewidth=AXES_STYLE['grid_linewidth'], 
+            alpha=0.3)
+    
+    # Add minor ticks
+    ax.yaxis.set_minor_locator(AutoMinorLocator())
+    
+    # Add title specifying certificate type
+    ax.set_title(f'{cert_type} Certificate', 
+                fontsize=FONT_SIZES['fig_title'], 
+                pad=20)
+    
+    plt.tight_layout()
+    
+    # Save plot if title provided
+    if plot_title:
+        if not os.path.exists("./plots"):
+            os.makedirs("./plots")
+        plt.savefig(os.path.join(".", "plots", plot_title), 
+                    bbox_inches='tight', 
+                    dpi=300)
+    
+    plt.show()
+    
+    
+def plot_tls_certs_families(input_df, kem_type='mlkem512', plot_title=None):
+    """
+    Plots TLS handshake times showing the impact of different certificates 
+    on a specific KEM variant.
+    
+    Args:
+        input_df: DataFrame with TLS benchmark data processed by tls_data_process()
+        kem_type: Which KEM variant to analyze (e.g., 'mlkem512', 'bikel1', etc.)
+        plot_title: Optional filename for saving plot
+    """
+    # Check if we're dealing with QKD KEMs
+    is_qkd = any('qkd_' in idx[0] for idx in input_df.index)
+    prefix = 'qkd_' if is_qkd else ''
+    kem_name = f"{prefix}{kem_type}"
+    
+    # Get data for this KEM
+    try:
+        kem_data = input_df.loc[kem_name]
+    except KeyError:
+        raise ValueError(f"KEM variant '{kem_type}' not found in data")
+    
+    # Define certificate order by security level
+    cert_order = [
+        # Classical RSA
+        'rsa_2048', 'rsa_3072', 'rsa_4096',
+        # MLDSA
+        'mldsa44', 'mldsa65', 'mldsa87',
+        # Falcon
+        'falcon512', 'falcon1024',
+        # SPHINCS+
+        'sphincssha2128fsimple', 'sphincssha2128ssimple', 
+        'sphincssha2192fsimple', 'sphincsshake128fsimple'
+    ]
+    
+    # Sort the data according to our ordered list
+    kem_data = kem_data.reindex(cert_order)
+    
+    # Create figure
+    fig, ax = plt.subplots(figsize=(20, 10))
+    
+    # Get x positions and labels
+    x = np.arange(len(kem_data))
+    
+    # Use consistent colors
+    colors = list(mcolors.LinearSegmentedColormap.from_list("", 
+        ["#9fcf69", "#33acdc"])(np.linspace(0, 1, 3)))
+    
+    # Create bars
+    width = 0.35
+    rects = ax.bar(x, kem_data['Time_mean'], width,
+                  yerr=kem_data['Time_std'],
+                  capsize=3,
+                  color=colors[1],
+                  edgecolor='black',
+                  linewidth=1,
+                  error_kw={'ecolor': 'black'},
+                  zorder=3)
+    
+    # Apply consistent styling
+    apply_axes_style(ax, 
+                    xlabel=r'\textbf{Certificate}',
+                    ylabel=r'\textbf{TLS Handshake Time (ms)}')
+    
+    # Set x-ticks with LaTeX formatting for underscores
+    ax.set_xticks(x)
+    ax.set_xticklabels([cert.replace('_', '\_') for cert in cert_order], 
+                       rotation=45, 
+                       horizontalalignment='right',
+                       fontsize=FONT_SIZES['tick_label'])
+    
+    # Add grid with custom styling
+    ax.grid(True, which='major', 
+            alpha=AXES_STYLE['grid_alpha'], 
+            zorder=0, 
+            linewidth=AXES_STYLE['grid_linewidth'])
+    ax.grid(True, which='minor', 
+            color=AXES_STYLE['grid_color'],
+            linestyle=AXES_STYLE['grid_linestyle'], 
+            linewidth=AXES_STYLE['grid_linewidth'], 
+            alpha=0.3)
+    
+    # Add minor ticks
+    ax.yaxis.set_minor_locator(AutoMinorLocator())
+    
+    # Add title specifying KEM type
+    ax.set_title(f'{kem_name}', 
+                fontsize=FONT_SIZES['fig_title'], 
+                pad=20)
+    
+    plt.tight_layout()
+    
+    # Save plot if title provided
+    if plot_title:
+        if not os.path.exists("./plots"):
+            os.makedirs("./plots")
+        plt.savefig(os.path.join(".", "plots", plot_title), 
+                    bbox_inches='tight', 
+                    dpi=300)
     
     plt.show()
