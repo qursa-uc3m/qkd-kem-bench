@@ -206,6 +206,8 @@ def apply_axes_style(ax, xlabel=None, ylabel=None, title=None):
     ax.yaxis.set_minor_locator(AutoMinorLocator())
     if not ax.get_xscale() == 'log':
         ax.xaxis.set_minor_locator(AutoMinorLocator())
+        
+
 
 def plot_kem_times(input_df, error_suffix="_std", plot_title="kem_times.png", y_start=None):
     """
@@ -790,14 +792,7 @@ def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.pn
 def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)', 
                        overhead=False, plot_title=None):
     """
-    Creates a comparative plot of standard vs QKD versions of KEMs.
-    
-    Args:
-        comparison_stats: DataFrame with hierarchical index (Variant, Algorithm)
-        family: KEM family to analyze ('kyber', 'mlkem', etc.) or None for all
-        operation: Which timing to compare ('TotalTime', 'all')
-        overhead: If True, plots overhead percentage instead of times
-        plot_title: Optional filename for saving the plot
+    Creates a comparative plot of standard vs QKD versions of KEMs, adding std dev error bars.
     """
     # Validate family selection
     if family is not None and family not in KEM_FAMILIES:
@@ -806,7 +801,6 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)'
     families_to_plot = [family] if family else KEM_FAMILIES.keys()
     operations = ['KeyGen(ms)', 'Encaps(ms)', 'Decaps(ms)']
     
-    # Define operation-specific labels
     operation_labels = {
         'standard': {
             'KeyGen(ms)': r'\textbf{Key Generation Time (ms)}',
@@ -824,31 +818,28 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)'
         }
     }
     
-    # Create figure
     fig, ax = plt.subplots(figsize=(20, 10))
     
     # Set colors
-    colors = list(mcolors.LinearSegmentedColormap.from_list("", 
+    colors = list(mcolors.LinearSegmentedColormap.from_list("",
         ["#9fcf69", "#33acdc", "#ff7f50"])(np.linspace(0, 1, 3)))
     colors = [mcolors.to_rgba(c, alpha=0.85) for c in colors]
     
-    # Configure axes style
+    # Configure axis style
     ax.grid(AXES_STYLE['grid'], alpha=AXES_STYLE['grid_alpha'],
             linestyle=AXES_STYLE['grid_linestyle'],
             linewidth=AXES_STYLE['grid_linewidth'],
             color=AXES_STYLE['grid_color'])
-    
     ax.tick_params(which='major', length=AXES_STYLE['major_tick_length'],
-                  width=AXES_STYLE['major_tick_width'])
+                   width=AXES_STYLE['major_tick_width'])
     ax.tick_params(which='minor', length=AXES_STYLE['minor_tick_length'],
-                  width=AXES_STYLE['minor_tick_width'])
+                   width=AXES_STYLE['minor_tick_width'])
     
     if operation == 'all':
         x_positions = []
         x_labels = []
         current_x = 0
         width = 0.15
-        
         std_color = "#9fcf69"
         qkd_color = "#33acdc"
         
@@ -856,108 +847,144 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)'
             base_algs = KEM_FAMILIES[fam]
             for base_alg in base_algs:
                 for i, op in enumerate(operations):
-                    # Access data using hierarchical index
-                    std_val = comparison_stats.loc[('Standard', base_alg), f"{op}_mean"]
+                    # Mean values
+                    std_val = comparison_stats.loc[('OQS', base_alg), f"{op}_mean"]
                     qkd_val = comparison_stats.loc[('QKD', base_alg), f"{op}_mean"]
-                    
+                    # Standard deviations
+                    std_err = comparison_stats.loc[('OQS', base_alg), f"{op}_std"]
+                    qkd_err = comparison_stats.loc[('QKD', base_alg), f"{op}_std"]
                     x_offset = i * (3 * width)
                     
-                    # Plot bars
-                    ax.bar(current_x + x_offset, std_val, width,
-                          label='Standard' if (current_x == 0 and i == 0) else "",
-                          color=std_color, edgecolor='black', linewidth=1)
-                    ax.bar(current_x + x_offset + width, qkd_val, width,
-                          label='QKD' if (current_x == 0 and i == 0) else "",
-                          color=qkd_color, edgecolor='black', linewidth=1)
+                    # Plot with error bars
+                    ax.bar(current_x + x_offset,
+                           std_val,
+                           width,
+                           yerr=std_err,
+                           capsize=3,
+                           label='OQS' if (current_x == 0 and i == 0) else "",
+                           color=std_color,
+                           edgecolor='black',
+                           linewidth=1,
+                           error_kw={'ecolor': 'black'})
+                    ax.bar(current_x + x_offset + width,
+                           qkd_val,
+                           width,
+                           yerr=qkd_err,
+                           capsize=3,
+                           label='QKD' if (current_x == 0 and i == 0) else "",
+                           color=qkd_color,
+                           edgecolor='black',
+                           linewidth=1,
+                           error_kw={'ecolor': 'black'})
                     
-                    # Add operation label above the bars
-                    if current_x == 0:  # Only add labels for first algorithm
+                    # Operation label above first group
+                    if current_x == 0:
                         op_label = op.split('(')[0]
-                        ax.text(current_x + x_offset + width/2, ax.get_ylim()[1],
-                               op_label, ha='center', va='bottom', 
-                               fontsize=FONT_SIZES['annotation'])
+                        ax.text(current_x + x_offset + width/2,
+                                ax.get_ylim()[1],
+                                op_label,
+                                ha='center',
+                                va='bottom',
+                                fontsize=FONT_SIZES['annotation'])
                 
                 x_positions.append(current_x + 3*width)
-                x_labels.append(base_alg.replace('_', '\_'))
+                x_labels.append(base_alg.replace('_','\_'))
                 current_x += 10*width
-                
-            # Add separator between families if plotting all
+            
+            # Separator between families
             if not family and fam != list(families_to_plot)[-1]:
-                ax.axvline(x=current_x - 3*width, color='black', 
-                          linestyle='--', alpha=0.3, linewidth=1)
+                ax.axvline(x=current_x - 3*width, color='black',
+                           linestyle='--', alpha=0.3, linewidth=1)
                 current_x += 2*width
         
-        # Set x-ticks
         ax.set_xticks(x_positions)
-        ax.set_xticklabels(x_labels, rotation=45, ha='right', 
-                          fontsize=FONT_SIZES['tick_label'])
+        ax.set_xticklabels(x_labels, rotation=45, ha='right', fontsize=FONT_SIZES['tick_label'])
         
     else:
-        # Plot single operation
         std_data = []
         qkd_data = []
+        std_errs = []
+        qkd_errs = []
         labels = []
         
         for fam in families_to_plot:
             base_algs = KEM_FAMILIES[fam]
             op_col = f"{operation}_mean"
-            
+            err_col = f"{operation}_std"
             for base_alg in base_algs:
-                # Access data using hierarchical index
-                std_data.append(comparison_stats.loc[('Standard', base_alg), op_col])
+                std_data.append(comparison_stats.loc[('OQS', base_alg), op_col])
                 qkd_data.append(comparison_stats.loc[('QKD', base_alg), op_col])
+                std_errs.append(comparison_stats.loc[('OQS', base_alg), err_col])
+                qkd_errs.append(comparison_stats.loc[('QKD', base_alg), err_col])
                 labels.append(base_alg)
         
         x = np.arange(len(labels))
         width = 0.35
         
         if overhead:
+            # Overhead computation - no direct error bars for the overhead
             overhead_data = [((q - s) / s) * 100 for s, q in zip(std_data, qkd_data)]
-            ax.bar(x, overhead_data, width, color=colors[0], 
-                   edgecolor='black', linewidth=1)
-            
+            ax.bar(x,
+                   overhead_data,
+                   width,
+                   color=colors[0],
+                   edgecolor='black',
+                   linewidth=1)
             for i, v in enumerate(overhead_data):
-                ax.text(i, v, f'{v:.1f}\%', ha='center', va='bottom', 
-                       fontsize=FONT_SIZES['annotation'])
+                ax.text(i, v, f'{v:.1f}\%', ha='center', va='bottom',
+                        fontsize=FONT_SIZES['annotation'])
         else:
-            ax.bar(x - width/2, std_data, width, label='Standard',
-                   color=colors[0], edgecolor='black', linewidth=1)
-            ax.bar(x + width/2, qkd_data, width, label='QKD',
-                   color=colors[1], edgecolor='black', linewidth=1)
+            # Plot OQS with error
+            ax.bar(x - width/2,
+                   std_data,
+                   width,
+                   yerr=std_errs,
+                   capsize=3,
+                   label='OQS',
+                   color=colors[0],
+                   edgecolor='black',
+                   linewidth=1,
+                   error_kw={'ecolor': 'black'})
+            # Plot QKD with error
+            ax.bar(x + width/2,
+                   qkd_data,
+                   width,
+                   yerr=qkd_errs,
+                   capsize=3,
+                   label='QKD',
+                   color=colors[1],
+                   edgecolor='black',
+                   linewidth=1,
+                   error_kw={'ecolor': 'black'})
             
         ax.set_xticks(x)
-        ax.set_xticklabels([label.replace('_', '\_') for label in labels],
-                          rotation=45, ha='right', fontsize=FONT_SIZES['tick_label'])
+        ax.set_xticklabels([label.replace('_','\_') for label in labels], 
+                           rotation=45, ha='right', fontsize=FONT_SIZES['tick_label'])
     
-    # Set labels and grid
-     # Set labels and grid
     label_type = 'overhead' if overhead else 'standard'
     ylabel = operation_labels[label_type].get(operation, operation_labels[label_type]['all'])
-    ax.set_ylabel(ylabel, fontsize=FONT_SIZES['axes_label'],
-                 labelpad=AXES_STYLE['label_pad'])
+    ax.set_ylabel(ylabel,
+                  fontsize=FONT_SIZES['axes_label'],
+                  labelpad=AXES_STYLE['label_pad'])
+    ax.set_xlabel(r'\textbf{Algorithm}',
+                  fontsize=FONT_SIZES['axes_label'],
+                  labelpad=AXES_STYLE['label_pad'])
+    ax.yaxis.set_minor_locator(AutoMinorLocator())
     
-    ax.set_xlabel(r'\textbf{Algorithm}', fontsize=FONT_SIZES['axes_label'],
-                 labelpad=AXES_STYLE['label_pad'])
-    
-    ax.yaxis.set_minor_locator(AutoMinorLocator())  # Minor ticks between majors
-    
-    # Add legend
     handles, labels = ax.get_legend_handles_labels()
     if labels:
         ax.legend(frameon=False, fontsize=FONT_SIZES['legend'])
     
-    # Add title if showing a specific family
     if family:
-        ax.set_title(f'{family.upper()} Family', fontsize=FONT_SIZES['axes_title'], 
-                    pad=20)
+        ax.set_title(f'{family.upper()} Family', fontsize=FONT_SIZES['axes_title'], pad=20)
     
     plt.tight_layout()
     
-    # Save plot if title provided
     if plot_title:
         if not os.path.exists("./plots"):
             os.makedirs("./plots")
-        plt.savefig(os.path.join(".", "plots", plot_title), bbox_inches='tight', dpi=300)
+        plt.savefig(os.path.join(".", "plots", plot_title), 
+                    bbox_inches='tight', dpi=300)
     
     plt.show()
     
@@ -994,9 +1021,10 @@ def plot_tls_kem_families(input_df, cert_type='rsa_2048', plot_title=None):
     # Get x positions
     x = np.arange(len(ordered_kems))
     
-    # Use consistent colors
+   # Set colors
     colors = list(mcolors.LinearSegmentedColormap.from_list("", 
-        ["#9fcf69", "#33acdc"])(np.linspace(0, 1, 3)))
+        ["#9fcf69", "#33acdc", "#ff7f50"])(np.linspace(0, 1, 3)))
+    colors = [mcolors.to_rgba(c, alpha=0.85) for c in colors]
     
     if is_comparison:
         # Plot comparison (OQS vs QKD)
@@ -1115,8 +1143,8 @@ def plot_tls_certs_families(input_df, kem_type='mlkem512', plot_title=None):
         # Falcon
         'falcon512', 'falcon1024',
         # SPHINCS+
-        'sphincssha2128fsimple', 'sphincssha2128ssimple', 
-        'sphincssha2192fsimple', 'sphincsshake128fsimple'
+        #'sphincssha2128fsimple', 'sphincssha2128ssimple', 
+        #'sphincssha2192fsimple', 'sphincsshake128fsimple'
     ]
     
     # Sort the data according to our ordered list
@@ -1128,9 +1156,10 @@ def plot_tls_certs_families(input_df, kem_type='mlkem512', plot_title=None):
     # Get x positions and labels
     x = np.arange(len(kem_data))
     
-    # Use consistent colors
+    # Set colors
     colors = list(mcolors.LinearSegmentedColormap.from_list("", 
-        ["#9fcf69", "#33acdc"])(np.linspace(0, 1, 3)))
+        ["#9fcf69", "#33acdc", "#ff7f50"])(np.linspace(0, 1, 3)))
+    colors = [mcolors.to_rgba(c, alpha=0.85) for c in colors]
     
     # Create bars
     width = 0.35
@@ -1185,3 +1214,5 @@ def plot_tls_certs_families(input_df, kem_type='mlkem512', plot_title=None):
                     dpi=300)
     
     plt.show()
+
+
