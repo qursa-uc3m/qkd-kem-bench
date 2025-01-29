@@ -7,6 +7,8 @@ build
 /liboqs*
 /openssl*
 /certs*
+/qkd_certs*
+/qkd_certs/qukaydee-generate-client-certificates*
 liboqs/_build
 benchmarks/__pycache__/*.pyc
 scripts/__pycache__/*.pyc

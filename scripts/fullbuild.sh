@@ -12,6 +12,30 @@
 # EnvVar OPENSSL_BRANCH: Defines branch/release of openssl; if set, forces source-build of OpenSSL3
 # EnvVar liboqs_DIR: If set, needs to point to a directory where liboqs has been installed to
 
+# Check QKD backend configuration first
+if [ "${QKD_BACKEND}" = "cerberis_xgr" ]; then
+    echo "Building with Cerberis XGR (QuKayDee) backend"
+    if [ -z "${ACCOUNT_ID}" ]; then
+        echo "Error: ACCOUNT_ID must be set for Cerberis XGR backend"
+        exit 1
+    fi
+    # Verify QKD certificates directory exists
+    if [ ! -d "qkd_certs" ]; then
+        echo "Error: qkd_certs directory not found. Please create it and add QuKayDee certificates"
+        exit 1
+    fi
+    # Check for required certificates
+    for cert in "sae-1.crt" "sae-1.key" "client-root-ca.crt"; do
+        if [ ! -f "qkd_certs/$cert" ]; then
+            echo "Error: Required certificate $cert not found in qkd_certs/"
+            exit 1
+        fi
+    done
+    echo "QuKayDee configuration verified"
+else
+    echo "Using default/simulated QKD backend"
+fi
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
    SHLIBEXT="dylib"
    STATLIBEXT="dylib"

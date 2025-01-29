@@ -10,6 +10,7 @@ matplotlib>=3.7.0
 jupyter>=1.0.0
 notebook>=7.0.0
 pytest
+psutil
 
 # Note: The following system packages must be installed separately using your system's package manager:
 # texlive-latex-extra
