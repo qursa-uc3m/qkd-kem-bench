@@ -25,7 +25,8 @@ if [ "${QKD_BACKEND}" = "cerberis_xgr" ]; then
         exit 1
     fi
     # Check for required certificates
-    for cert in "sae-1.crt" "sae-1.key" "client-root-ca.crt"; do
+    required_certs=("sae-1.crt" "sae-1.key" "client-root-ca.crt" "account-${ACCOUNT_ID}-server-ca-qukaydee-com.crt")
+    for cert in "${required_certs[@]}"; do
         if [ ! -f "qkd_certs/$cert" ]; then
             echo "Error: Required certificate $cert not found in qkd_certs/"
             exit 1
@@ -45,6 +46,18 @@ else
 fi
 
 if [ $# -gt 0 ]; then
+   if [ "$1" == "-l" ]; then
+      FLAG_L=true
+      # Ensure _build directory exists
+      if [ ! -d "_build" ]; then
+         echo "_build directory does not exist. Please perform a full build (-F) first."
+         exit 1
+      else
+         echo "Local rebuild mode enabled: Rebuilding providers from _build directory ..."
+      fi
+   else 
+      FLAG_L=false
+   fi
    if [ "$1" == "-f" ]; then
       rm -rf _build
    fi
@@ -63,7 +76,7 @@ else
    export DOQS_ALGS_ENABLED="-DOQS_ALGS_ENABLED=$OQS_ALGS_ENABLED"
 fi
 
-if [ -z "$OQS_LIBJADE_BUILD"]; then
+if [ -z "$OQS_LIBJADE_BUILD" ]; then
    export DOQS_LIBJADE_BUILD="-DOQS_LIBJADE_BUILD=ON"
 else
    export DOQS_LIBJADE_BUILD="-DOQS_LIBJADE_BUILD=$OQS_LIBJADE_BUILD"
@@ -167,6 +180,35 @@ if [ -z $liboqs_DIR ]; then
  export liboqs_DIR=$(pwd)/.local
 fi
 
+if [ "$FLAG_L" = true ]; then
+
+   if [ -d ".local" ]; then
+      export OPENSSL_INSTALL="$(pwd)/.local"
+   else
+      echo "Warning: .local directory not found. Proceeding without setting OPENSSL_INSTALL."
+      export OPENSSL_INSTALL=""
+   fi
+
+   echo "Running CMake with the following parameters:"
+   echo "CMAKE_PARAMS: $CMAKE_PARAMS"
+   echo "OPENSSL_ROOT_DIR: $OPENSSL_INSTALL"
+   echo "BUILD_TYPE: $BUILD_TYPE"
+   echo "OQSPROV_CMAKE_PARAMS: $OQSPROV_CMAKE_PARAMS"
+
+   # Re-run CMake to detect changes (if necessary)
+   cmake $CMAKE_PARAMS -DOPENSSL_ROOT_DIR=$OPENSSL_INSTALL $BUILD_TYPE $OQSPROV_CMAKE_PARAMS -S . -B _build && cmake --build _build
+
+   # Check if the build was successful
+   if [ $? -ne 0 ]; then
+      echo "Local rebuild of providers failed. Exiting."
+      exit -1
+   fi
+
+   echo "Local rebuild of providers completed successfully."
+   exit 0
+fi
+
+
 # Check whether providers are built:
 if [ ! -f "_build/lib/qkdkemprovider.$SHLIBEXT" ] || [ ! -f "_build/lib/oqsprovider.$SHLIBEXT" ]; then
    echo "Providers not built or incomplete: Building..."
@@ -196,4 +238,6 @@ if [ ! -f "_build/lib/qkdkemprovider.$SHLIBEXT" ] || [ ! -f "_build/lib/oqsprovi
      exit -1
    fi
 fi
+
+
 
