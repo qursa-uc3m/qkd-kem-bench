@@ -1,5 +1,8 @@
 _build
 .local
+.vscode
+.venv
+.qodo
 benchmarks/data
 benchmarks/plots
 benchmarks/__pycache__
@@ -12,5 +15,6 @@ build
 liboqs/_build
 benchmarks/__pycache__/*.pyc
 scripts/__pycache__/*.pyc
+test/test_oqs_qkd_etsi_wrapper.c
 
 
