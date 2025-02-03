@@ -47,6 +47,7 @@ fi
 
 if [ $# -gt 0 ]; then
    if [ "$1" == "-l" ]; then
+      export LOCAL_BUILD=1
       FLAG_L=true
       # Ensure _build directory exists
       if [ ! -d "_build" ]; then
@@ -188,6 +189,9 @@ if [ "$FLAG_L" = true ]; then
       echo "Warning: .local directory not found. Proceeding without setting OPENSSL_INSTALL."
       export OPENSSL_INSTALL=""
    fi
+
+   BUILD_TYPE="-DCMAKE_BUILD_TYPE=Debug"
+   #BUILD_TYPE=""
 
    echo "Running CMake with the following parameters:"
    echo "CMAKE_PARAMS: $CMAKE_PARAMS"
