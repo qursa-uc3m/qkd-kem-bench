@@ -40,11 +40,17 @@ KEMS=("mlkem512" "mlkem768" "mlkem1024"
       "frodo640aes" "frodo640shake" "frodo976aes" "frodo976shake" "frodo1344aes" "frodo1344shake"
       "hqc128" "hqc192" "hqc256")
 
-CERTS=("rsa_2048" "rsa_3072" "rsa_4096" 
-        "mldsa44" "mldsa65" "mldsa87" 
-        "falcon512" "falcon1024") 
+#CERTS=("rsa_2048" "rsa_3072" "rsa_4096" 
+#        "mldsa44" "mldsa65" "mldsa87" 
+#        "falcon512" "falcon1024") 
         #"sphincssha2128fsimple" "sphincssha2128ssimple" "sphincssha2192fsimple" 
         #"sphincsshake128fsimple")
+
+CERTS=("rsa_2048"  
+        "mldsa44"  
+        "falcon512"
+        "sphincssha2128fsimple" 
+        "sphincsshake128fsimple")
 
 echo "KEM,Cert,Iteration,Time" > "$OUTPUT_FILE"
 

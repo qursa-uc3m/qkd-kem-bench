@@ -13,10 +13,10 @@
 # EnvVar liboqs_DIR: If set, needs to point to a directory where liboqs has been installed to
 
 # Check QKD backend configuration first
-if [ "${QKD_BACKEND}" = "cerberis_xgr" ]; then
-    echo "Building with Cerberis XGR (QuKayDee) backend"
+if [ "${QKD_BACKEND}" = "qukaydee" ]; then
+    echo "Building backend with QuKayDee support"
     if [ -z "${ACCOUNT_ID}" ]; then
-        echo "Error: ACCOUNT_ID must be set for Cerberis XGR backend"
+        echo "Error: ACCOUNT_ID must be set for QuKayDee service"
         exit 1
     fi
     # Verify QKD certificates directory exists
@@ -25,7 +25,7 @@ if [ "${QKD_BACKEND}" = "cerberis_xgr" ]; then
         exit 1
     fi
     # Check for required certificates
-    required_certs=("sae-1.crt" "sae-1.key" "client-root-ca.crt" "account-${ACCOUNT_ID}-server-ca-qukaydee-com.crt")
+    required_certs=("sae-1.crt" "sae-1.key" "sae-2.crt" "sae-2.key" "client-root-ca.crt" "account-${ACCOUNT_ID}-server-ca-qukaydee-com.crt")
     for cert in "${required_certs[@]}"; do
         if [ ! -f "qkd_certs/$cert" ]; then
             echo "Error: Required certificate $cert not found in qkd_certs/"
@@ -191,7 +191,7 @@ if [ "$FLAG_L" = true ]; then
    fi
 
    BUILD_TYPE="-DCMAKE_BUILD_TYPE=Debug"
-   #BUILD_TYPE=""
+   #BUILD_TYPE="-DCMAKE_BUILD_TYPE=Release"
 
    echo "Running CMake with the following parameters:"
    echo "CMAKE_PARAMS: $CMAKE_PARAMS"
