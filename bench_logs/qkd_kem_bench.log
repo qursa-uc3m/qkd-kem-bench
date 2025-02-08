@@ -1,0 +1,2583 @@
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=9616, private=19888, ciphertext=9720, shared=16
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 19892
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 9620
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1bf2040
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1b7dc80
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1c07d00, Privkey pointer: 0x5ea8c1c2d9e0
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 669fe7f0-a3e8-432f-b996-07412f8c72f4
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 669fe7f0-a3e8-432f-b996-07412f8c72f4
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+3C 70 7E 3D 18 03 DF 8E 3B CC DA 57 13 5E 06 FA BD EA 73 8D 06 7B 96 07 55 6D 29 CE F7 F0 4A 54 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 9616 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+669fe7f0a3e8432fb99607412f8c72f4
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 19924 & pubkeylen: 9636
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 9616 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 9720 and 16
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 9616 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 9720 and 16
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 669fe7f0a3e8432fb99607412f8c72f4
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 669fe7f0-a3e8-432f-b996-07412f8c72f4
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 669fe7f0-a3e8-432f-b996-07412f8c72f4
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"669fe7f0-a3e8-432f-b996-07412f8c72f4","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 16
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 9616 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+Starting KEM benchmarks with 1 iterations...
+Results will be saved to: ../../benchmarks/data/kem_bench_qkdkemprovider_1_iter_20250208.csv
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 669fe7f0a3e8432fb99607412f8c72f4
+ENCAPS: PQ Shared Secret (16 bytes): f59a5ed1141b1a81d75c324ae2eac187
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (48 bytes): f59a5ed1141b1a81d75c324ae2eac1870a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 00000000000000000000000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): 669fe7f0a3e8432fb99607412f8c72f4
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (16 bytes): f59a5ed1141b1a81d75c324ae2eac187
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (48 bytes): f59a5ed1141b1a81d75c324ae2eac1870a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_frodo640aes      [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_frodo640aes[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=9616, private=19888, ciphertext=9720, shared=16
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 19892
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 9620
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1bf2040
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1c97a00
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1c30ad0, Privkey pointer: 0x5ea8c1ce21e0
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 3ffa1f1a-1d34-4a92-a711-7570476252a5
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 3ffa1f1a-1d34-4a92-a711-7570476252a5
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+7F 8F 12 11 21 57 45 68 A6 2E B3 23 FE EB 3D AB F1 1E 6F 07 14 93 F5 FE 1E 20 8F 54 EA 18 7C 8F 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 9616 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+3ffa1f1a1d344a92a7117570476252a5
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 19924 & pubkeylen: 9636
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 9616 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 9720 and 16
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 9616 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 9720 and 16
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 3ffa1f1a1d344a92a7117570476252a5
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 3ffa1f1a-1d34-4a92-a711-7570476252a5
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 3ffa1f1a-1d34-4a92-a711-7570476252a5
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"3ffa1f1a-1d34-4a92-a711-7570476252a5","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 16
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 9616 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 3ffa1f1a1d344a92a7117570476252a5
+ENCAPS: PQ Shared Secret (16 bytes): 81c011f2f759183def7be024b52e970e
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (48 bytes): 81c011f2f759183def7be024b52e970e0a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 00000000000000003000000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): 3ffa1f1a1d344a92a7117570476252a5
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (16 bytes): 81c011f2f759183def7be024b52e970e
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (48 bytes): 81c011f2f759183def7be024b52e970e0a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_frodo640shake    [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_frodo640shake[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=15632, private=31296, ciphertext=15744, shared=24
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 31300
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 15636
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1bf2040
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1cc2960
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1bf8a90, Privkey pointer: 0x5ea8c1c8f180
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 5e01ce1b-a431-4df1-9a64-cd00214aaac3
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 5e01ce1b-a431-4df1-9a64-cd00214aaac3
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+06 C3 9C 1B F1 D1 ED A5 67 94 CC 68 E1 7B 45 A1 E4 D8 63 78 1C E3 CB 4B 6C E5 C4 EA F3 77 94 45 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 15632 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+5e01ce1ba4314df19a64cd00214aaac3
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 31332 & pubkeylen: 15652
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 15632 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 15744 and 24
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 15632 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 15744 and 24
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 5e01ce1ba4314df19a64cd00214aaac3
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 5e01ce1b-a431-4df1-9a64-cd00214aaac3
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 5e01ce1b-a431-4df1-9a64-cd00214aaac3
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"5e01ce1b-a431-4df1-9a64-cd00214aaac3","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 24
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 15632 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 5e01ce1ba4314df19a64cd00214aaac3
+ENCAPS: PQ Shared Secret (24 bytes): 3796b9d305ece8b2dd713aee6bb8087ccfdd8f74eb91cd17
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (56 bytes): 3796b9d305ece8b2dd713aee6bb8087ccfdd8f74eb91cd170a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 10d1c8c1a85e000030d1c8c1a85e0000
+DECAPS: QKD Public Key (key_id) (16 bytes): 5e01ce1ba4314df19a64cd00214aaac3
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (24 bytes): 3796b9d305ece8b2dd713aee6bb8087ccfdd8f74eb91cd17
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (56 bytes): 3796b9d305ece8b2dd713aee6bb8087ccfdd8f74eb91cd170a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_frodo976aes      [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_frodo976aes[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=15632, private=31296, ciphertext=15744, shared=24
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 31300
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 15636
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1bf2040
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1ce2430
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1ce12e0, Privkey pointer: 0x5ea8c1ce3af0
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 7ef33bb6-1fc4-4f26-84e8-b33edeb2eece
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 7ef33bb6-1fc4-4f26-84e8-b33edeb2eece
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+07 20 87 B4 83 C1 D0 C6 94 22 33 55 B3 1A 36 A6 02 78 68 3C 28 24 77 E8 86 7A F5 3D 30 3D A9 AE 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 15632 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+7ef33bb61fc44f2684e8b33edeb2eece
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 31332 & pubkeylen: 15652
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 15632 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 15744 and 24
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 15632 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 15744 and 24
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 7ef33bb61fc44f2684e8b33edeb2eece
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 7ef33bb6-1fc4-4f26-84e8-b33edeb2eece
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 7ef33bb6-1fc4-4f26-84e8-b33edeb2eece
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"7ef33bb6-1fc4-4f26-84e8-b33edeb2eece","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 24
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 15632 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 7ef33bb61fc44f2684e8b33edeb2eece
+ENCAPS: PQ Shared Secret (24 bytes): c8b20d7711968cac8bd3aa823a854fa8f0b13a4a61a9d5e9
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (56 bytes): c8b20d7711968cac8bd3aa823a854fa8f0b13a4a61a9d5e90a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): b9400000000000001b00000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): 7ef33bb61fc44f2684e8b33edeb2eece
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (24 bytes): c8b20d7711968cac8bd3aa823a854fa8f0b13a4a61a9d5e9
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (56 bytes): c8b20d7711968cac8bd3aa823a854fa8f0b13a4a61a9d5e90a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_frodo976shake    [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_frodo976shake[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=21520, private=43088, ciphertext=21632, shared=32
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 43092
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 21524
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1bf2040
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1ce2720
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1ce39d0, Privkey pointer: 0x5ea8c1cc1170
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 8477b168-433a-4c9b-8043-1f3ec216afd7
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 8477b168-433a-4c9b-8043-1f3ec216afd7
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+25 EB CC 73 21 C4 18 F2 39 22 7A 35 25 5B E0 32 3D F2 5A C2 E6 F5 6E FC 8B 50 53 E8 45 AF 7B 70 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 21520 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+8477b168433a4c9b80431f3ec216afd7
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 43124 & pubkeylen: 21540
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 21520 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 21632 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 21520 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 21632 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 8477b168433a4c9b80431f3ec216afd7
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 8477b168-433a-4c9b-8043-1f3ec216afd7
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 8477b168-433a-4c9b-8043-1f3ec216afd7
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"8477b168-433a-4c9b-8043-1f3ec216afd7","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 32
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 21520 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 8477b168433a4c9b80431f3ec216afd7
+ENCAPS: PQ Shared Secret (32 bytes): c188fc82a057b4b9b01eb2ad82cdb970a6513395528216da68605e887ba37405
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (64 bytes): c188fc82a057b4b9b01eb2ad82cdb970a6513395528216da68605e887ba374050a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 00000000000000000000000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): 8477b168433a4c9b80431f3ec216afd7
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (32 bytes): c188fc82a057b4b9b01eb2ad82cdb970a6513395528216da68605e887ba37405
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (64 bytes): c188fc82a057b4b9b01eb2ad82cdb970a6513395528216da68605e887ba374050a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_frodo1344aes     [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_frodo1344aes[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=21520, private=43088, ciphertext=21632, shared=32
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 43092
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 21524
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1bf2040
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1ce45c0
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1ce0e10, Privkey pointer: 0x5ea8c1bf84a0
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 6698f7e7-3caa-4e0f-ab6b-21906c495015
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 6698f7e7-3caa-4e0f-ab6b-21906c495015
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+B6 75 93 EB CF 59 AE F1 79 0F C2 B6 21 A9 E4 CC A1 40 EC F7 D2 91 21 5A 6C E0 4D D2 95 99 80 07 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 21520 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+6698f7e73caa4e0fab6b21906c495015
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 43124 & pubkeylen: 21540
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 21520 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 21632 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 21520 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 21632 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 6698f7e73caa4e0fab6b21906c495015
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 6698f7e7-3caa-4e0f-ab6b-21906c495015
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 6698f7e7-3caa-4e0f-ab6b-21906c495015
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"6698f7e7-3caa-4e0f-ab6b-21906c495015","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 32
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 21520 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 6698f7e73caa4e0fab6b21906c495015
+ENCAPS: PQ Shared Secret (32 bytes): cf287080084d5d5bd252fdc2f3caf847f957e0ade7f97cc9be316d51c1c5b311
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (64 bytes): cf287080084d5d5bd252fdc2f3caf847f957e0ade7f97cc9be316d51c1c5b3110a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 00000000000000000000000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): 6698f7e73caa4e0fab6b21906c495015
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (32 bytes): cf287080084d5d5bd252fdc2f3caf847f957e0ade7f97cc9be316d51c1c5b311
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (64 bytes): cf287080084d5d5bd252fdc2f3caf847f957e0ade7f97cc9be316d51c1c5b3110a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_frodo1344shake   [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_frodo1344shake[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=800, private=1632, ciphertext=768, shared=32
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 1636
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 804
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1bf2040
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1bfb9b0
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1cc1350, Privkey pointer: 0x5ea8c1cbd430
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 65c277cd-349d-493d-b5b5-58c3e49a5bb0
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 65c277cd-349d-493d-b5b5-58c3e49a5bb0
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+2C 41 2A 30 05 49 1F A0 6F 0C 7F A7 DA 0F 64 D1 C9 61 F0 6C A3 96 A0 02 9B 2E B8 0F CD E5 64 46 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 800 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+65c277cd349d493db5b558c3e49a5bb0
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 1668 & pubkeylen: 820
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 800 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 768 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 800 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 768 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 65c277cd349d493db5b558c3e49a5bb0
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 65c277cd-349d-493d-b5b5-58c3e49a5bb0
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 65c277cd-349d-493d-b5b5-58c3e49a5bb0
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"65c277cd-349d-493d-b5b5-58c3e49a5bb0","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 32
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 800 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 65c277cd349d493db5b558c3e49a5bb0
+ENCAPS: PQ Shared Secret (32 bytes): a256a730e548800ab06bb9c102f898dfd417be6a747105099fa9abe7e471a7c7
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (64 bytes): a256a730e548800ab06bb9c102f898dfd417be6a747105099fa9abe7e471a7c70a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 8037bfc1a85e000070ecc8c1a85e0000
+DECAPS: QKD Public Key (key_id) (16 bytes): 65c277cd349d493db5b558c3e49a5bb0
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (32 bytes): a256a730e548800ab06bb9c102f898dfd417be6a747105099fa9abe7e471a7c7
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (64 bytes): a256a730e548800ab06bb9c102f898dfd417be6a747105099fa9abe7e471a7c70a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_kyber512         [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_kyber512[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=1184, private=2400, ciphertext=1088, shared=32
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 2404
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 1188
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1c359b0
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1cbdae0
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1bf3770, Privkey pointer: 0x5ea8c1cc71d0
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 65038d92-9b75-4e35-94e6-728926fe47ac
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 65038d92-9b75-4e35-94e6-728926fe47ac
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+B6 1B 3E 75 01 F9 28 14 A1 AB 80 14 F1 C0 E3 7E C7 93 86 DD 13 AA ED F8 B6 E1 E3 08 D5 89 22 92 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 1184 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+65038d929b754e3594e6728926fe47ac
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 2436 & pubkeylen: 1204
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 1184 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 1088 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 1184 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 1088 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 65038d929b754e3594e6728926fe47ac
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 65038d92-9b75-4e35-94e6-728926fe47ac
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 65038d92-9b75-4e35-94e6-728926fe47ac
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"65038d92-9b75-4e35-94e6-728926fe47ac","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 32
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 1184 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 65038d929b754e3594e6728926fe47ac
+ENCAPS: PQ Shared Secret (32 bytes): 19d88934592d7dc1e98888a4b107dc7c5259acc01ab3aa9503020239e0f7b832
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (64 bytes): 19d88934592d7dc1e98888a4b107dc7c5259acc01ab3aa9503020239e0f7b8320a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 50040000000000002000000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): 65038d929b754e3594e6728926fe47ac
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (32 bytes): 19d88934592d7dc1e98888a4b107dc7c5259acc01ab3aa9503020239e0f7b832
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (64 bytes): 19d88934592d7dc1e98888a4b107dc7c5259acc01ab3aa9503020239e0f7b8320a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_kyber768         [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_kyber768[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=1568, private=3168, ciphertext=1568, shared=32
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 3172
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 1572
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1c359b0
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1cdc310
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1c926d0, Privkey pointer: 0x5ea8c1cc6200
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 2f6f5e3a-b72d-4ab9-96d8-6f2aace7ce98
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 2f6f5e3a-b72d-4ab9-96d8-6f2aace7ce98
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+AA 35 93 60 E2 47 FF 7D 43 62 08 C9 92 3C DE 31 CB 29 A2 1A 17 B0 91 C8 A8 53 9E 43 53 C8 66 F5 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 1568 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+2f6f5e3ab72d4ab996d86f2aace7ce98
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 3204 & pubkeylen: 1588
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 1568 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 1568 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 1568 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 1568 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 2f6f5e3ab72d4ab996d86f2aace7ce98
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 2f6f5e3a-b72d-4ab9-96d8-6f2aace7ce98
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 2f6f5e3a-b72d-4ab9-96d8-6f2aace7ce98
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"2f6f5e3a-b72d-4ab9-96d8-6f2aace7ce98","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 32
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 1568 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 2f6f5e3ab72d4ab996d86f2aace7ce98
+ENCAPS: PQ Shared Secret (32 bytes): 7537a5406e92676555e467bcff323ddb159dc783a207bacf7ce8127b54d17aa4
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (64 bytes): 7537a5406e92676555e467bcff323ddb159dc783a207bacf7ce8127b54d17aa40a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 00000000000000000000000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): 2f6f5e3ab72d4ab996d86f2aace7ce98
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (32 bytes): 7537a5406e92676555e467bcff323ddb159dc783a207bacf7ce8127b54d17aa4
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (64 bytes): 7537a5406e92676555e467bcff323ddb159dc783a207bacf7ce8127b54d17aa40a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_kyber1024        [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_kyber1024[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=800, private=1632, ciphertext=768, shared=32
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 1636
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 804
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1cc0360
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1c94580
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1cc60c0, Privkey pointer: 0x5ea8c1ce0500
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: fb901ef9-3ec0-49f0-86c5-2b685f8e80b7
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: fb901ef9-3ec0-49f0-86c5-2b685f8e80b7
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+BC 69 1C AB D8 87 52 31 B2 C1 20 03 0D 5E 90 61 40 46 50 3D 9D DF D3 9F E8 FC 46 2B C9 C8 21 A7 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 800 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+fb901ef93ec049f086c52b685f8e80b7
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 1668 & pubkeylen: 820
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 800 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 768 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 800 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 768 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): fb901ef93ec049f086c52b685f8e80b7
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: fb901ef9-3ec0-49f0-86c5-2b685f8e80b7
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: fb901ef9-3ec0-49f0-86c5-2b685f8e80b7
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"fb901ef9-3ec0-49f0-86c5-2b685f8e80b7","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 32
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 800 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): fb901ef93ec049f086c52b685f8e80b7
+ENCAPS: PQ Shared Secret (32 bytes): f4ae10338920676bae584b657bdbb314c75aef4bb09346dae934be4009c29275
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (64 bytes): f4ae10338920676bae584b657bdbb314c75aef4bb09346dae934be4009c292750a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 8037bfc1a85e000070ecc8c1a85e0000
+DECAPS: QKD Public Key (key_id) (16 bytes): fb901ef93ec049f086c52b685f8e80b7
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (32 bytes): f4ae10338920676bae584b657bdbb314c75aef4bb09346dae934be4009c29275
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (64 bytes): f4ae10338920676bae584b657bdbb314c75aef4bb09346dae934be4009c292750a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_mlkem512         [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_mlkem512[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=1184, private=2400, ciphertext=1088, shared=32
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 2404
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 1188
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1cc0360
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1cc2ff0
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1ce1c00, Privkey pointer: 0x5ea8c1cb19b0
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: e5988ecf-5b6e-4f3b-8c6e-3a696f84990a
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: e5988ecf-5b6e-4f3b-8c6e-3a696f84990a
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+65 A8 7F C8 78 CD 4D 2C 81 09 04 90 72 A3 C5 B6 73 13 C2 AA CA 5A 0F 67 5C 3E 57 FB CE 51 EA 91 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 1184 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+e5988ecf5b6e4f3b8c6e3a696f84990a
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 2436 & pubkeylen: 1204
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 1184 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 1088 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 1184 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 1088 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): e5988ecf5b6e4f3b8c6e3a696f84990a
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: e5988ecf-5b6e-4f3b-8c6e-3a696f84990a
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: e5988ecf-5b6e-4f3b-8c6e-3a696f84990a
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"e5988ecf-5b6e-4f3b-8c6e-3a696f84990a","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 32
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 1184 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): e5988ecf5b6e4f3b8c6e3a696f84990a
+ENCAPS: PQ Shared Secret (32 bytes): 5af63c4b13b714c98c458baee16ce9b2d5ca3b7ea39f23dac91282bd0bbacb14
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (64 bytes): 5af63c4b13b714c98c458baee16ce9b2d5ca3b7ea39f23dac91282bd0bbacb140a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 00000000000000000000000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): e5988ecf5b6e4f3b8c6e3a696f84990a
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (32 bytes): 5af63c4b13b714c98c458baee16ce9b2d5ca3b7ea39f23dac91282bd0bbacb14
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (64 bytes): 5af63c4b13b714c98c458baee16ce9b2d5ca3b7ea39f23dac91282bd0bbacb140a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_mlkem768         [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_mlkem768[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=1568, private=3168, ciphertext=1568, shared=32
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 3172
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 1572
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1bf73e0
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1c94e00
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1cbd050, Privkey pointer: 0x5ea8c1bf7ea0
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 92d66b37-80fc-4092-b66e-3f32c7f0fc6c
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 92d66b37-80fc-4092-b66e-3f32c7f0fc6c
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+EF FD BC 00 99 D4 B7 B7 A8 EF 42 1E 9D 69 B8 19 99 83 EF C2 45 53 EB 35 7A 83 B2 E3 4F 9A BF 4B 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 1568 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+92d66b3780fc4092b66e3f32c7f0fc6c
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 3204 & pubkeylen: 1588
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 1568 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 1568 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 1568 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 1568 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 92d66b3780fc4092b66e3f32c7f0fc6c
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 92d66b37-80fc-4092-b66e-3f32c7f0fc6c
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 92d66b37-80fc-4092-b66e-3f32c7f0fc6c
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"92d66b37-80fc-4092-b66e-3f32c7f0fc6c","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 32
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 1568 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 92d66b3780fc4092b66e3f32c7f0fc6c
+ENCAPS: PQ Shared Secret (32 bytes): 5fafb0d1c2d95bb1d521545f8b34740b0451657b2a87d367b655ce1bf6f720fd
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (64 bytes): 5fafb0d1c2d95bb1d521545f8b34740b0451657b2a87d367b655ce1bf6f720fd0a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 788ad674bb9804a9611c3c07e8d257ca
+DECAPS: QKD Public Key (key_id) (16 bytes): 92d66b3780fc4092b66e3f32c7f0fc6c
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (32 bytes): 5fafb0d1c2d95bb1d521545f8b34740b0451657b2a87d367b655ce1bf6f720fd
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (64 bytes): 5fafb0d1c2d95bb1d521545f8b34740b0451657b2a87d367b655ce1bf6f720fd0a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_mlkem1024        [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_mlkem1024[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=1541, private=5223, ciphertext=1573, shared=32
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 5227
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 1545
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1ce1fc0
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1cbd250
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1cbd180, Privkey pointer: 0x5ea8c1ce0ad0
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 90c02398-c0b4-4910-9b8c-95f4c4eb01e8
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 90c02398-c0b4-4910-9b8c-95f4c4eb01e8
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+D4 CC D5 F1 BE C8 F9 19 11 11 02 ED D8 AE A9 CB 78 86 94 FF 85 07 18 75 84 6A C0 14 D1 11 6C A3 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 1541 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+90c02398c0b449109b8c95f4c4eb01e8
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 5259 & pubkeylen: 1561
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 1541 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 1573 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 1541 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 1573 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 90c02398c0b449109b8c95f4c4eb01e8
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 90c02398-c0b4-4910-9b8c-95f4c4eb01e8
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 90c02398-c0b4-4910-9b8c-95f4c4eb01e8
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"90c02398-c0b4-4910-9b8c-95f4c4eb01e8","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 32
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 1541 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 90c02398c0b449109b8c95f4c4eb01e8
+ENCAPS: PQ Shared Secret (32 bytes): 1d524624fb9b7565d4aee287cbb77ad7a1b96221be002e4cd0e1b02fa4f4a9f4
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (64 bytes): 1d524624fb9b7565d4aee287cbb77ad7a1b96221be002e4cd0e1b02fa4f4a9f40a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 00000000000000000000005800000000
+DECAPS: QKD Public Key (key_id) (16 bytes): 90c02398c0b449109b8c95f4c4eb01e8
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (32 bytes): 1d524624fb9b7565d4aee287cbb77ad7a1b96221be002e4cd0e1b02fa4f4a9f4
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (64 bytes): 1d524624fb9b7565d4aee287cbb77ad7a1b96221be002e4cd0e1b02fa4f4a9f40a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_bikel1           [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_bikel1[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=3083, private=10105, ciphertext=3115, shared=32
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 10109
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 3087
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1ce1fc0
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1cc1370
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1cb5d10, Privkey pointer: 0x5ea8c1bf7590
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 72906ebe-0e6c-43bc-af6c-90de28a0a322
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 72906ebe-0e6c-43bc-af6c-90de28a0a322
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+3A 27 98 EC 77 85 F7 78 FF 57 89 3C F0 BB 65 D6 9C 7F 90 0B E3 D9 91 7B 38 50 27 F6 EB 9B 26 A9 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 3083 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+72906ebe0e6c43bcaf6c90de28a0a322
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 10141 & pubkeylen: 3103
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 3083 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 3115 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 3083 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 3115 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 72906ebe0e6c43bcaf6c90de28a0a322
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 72906ebe-0e6c-43bc-af6c-90de28a0a322
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 72906ebe-0e6c-43bc-af6c-90de28a0a322
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"72906ebe-0e6c-43bc-af6c-90de28a0a322","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 32
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 3083 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 72906ebe0e6c43bcaf6c90de28a0a322
+ENCAPS: PQ Shared Secret (32 bytes): 11664050a73660402140e90602e5d4d71a1a82c78921ab175459de7db99e68d3
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (64 bytes): 11664050a73660402140e90602e5d4d71a1a82c78921ab175459de7db99e68d30a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 00000000000000000000000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): 72906ebe0e6c43bcaf6c90de28a0a322
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (32 bytes): 11664050a73660402140e90602e5d4d71a1a82c78921ab175459de7db99e68d3
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (64 bytes): 11664050a73660402140e90602e5d4d71a1a82c78921ab175459de7db99e68d30a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_bikel3           [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_bikel3[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=5122, private=16494, ciphertext=5154, shared=32
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 16498
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 5126
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1ce1fc0
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1cbcf90
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1cc0f20, Privkey pointer: 0x5ea8c1ce1cf0
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: acf110b6-fa15-4e13-a3ed-7aad07db0846
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: acf110b6-fa15-4e13-a3ed-7aad07db0846
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+0E DB 45 02 3B A7 05 5B ED ED 5D D3 E5 A8 8C 67 24 18 FE E9 02 F8 45 ED 67 60 4E 93 C8 41 A9 6D 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 5122 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+acf110b6fa154e13a3ed7aad07db0846
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 16530 & pubkeylen: 5142
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 5122 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 5154 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 5122 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 5154 and 32
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): acf110b6fa154e13a3ed7aad07db0846
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: acf110b6-fa15-4e13-a3ed-7aad07db0846
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: acf110b6-fa15-4e13-a3ed-7aad07db0846
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"acf110b6-fa15-4e13-a3ed-7aad07db0846","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 32
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 5122 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): acf110b6fa154e13a3ed7aad07db0846
+ENCAPS: PQ Shared Secret (32 bytes): 07bb38def19ec9d92608355b3da74bd43d01b48a1f1b6153be1557d4c97622ec
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (64 bytes): 07bb38def19ec9d92608355b3da74bd43d01b48a1f1b6153be1557d4c97622ec0a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 00000000000000000000000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): acf110b6fa154e13a3ed7aad07db0846
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (32 bytes): 07bb38def19ec9d92608355b3da74bd43d01b48a1f1b6153be1557d4c97622ec
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (64 bytes): 07bb38def19ec9d92608355b3da74bd43d01b48a1f1b6153be1557d4c97622ec0a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_bikel5           [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_bikel5[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=2249, private=2305, ciphertext=4433, shared=64
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 2309
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 2253
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1ce1fc0
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1c92380
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1cbf440, Privkey pointer: 0x5ea8c1ce0620
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 2be43bc1-7d8f-461a-8299-2b96c260d211
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 2be43bc1-7d8f-461a-8299-2b96c260d211
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+18 41 AB CB 9B 31 6C 7C 5F 60 BE 14 0D 8F 06 69 91 D5 3E E6 8B 83 E1 F6 D9 BF CB B0 4E 4E 11 44 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 2249 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+2be43bc17d8f461a82992b96c260d211
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 2341 & pubkeylen: 2269
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 2249 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 4433 and 64
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 2249 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 4433 and 64
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 2be43bc17d8f461a82992b96c260d211
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 2be43bc1-7d8f-461a-8299-2b96c260d211
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 2be43bc1-7d8f-461a-8299-2b96c260d211
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"2be43bc1-7d8f-461a-8299-2b96c260d211","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 64
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 2249 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 2be43bc17d8f461a82992b96c260d211
+ENCAPS: PQ Shared Secret (64 bytes): 7d0751ce0e87b28ebe1ef4e3d59534a0d88f7c61b746d768e38e1a6fa8fd9aa810b1c63cbb71583b2c4395106d58c37837331023f44af56787447774cdb88e65
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (96 bytes): 7d0751ce0e87b28ebe1ef4e3d59534a0d88f7c61b746d768e38e1a6fa8fd9aa810b1c63cbb71583b2c4395106d58c37837331023f44af56787447774cdb88e650a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 00000000000000000000000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): 2be43bc17d8f461a82992b96c260d211
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (64 bytes): 7d0751ce0e87b28ebe1ef4e3d59534a0d88f7c61b746d768e38e1a6fa8fd9aa810b1c63cbb71583b2c4395106d58c37837331023f44af56787447774cdb88e65
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (96 bytes): 7d0751ce0e87b28ebe1ef4e3d59534a0d88f7c61b746d768e38e1a6fa8fd9aa810b1c63cbb71583b2c4395106d58c37837331023f44af56787447774cdb88e650a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_hqc128           [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_hqc128[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=4522, private=4586, ciphertext=8978, shared=64
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 4590
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 4526
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1ce1fc0
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1c981a0
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1ce6280, Privkey pointer: 0x5ea8c1c8e960
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 913436dd-809a-4020-a160-0c188e49519a
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 913436dd-809a-4020-a160-0c188e49519a
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+7C C8 A5 70 AB A2 98 6F 5B D5 C6 F0 08 86 8B 43 D5 4F 3F 41 26 9C 80 E3 2C A6 18 4B 00 E4 A4 A0 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 4522 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+913436dd809a4020a1600c188e49519a
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 4622 & pubkeylen: 4542
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 4522 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 8978 and 64
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 4522 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 8978 and 64
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 913436dd809a4020a1600c188e49519a
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 913436dd-809a-4020-a160-0c188e49519a
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 913436dd-809a-4020-a160-0c188e49519a
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"913436dd-809a-4020-a160-0c188e49519a","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 64
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 4522 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 913436dd809a4020a1600c188e49519a
+ENCAPS: PQ Shared Secret (64 bytes): 11cb5ce14a7e371d55ed01bff2de16780df2a9dbb93d44801e42a1ceffb2f8e40a0455461db4bbf597babfc233f52593e1d6cff57a203f758464562e04cae28d
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (96 bytes): 11cb5ce14a7e371d55ed01bff2de16780df2a9dbb93d44801e42a1ceffb2f8e40a0455461db4bbf597babfc233f52593e1d6cff57a203f758464562e04cae28d0a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 00000000000000000000000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): 913436dd809a4020a1600c188e49519a
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (64 bytes): 11cb5ce14a7e371d55ed01bff2de16780df2a9dbb93d44801e42a1ceffb2f8e40a0455461db4bbf597babfc233f52593e1d6cff57a203f758464562e04cae28d
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (96 bytes): 11cb5ce14a7e371d55ed01bff2de16780df2a9dbb93d44801e42a1ceffb2f8e40a0455461db4bbf597babfc233f52593e1d6cff57a203f758464562e04cae28d0a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_hqc192           [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_hqc192[m
+QKD DEBUG: qkd_kem_key_new:990: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1024: PQ key sizes: public=7245, private=7317, ciphertext=14421, shared=64
+QKD DEBUG: oqsx_key_gen:1343: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 7321
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 7249
+QKD DEBUG: oqsx_key_gen_qkd:1243: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1246: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1250: Checking key pointer: 0x5ea8c1cb52b0
+QKD DEBUG: oqsx_key_gen_qkd:1255: QKD context pointer: 0x5ea8c1c93c20
+QKD DEBUG: oqsx_key_gen_qkd:1265: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1270: Pubkey pointer: 0x5ea8c1c939c0, Privkey pointer: 0x5ea8c1cb5280
+QKD DEBUG: qkd_get_key:304: ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:308: ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:310: [SUCCESS]: ALICE got key with ID: 5dc7c892-de95-47fb-bd5e-0c78bb1fc7a8
+
+QKD DEBUG: qkd_get_key:331: ETSI014: Received key ID: 5dc7c892-de95-47fb-bd5e-0c78bb1fc7a8
+QKD DEBUG: qkd_get_key:338: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:359: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:360: Decoded key (hex dump):
+F6 6A 8D 3C D2 A2 0C 28 67 1D 2F 77 8C 3C BC 8D 1F 31 AD E2 CD 7E 3D 39 15 93 3E 08 AC 42 B3 91 
+QKD DEBUG: qkd_get_key:376: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1310: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1322: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1378: _____PQC public key (idx 0, 7245 bytes):
+
+QKD DEBUG: oqsx_key_gen:1389: _____QKD public key (idx 1, 16 bytes):
+5dc7c892de9547fbbd5e0c78bb1fc7a8
+QKD DEBUG: oqsx_key_gen:1398: OQSKM: OQSX_KEY privkeylen 7353 & pubkeylen: 7265
+
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 7245 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 14421 and 64
+
+QKD DEBUG: oqs_qkd_kem_encaps:308: QKD KEM encaps starting
+QKD DEBUG: oqs_qkd_kem_encaps:331: __________PQC public key (keyslot 0, 7245 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:341: __________QKD public key (keyslot 1, 16 bytes):
+QKD DEBUG: oqs_qkd_kem_encaps:348: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:349: DECAPS: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps:351: ENCAPS QKD URIs:
+QKD DEBUG: oqs_qkd_kem_encaps:352: Source URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:354: Destination URI: https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com
+QKD DEBUG: oqs_qkd_kem_encaps:363: ENCAPS: Initiator role: 0
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:122: KEM returning lengths 14421 and 64
+
+QKD DEBUG: oqs_qkd_kem_encaps:397: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:185: KEM encaps keyslot: 1
+comp_pubkey[1] (PQ index): 5dc7c892de9547fbbd5e0c78bb1fc7a8
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:235: BEFORE GETTING QKD KEY
+QKD DEBUG: oqs_qkd_kem_encaps_keyslot:239: GETTING QKD KEY
+QKD DEBUG: oqs_qkd_get_encaps_key:107: Getting QKD key during encapsulation as responder
+QKD DEBUG: qkd_get_key_with_ids:173: ETSI 014: Requesting key from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:174: ETSI 014: Initial state - Is initiator: 0
+QKD DEBUG: qkd_get_key_with_ids:199: ETSI014: Using QuKayDee Backend ... Tailoring key ID formats
+QKD DEBUG: qkd_get_key_with_ids:205: ETSI014: Using key ID: 5dc7c892-de95-47fb-bd5e-0c78bb1fc7a8
+QKD DEBUG: qkd_get_key_with_ids:218: ETSI014: Calling GET_KEY_WITH_IDS - KME: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com, Master SAE: sae-1, Key ID: 5dc7c892-de95-47fb-bd5e-0c78bb1fc7a8
+libqkd: get_key_with_ids:451: POST DATA: {"key_IDs":[{"key_ID":"5dc7c892-de95-47fb-bd5e-0c78bb1fc7a8","master_SAE_ID":"sae-1"}]}
+libqkd: init_cert_config:68: QKD_SLAVE_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.crt
+libqkd: init_cert_config:69: QKD_SLAVE_KEY_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-2.key
+libqkd: init_cert_config:70: QKD_SLAVE_CA_CERT_PATH: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: init_cert_config:76: Slave certificate configuration initialized.
+libqkd: get_key_with_ids:461: Request URI: https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com/api/v1/keys/sae-1/dec_keys
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key_with_ids:227: ETSI014: Got 1 keys from KME using key IDs
+QKD DEBUG: qkd_get_key_with_ids:250: ETSI014: Key successfully retrieved by key IDs and stored
+QKD DEBUG: oqs_qs_kem_encaps_keyslot:97: ENCAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qkd_kem_encaps:408: ENCAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_encaps:409: ENCAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_encaps:425: After first qs_kem encaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_encaps:427: QKD KEM encaps completed successfully
+QKD DEBUG: oqs_qkd_kem_encaps:430: QKD KEM encaps finishing with ret=1
+QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+QKD DEBUG: oqs_qkd_kem_newctx:75: oqs_qkd_kem_newctx(): OQS KEM provider called: newctx
+
+QKD DEBUG: oqs_qkd_kem_decaps:448: QKD KEM decaps starting
+QKD DEBUG: oqs_qkd_kem_decaps:457: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:166: KEM returning length 64
+
+QKD DEBUG: oqs_qkd_kem_decaps:467: __________PQC public key (keyslot 0, 7245 bytes):
+QKD DEBUG: oqs_qkd_kem_decaps:474: After firs decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:521: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:522: DECAPS: Initiator role: 1
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:264: OQS QKD KEM provider called: decaps_keyslot
+QKD DEBUG: oqs_qkd_get_decaps_key:144: Getting QKD key during decapsulation as initiator
+QKD DEBUG: oqs_qkd_kem_decaps_keyslot:289: QKD KEM decapsulation succeeded
+QKD DEBUG: oqs_qkd_kem_decaps:531: DECAPS: ret value: 0
+QKD DEBUG: oqs_qkd_kem_decaps:532: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:545: After first qkd_kem decaps_keyslot call
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:149: DECAPS PQ keyslot: 0
+
+QKD DEBUG: oqs_qs_kem_decaps_keyslot:151: OQS KEM provider called: decaps
+
+QKD DEBUG: oqs_qkd_kem_decaps:551: DECAPS: ret value: 1
+QKD DEBUG: oqs_qkd_kem_decaps:552: DECAPS: pq index: 0, qkd index: 1
+QKD DEBUG: oqs_qkd_kem_decaps:571: After first qs_kem decaps_keyslot call
+QKD DEBUG: oqs_qkd_kem_decaps:573: QKD KEM decaps completed successfully
+
+
+
+
+
+Public key for keyslot 1: (16 bytes): 5dc7c892de9547fbbd5e0c78bb1fc7a8
+ENCAPS: PQ Shared Secret (64 bytes): dd30d5967234ac46cb9e410a48e1585d628c3c07aac7c5936c7b9ca986e8c2a4e6dac3735beef6799d9de1439e710c2856f071278af97c08dbffa9e534b56c19
+ENCAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+ENCAPS: Full Shared Secret (96 bytes): dd30d5967234ac46cb9e410a48e1585d628c3c07aac7c5936c7b9ca986e8c2a4e6dac3735beef6799d9de1439e710c2856f071278af97c08dbffa9e534b56c190a04000000000000000000000000000000000000000000000000000000000000
+
+
+DECAPS QKD Ciphertext (16 bytes): 00000000000000000000000000000000
+DECAPS: QKD Public Key (key_id) (16 bytes): 5dc7c892de9547fbbd5e0c78bb1fc7a8
+DECAPS: Using stored QKD key from private key component (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: PQ Shared Secret (64 bytes): dd30d5967234ac46cb9e410a48e1585d628c3c07aac7c5936c7b9ca986e8c2a4e6dac3735beef6799d9de1439e710c2856f071278af97c08dbffa9e534b56c19
+DECAPS: QKD Shared Secret (32 bytes): 0a04000000000000000000000000000000000000000000000000000000000000
+DECAPS: Full Shared Secret (96 bytes): dd30d5967234ac46cb9e410a48e1585d628c3c07aac7c5936c7b9ca986e8c2a4e6dac3735beef6799d9de1439e710c2856f071278af97c08dbffa9e534b56c190a04000000000000000000000000000000000000000000000000000000000000
+Benchmarking: qkd_hqc256           [==================================================] 100.0%QKD DEBUG: oqs_qkd_kem_freectx:99: oqs_qkd_kem_freectx(): OQS KEM context freed
+[1;32m  Benchmark completed: qkd_hqc256[m
+
+
+Benchmark Summary:
+Total algorithms tested: 18
+Algorithms with failed benchmarks: 0
+Results saved to: ../../benchmarks/data/kem_bench_qkdkemprovider_1_iter_20250208.csv
+[1;32m  Test passed[m

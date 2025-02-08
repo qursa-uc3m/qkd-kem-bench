@@ -88,11 +88,25 @@ message(STATUS "QKD ETSI API found: ${QKD_ETSI_API_LIB}")
 include(FetchContent)
 
 # QDK-KEM-Provider
-FetchContent_Declare(
-    oqsprov_qkd
-    GIT_REPOSITORY https://github.com/qursa-uc3m/qkd-kem-provider.git
-    GIT_TAG main
-)
+# Check build type from environment
+if(DEFINED ENV{LOCAL_BUILD})
+    message(STATUS "Using local QKD provider source")
+    # Use existing source in _build/_deps
+    set(OQSPROV_QKD_SOURCE "${CMAKE_BINARY_DIR}/_deps/oqsprov_qkd-src")
+else()
+    # Normal FetchContent build
+    FetchContent_Declare(
+        oqsprov_qkd
+        GIT_REPOSITORY https://github.com/qursa-uc3m/qkd-kem-provider.git
+        GIT_TAG qukaydee
+    )
+    # Make the QKD Provider content available
+    FetchContent_GetProperties(oqsprov_qkd)
+    if(NOT oqsprov_qkd_POPULATED)
+        FetchContent_Populate(oqsprov_qkd)
+    endif()
+    set(OQSPROV_QKD_SOURCE ${oqsprov_qkd_SOURCE_DIR})
+endif()
 
 # OQS Provider (standard version)
 FetchContent_Declare(
@@ -100,12 +114,6 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/open-quantum-safe/oqs-provider.git
     GIT_TAG 0.8.0  # Specific release version for stability
 )
-
-# Make the content available
-FetchContent_GetProperties(oqsprov_qkd)
-if(NOT oqsprov_qkd_POPULATED)
-    FetchContent_Populate(oqsprov_qkd)
-endif()
 
 # Make the base OQS provider content available
 FetchContent_GetProperties(oqsprov_base)
@@ -118,12 +126,10 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # QKD provider will generate qkdkemprovider.so
-add_subdirectory(${oqsprov_qkd_SOURCE_DIR}/oqsprov ${CMAKE_BINARY_DIR}/qkdprov)
+add_subdirectory(${OQSPROV_QKD_SOURCE}/oqsprov ${CMAKE_BINARY_DIR}/qkdprov)
 
 # Base provider will generate oqsprovider.so
 add_subdirectory(${oqsprov_base_SOURCE_DIR}/oqsprov ${CMAKE_BINARY_DIR}/oqsprov)
-
-
 
 # Add testing - now the benchmark will be built after the provider
 include(CTest)

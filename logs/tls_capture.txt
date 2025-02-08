@@ -1,0 +1,872 @@
+Frame 1: 74 bytes on wire (592 bits), 74 bytes captured (592 bits) on interface lo, id 0
+    Section number: 1
+    Interface id: 0 (lo)
+        Interface name: lo
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Feb  8, 2025 16:11:25.266273797 CET
+    UTC Arrival Time: Feb  8, 2025 15:11:25.266273797 UTC
+    Epoch Arrival Time: 1739027485.266273797
+    [Time shift for this packet: 0.000000000 seconds]
+    [Time delta from previous captured frame: 0.000000000 seconds]
+    [Time delta from previous displayed frame: 0.000000000 seconds]
+    [Time since reference or first frame: 0.000000000 seconds]
+    Frame Number: 1
+    Frame Length: 74 bytes (592 bits)
+    Capture Length: 74 bytes (592 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:tcp]
+Ethernet II, Src: 00:00:00_00:00:00 (00:00:00:00:00:00), Dst: 00:00:00_00:00:00 (00:00:00:00:00:00)
+    Destination: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        Address: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        Address: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        0000 00.. = Differentiated Services Codepoint: Default (0)
+        .... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    Total Length: 60
+    Identification: 0x8c21 (35873)
+    010. .... = Flags: 0x2, Don't fragment
+        0... .... = Reserved bit: Not set
+        .1.. .... = Don't fragment: Set
+        ..0. .... = More fragments: Not set
+    ...0 0000 0000 0000 = Fragment Offset: 0
+    Time to Live: 64
+    Protocol: TCP (6)
+    Header Checksum: 0xb098 [validation disabled]
+    [Header checksum status: Unverified]
+    Source Address: 127.0.0.1
+    Destination Address: 127.0.0.1
+Transmission Control Protocol, Src Port: 60160, Dst Port: 4433, Seq: 0, Len: 0
+    Source Port: 60160
+    Destination Port: 4433
+    [Stream index: 0]
+    [Conversation completeness: Incomplete (0)]
+        ..0. .... = RST: Absent
+        ...0 .... = FIN: Absent
+        .... 0... = Data: Absent
+        .... .0.. = ACK: Absent
+        .... ..0. = SYN-ACK: Absent
+        .... ...0 = SYN: Absent
+        [Completeness Flags: [ Null ]]
+    [TCP Segment Len: 0]
+    Sequence Number: 0    (relative sequence number)
+    Sequence Number (raw): 450147810
+    [Next Sequence Number: 1    (relative sequence number)]
+    Acknowledgment Number: 0
+    Acknowledgment number (raw): 0
+    1010 .... = Header Length: 40 bytes (10)
+    Flags: 0x002 (SYN)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Accurate ECN: Not set
+        .... 0... .... = Congestion Window Reduced: Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...0 .... = Acknowledgment: Not set
+        .... .... 0... = Push: Not set
+        .... .... .0.. = Reset: Not set
+        .... .... ..1. = Syn: Set
+            [Expert Info (Chat/Sequence): Connection establish request (SYN): server port 4433]
+                [Connection establish request (SYN): server port 4433]
+                [Severity level: Chat]
+                [Group: Sequence]
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ··········S·]
+    Window: 65495
+    [Calculated window size: 65495]
+    Checksum: 0xfe30 [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    Options: (20 bytes), Maximum segment size, SACK permitted, Timestamps, No-Operation (NOP), Window scale
+        TCP Option - Maximum segment size: 65495 bytes
+            Kind: Maximum Segment Size (2)
+            Length: 4
+            MSS Value: 65495
+        TCP Option - SACK permitted
+            Kind: SACK Permitted (4)
+            Length: 2
+        TCP Option - Timestamps: TSval 2650442851, TSecr 0
+            Kind: Time Stamp Option (8)
+            Length: 10
+            Timestamp value: 2650442851
+            Timestamp echo reply: 0
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - Window scale: 7 (multiply by 128)
+            Kind: Window Scale (3)
+            Length: 3
+            Shift count: 7
+            [Multiplier: 128]
+    [Timestamps]
+        [Time since first frame in this TCP stream: 0.000000000 seconds]
+        [Time since previous frame in this TCP stream: 0.000000000 seconds]
+
+Frame 2: 74 bytes on wire (592 bits), 74 bytes captured (592 bits) on interface lo, id 0
+    Section number: 1
+    Interface id: 0 (lo)
+        Interface name: lo
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Feb  8, 2025 16:11:25.266295404 CET
+    UTC Arrival Time: Feb  8, 2025 15:11:25.266295404 UTC
+    Epoch Arrival Time: 1739027485.266295404
+    [Time shift for this packet: 0.000000000 seconds]
+    [Time delta from previous captured frame: 0.000021607 seconds]
+    [Time delta from previous displayed frame: 0.000021607 seconds]
+    [Time since reference or first frame: 0.000021607 seconds]
+    Frame Number: 2
+    Frame Length: 74 bytes (592 bits)
+    Capture Length: 74 bytes (592 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:tcp]
+Ethernet II, Src: 00:00:00_00:00:00 (00:00:00:00:00:00), Dst: 00:00:00_00:00:00 (00:00:00:00:00:00)
+    Destination: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        Address: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        Address: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        0000 00.. = Differentiated Services Codepoint: Default (0)
+        .... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    Total Length: 60
+    Identification: 0x0000 (0)
+    010. .... = Flags: 0x2, Don't fragment
+        0... .... = Reserved bit: Not set
+        .1.. .... = Don't fragment: Set
+        ..0. .... = More fragments: Not set
+    ...0 0000 0000 0000 = Fragment Offset: 0
+    Time to Live: 64
+    Protocol: TCP (6)
+    Header Checksum: 0x3cba [validation disabled]
+    [Header checksum status: Unverified]
+    Source Address: 127.0.0.1
+    Destination Address: 127.0.0.1
+Transmission Control Protocol, Src Port: 4433, Dst Port: 60160, Seq: 0, Ack: 1, Len: 0
+    Source Port: 4433
+    Destination Port: 60160
+    [Stream index: 0]
+    [Conversation completeness: Incomplete, SYN_SENT (1)]
+        ..0. .... = RST: Absent
+        ...0 .... = FIN: Absent
+        .... 0... = Data: Absent
+        .... .0.. = ACK: Absent
+        .... ..0. = SYN-ACK: Absent
+        .... ...1 = SYN: Present
+        [Completeness Flags: ·····S]
+    [TCP Segment Len: 0]
+    Sequence Number: 0    (relative sequence number)
+    Sequence Number (raw): 1024762094
+    [Next Sequence Number: 1    (relative sequence number)]
+    Acknowledgment Number: 1    (relative ack number)
+    Acknowledgment number (raw): 450147811
+    1010 .... = Header Length: 40 bytes (10)
+    Flags: 0x012 (SYN, ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Accurate ECN: Not set
+        .... 0... .... = Congestion Window Reduced: Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 0... = Push: Not set
+        .... .... .0.. = Reset: Not set
+        .... .... ..1. = Syn: Set
+            [Expert Info (Chat/Sequence): Connection establish acknowledge (SYN+ACK): server port 4433]
+                [Connection establish acknowledge (SYN+ACK): server port 4433]
+                [Severity level: Chat]
+                [Group: Sequence]
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······A··S·]
+    Window: 65483
+    [Calculated window size: 65483]
+    Checksum: 0xfe30 [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    Options: (20 bytes), Maximum segment size, SACK permitted, Timestamps, No-Operation (NOP), Window scale
+        TCP Option - Maximum segment size: 65495 bytes
+            Kind: Maximum Segment Size (2)
+            Length: 4
+            MSS Value: 65495
+        TCP Option - SACK permitted
+            Kind: SACK Permitted (4)
+            Length: 2
+        TCP Option - Timestamps: TSval 2650442851, TSecr 2650442851
+            Kind: Time Stamp Option (8)
+            Length: 10
+            Timestamp value: 2650442851
+            Timestamp echo reply: 2650442851
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - Window scale: 7 (multiply by 128)
+            Kind: Window Scale (3)
+            Length: 3
+            Shift count: 7
+            [Multiplier: 128]
+    [Timestamps]
+        [Time since first frame in this TCP stream: 0.000021607 seconds]
+        [Time since previous frame in this TCP stream: 0.000021607 seconds]
+    [SEQ/ACK analysis]
+        [This is an ACK to the segment in frame: 1]
+        [The RTT to ACK the segment was: 0.000021607 seconds]
+
+Frame 3: 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface lo, id 0
+    Section number: 1
+    Interface id: 0 (lo)
+        Interface name: lo
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Feb  8, 2025 16:11:25.266311311 CET
+    UTC Arrival Time: Feb  8, 2025 15:11:25.266311311 UTC
+    Epoch Arrival Time: 1739027485.266311311
+    [Time shift for this packet: 0.000000000 seconds]
+    [Time delta from previous captured frame: 0.000015907 seconds]
+    [Time delta from previous displayed frame: 0.000015907 seconds]
+    [Time since reference or first frame: 0.000037514 seconds]
+    Frame Number: 3
+    Frame Length: 66 bytes (528 bits)
+    Capture Length: 66 bytes (528 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:tcp]
+Ethernet II, Src: 00:00:00_00:00:00 (00:00:00:00:00:00), Dst: 00:00:00_00:00:00 (00:00:00:00:00:00)
+    Destination: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        Address: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        Address: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        0000 00.. = Differentiated Services Codepoint: Default (0)
+        .... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    Total Length: 52
+    Identification: 0x8c22 (35874)
+    010. .... = Flags: 0x2, Don't fragment
+        0... .... = Reserved bit: Not set
+        .1.. .... = Don't fragment: Set
+        ..0. .... = More fragments: Not set
+    ...0 0000 0000 0000 = Fragment Offset: 0
+    Time to Live: 64
+    Protocol: TCP (6)
+    Header Checksum: 0xb09f [validation disabled]
+    [Header checksum status: Unverified]
+    Source Address: 127.0.0.1
+    Destination Address: 127.0.0.1
+Transmission Control Protocol, Src Port: 60160, Dst Port: 4433, Seq: 1, Ack: 1, Len: 0
+    Source Port: 60160
+    Destination Port: 4433
+    [Stream index: 0]
+    [Conversation completeness: Incomplete, CLIENT_ESTABLISHED (3)]
+        ..0. .... = RST: Absent
+        ...0 .... = FIN: Absent
+        .... 0... = Data: Absent
+        .... .0.. = ACK: Absent
+        .... ..1. = SYN-ACK: Present
+        .... ...1 = SYN: Present
+        [Completeness Flags: ····SS]
+    [TCP Segment Len: 0]
+    Sequence Number: 1    (relative sequence number)
+    Sequence Number (raw): 450147811
+    [Next Sequence Number: 1    (relative sequence number)]
+    Acknowledgment Number: 1    (relative ack number)
+    Acknowledgment number (raw): 1024762095
+    1000 .... = Header Length: 32 bytes (8)
+    Flags: 0x010 (ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Accurate ECN: Not set
+        .... 0... .... = Congestion Window Reduced: Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 0... = Push: Not set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······A····]
+    Window: 512
+    [Calculated window size: 65536]
+    [Window size scaling factor: 128]
+    Checksum: 0xfe28 [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - Timestamps: TSval 2650442851, TSecr 2650442851
+            Kind: Time Stamp Option (8)
+            Length: 10
+            Timestamp value: 2650442851
+            Timestamp echo reply: 2650442851
+    [Timestamps]
+        [Time since first frame in this TCP stream: 0.000037514 seconds]
+        [Time since previous frame in this TCP stream: 0.000015907 seconds]
+    [SEQ/ACK analysis]
+        [This is an ACK to the segment in frame: 2]
+        [The RTT to ACK the segment was: 0.000015907 seconds]
+        [iRTT: 0.000037514 seconds]
+
+Frame 8: 1628 bytes on wire (13024 bits), 1628 bytes captured (13024 bits) on interface lo, id 0
+    Section number: 1
+    Interface id: 0 (lo)
+        Interface name: lo
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Feb  8, 2025 16:11:25.844407448 CET
+    UTC Arrival Time: Feb  8, 2025 15:11:25.844407448 UTC
+    Epoch Arrival Time: 1739027485.844407448
+    [Time shift for this packet: 0.000000000 seconds]
+    [Time delta from previous captured frame: 0.551094782 seconds]
+    [Time delta from previous displayed frame: 0.578096137 seconds]
+    [Time since reference or first frame: 0.578133651 seconds]
+    Frame Number: 8
+    Frame Length: 1628 bytes (13024 bits)
+    Capture Length: 1628 bytes (13024 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:tcp:tls]
+Ethernet II, Src: 00:00:00_00:00:00 (00:00:00:00:00:00), Dst: 00:00:00_00:00:00 (00:00:00:00:00:00)
+    Destination: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        Address: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        Address: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        0000 00.. = Differentiated Services Codepoint: Default (0)
+        .... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    Total Length: 1614
+    Identification: 0x8c23 (35875)
+    010. .... = Flags: 0x2, Don't fragment
+        0... .... = Reserved bit: Not set
+        .1.. .... = Don't fragment: Set
+        ..0. .... = More fragments: Not set
+    ...0 0000 0000 0000 = Fragment Offset: 0
+    Time to Live: 64
+    Protocol: TCP (6)
+    Header Checksum: 0xaa84 [validation disabled]
+    [Header checksum status: Unverified]
+    Source Address: 127.0.0.1
+    Destination Address: 127.0.0.1
+Transmission Control Protocol, Src Port: 60160, Dst Port: 4433, Seq: 1, Ack: 1, Len: 1562
+    Source Port: 60160
+    Destination Port: 4433
+    [Stream index: 0]
+    [Conversation completeness: Incomplete, ESTABLISHED (7)]
+        ..0. .... = RST: Absent
+        ...0 .... = FIN: Absent
+        .... 0... = Data: Absent
+        .... .1.. = ACK: Present
+        .... ..1. = SYN-ACK: Present
+        .... ...1 = SYN: Present
+        [Completeness Flags: ···ASS]
+    [TCP Segment Len: 1562]
+    Sequence Number: 1    (relative sequence number)
+    Sequence Number (raw): 450147811
+    [Next Sequence Number: 1563    (relative sequence number)]
+    Acknowledgment Number: 1    (relative ack number)
+    Acknowledgment number (raw): 1024762095
+    1000 .... = Header Length: 32 bytes (8)
+    Flags: 0x018 (PSH, ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Accurate ECN: Not set
+        .... 0... .... = Congestion Window Reduced: Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 1... = Push: Set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······AP···]
+    Window: 512
+    [Calculated window size: 65536]
+    [Window size scaling factor: 128]
+    Checksum: 0x0443 [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - Timestamps: TSval 2650443429, TSecr 2650442851
+            Kind: Time Stamp Option (8)
+            Length: 10
+            Timestamp value: 2650443429
+            Timestamp echo reply: 2650442851
+    [Timestamps]
+        [Time since first frame in this TCP stream: 0.578133651 seconds]
+        [Time since previous frame in this TCP stream: 0.578096137 seconds]
+    [SEQ/ACK analysis]
+        [iRTT: 0.000037514 seconds]
+        [Bytes in flight: 1562]
+        [Bytes sent since last PSH flag: 1562]
+    TCP payload (1562 bytes)
+Transport Layer Security
+    TLSv1 Record Layer: Handshake Protocol: Client Hello
+        Content Type: Handshake (22)
+        Version: TLS 1.0 (0x0301)
+        Length: 1557
+        Handshake Protocol: Client Hello
+            Handshake Type: Client Hello (1)
+            Length: 1553
+            Version: TLS 1.2 (0x0303)
+            Random: c2996ebdba9d8abceb17354eaf1d702ce934c423b409576ac2ac55726652c1da
+                GMT Unix Time: Jun 16, 2073 12:41:01.000000000 CEST
+                Random Bytes: ba9d8abceb17354eaf1d702ce934c423b409576ac2ac55726652c1da
+            Session ID Length: 32
+            Session ID: b98adfa14c499bd49a50693dc5b3b60d61241a9552244b9b43f5b0218aa98b3f
+            Cipher Suites Length: 60
+            Cipher Suites (30 suites)
+                Cipher Suite: TLS_AES_256_GCM_SHA384 (0x1302)
+                Cipher Suite: TLS_CHACHA20_POLY1305_SHA256 (0x1303)
+                Cipher Suite: TLS_AES_128_GCM_SHA256 (0x1301)
+                Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 (0xc02c)
+                Cipher Suite: TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (0xc030)
+                Cipher Suite: TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 (0x009f)
+                Cipher Suite: TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256 (0xcca9)
+                Cipher Suite: TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256 (0xcca8)
+                Cipher Suite: TLS_DHE_RSA_WITH_CHACHA20_POLY1305_SHA256 (0xccaa)
+                Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 (0xc02b)
+                Cipher Suite: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (0xc02f)
+                Cipher Suite: TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 (0x009e)
+                Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 (0xc024)
+                Cipher Suite: TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 (0xc028)
+                Cipher Suite: TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 (0x006b)
+                Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 (0xc023)
+                Cipher Suite: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 (0xc027)
+                Cipher Suite: TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 (0x0067)
+                Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA (0xc00a)
+                Cipher Suite: TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (0xc014)
+                Cipher Suite: TLS_DHE_RSA_WITH_AES_256_CBC_SHA (0x0039)
+                Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA (0xc009)
+                Cipher Suite: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (0xc013)
+                Cipher Suite: TLS_DHE_RSA_WITH_AES_128_CBC_SHA (0x0033)
+                Cipher Suite: TLS_RSA_WITH_AES_256_GCM_SHA384 (0x009d)
+                Cipher Suite: TLS_RSA_WITH_AES_128_GCM_SHA256 (0x009c)
+                Cipher Suite: TLS_RSA_WITH_AES_256_CBC_SHA256 (0x003d)
+                Cipher Suite: TLS_RSA_WITH_AES_128_CBC_SHA256 (0x003c)
+                Cipher Suite: TLS_RSA_WITH_AES_256_CBC_SHA (0x0035)
+                Cipher Suite: TLS_RSA_WITH_AES_128_CBC_SHA (0x002f)
+            Compression Methods Length: 1
+            Compression Methods (1 method)
+                Compression Method: null (0)
+            Extensions Length: 1420
+            Extension: renegotiation_info (len=1)
+                Type: renegotiation_info (65281)
+                Length: 1
+                Renegotiation Info extension
+                    Renegotiation info extension length: 0
+            Extension: supported_groups (len=4)
+                Type: supported_groups (10)
+                Length: 4
+                Supported Groups List Length: 2
+                Supported Groups (1 group)
+                    Supported Group: Unknown (0x303c)
+            Extension: session_ticket (len=0)
+                Type: session_ticket (35)
+                Length: 0
+                Session Ticket: <MISSING>
+            Extension: encrypt_then_mac (len=0)
+                Type: encrypt_then_mac (22)
+                Length: 0
+            Extension: extended_master_secret (len=0)
+                Type: extended_master_secret (23)
+                Length: 0
+            Extension: signature_algorithms (len=162)
+                Type: signature_algorithms (13)
+                Length: 162
+                Signature Hash Algorithms Length: 160
+                Signature Hash Algorithms (80 algorithms)
+                    Signature Algorithm: ecdsa_secp256r1_sha256 (0x0403)
+                        Signature Hash Algorithm Hash: SHA256 (4)
+                        Signature Hash Algorithm Signature: ECDSA (3)
+                    Signature Algorithm: ecdsa_secp384r1_sha384 (0x0503)
+                        Signature Hash Algorithm Hash: SHA384 (5)
+                        Signature Hash Algorithm Signature: ECDSA (3)
+                    Signature Algorithm: ecdsa_secp521r1_sha512 (0x0603)
+                        Signature Hash Algorithm Hash: SHA512 (6)
+                        Signature Hash Algorithm Signature: ECDSA (3)
+                    Signature Algorithm: ed25519 (0x0807)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (7)
+                    Signature Algorithm: ed448 (0x0808)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (8)
+                    Signature Algorithm: Unknown Unknown (0x081a)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (26)
+                    Signature Algorithm: Unknown Unknown (0x081b)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (27)
+                    Signature Algorithm: Unknown Unknown (0x081c)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (28)
+                    Signature Algorithm: rsa_pss_pss_sha256 (0x0809)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (9)
+                    Signature Algorithm: rsa_pss_pss_sha384 (0x080a)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (10)
+                    Signature Algorithm: rsa_pss_pss_sha512 (0x080b)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (11)
+                    Signature Algorithm: rsa_pss_rsae_sha256 (0x0804)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (4)
+                    Signature Algorithm: rsa_pss_rsae_sha384 (0x0805)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (5)
+                    Signature Algorithm: rsa_pss_rsae_sha512 (0x0806)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (6)
+                    Signature Algorithm: rsa_pkcs1_sha256 (0x0401)
+                        Signature Hash Algorithm Hash: SHA256 (4)
+                        Signature Hash Algorithm Signature: RSA (1)
+                    Signature Algorithm: rsa_pkcs1_sha384 (0x0501)
+                        Signature Hash Algorithm Hash: SHA384 (5)
+                        Signature Hash Algorithm Signature: RSA (1)
+                    Signature Algorithm: rsa_pkcs1_sha512 (0x0601)
+                        Signature Hash Algorithm Hash: SHA512 (6)
+                        Signature Hash Algorithm Signature: RSA (1)
+                    Signature Algorithm: SHA224 ECDSA (0x0303)
+                        Signature Hash Algorithm Hash: SHA224 (3)
+                        Signature Hash Algorithm Signature: ECDSA (3)
+                    Signature Algorithm: SHA224 RSA (0x0301)
+                        Signature Hash Algorithm Hash: SHA224 (3)
+                        Signature Hash Algorithm Signature: RSA (1)
+                    Signature Algorithm: SHA224 DSA (0x0302)
+                        Signature Hash Algorithm Hash: SHA224 (3)
+                        Signature Hash Algorithm Signature: DSA (2)
+                    Signature Algorithm: SHA256 DSA (0x0402)
+                        Signature Hash Algorithm Hash: SHA256 (4)
+                        Signature Hash Algorithm Signature: DSA (2)
+                    Signature Algorithm: SHA384 DSA (0x0502)
+                        Signature Hash Algorithm Hash: SHA384 (5)
+                        Signature Hash Algorithm Signature: DSA (2)
+                    Signature Algorithm: SHA512 DSA (0x0602)
+                        Signature Hash Algorithm Hash: SHA512 (6)
+                        Signature Hash Algorithm Signature: DSA (2)
+                    Signature Algorithm: dilithium2 (0xfea0)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (160)
+                    Signature Algorithm: p256_dilithium2 (0xfea1)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (161)
+                    Signature Algorithm: rsa3072_dilithium2 (0xfea2)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (162)
+                    Signature Algorithm: dilithium3 (0xfea3)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (163)
+                    Signature Algorithm: p384_dilithium3 (0xfea4)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (164)
+                    Signature Algorithm: dilithium5 (0xfea5)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (165)
+                    Signature Algorithm: p521_dilithium5 (0xfea6)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (166)
+                    Signature Algorithm: Unknown Unknown (0x0904)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (4)
+                    Signature Algorithm: Unknown Unknown (0xff06)
+                        Signature Hash Algorithm Hash: Unknown (255)
+                        Signature Hash Algorithm Signature: Unknown (6)
+                    Signature Algorithm: Unknown Unknown (0xff07)
+                        Signature Hash Algorithm Hash: Unknown (255)
+                        Signature Hash Algorithm Signature: Unknown (7)
+                    Signature Algorithm: Unknown Unknown (0x090f)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (15)
+                    Signature Algorithm: Unknown Unknown (0x090c)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (12)
+                    Signature Algorithm: Unknown Unknown (0x090a)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (10)
+                    Signature Algorithm: Unknown Unknown (0x0907)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (7)
+                    Signature Algorithm: Unknown Unknown (0xfee5)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (229)
+                    Signature Algorithm: Unknown Unknown (0x0905)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (5)
+                    Signature Algorithm: Unknown Unknown (0xff08)
+                        Signature Hash Algorithm Hash: Unknown (255)
+                        Signature Hash Algorithm Signature: Unknown (8)
+                    Signature Algorithm: Unknown Unknown (0x0910)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (16)
+                    Signature Algorithm: Unknown Unknown (0x090d)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (13)
+                    Signature Algorithm: Unknown Unknown (0x0908)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (8)
+                    Signature Algorithm: Unknown Unknown (0xfee9)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (233)
+                    Signature Algorithm: Unknown Unknown (0x090b)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (11)
+                    Signature Algorithm: Unknown Unknown (0x0906)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (6)
+                    Signature Algorithm: Unknown Unknown (0xff09)
+                        Signature Hash Algorithm Hash: Unknown (255)
+                        Signature Hash Algorithm Signature: Unknown (9)
+                    Signature Algorithm: Unknown Unknown (0x0909)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (9)
+                    Signature Algorithm: Unknown Unknown (0xfeec)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (236)
+                    Signature Algorithm: Unknown Unknown (0x0912)
+                        Signature Hash Algorithm Hash: Unknown (9)
+                        Signature Hash Algorithm Signature: Unknown (18)
+                    Signature Algorithm: Unknown Unknown (0xfed7)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (215)
+                    Signature Algorithm: Unknown Unknown (0xfed8)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (216)
+                    Signature Algorithm: Unknown Unknown (0xfed9)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (217)
+                    Signature Algorithm: Unknown Unknown (0xfedc)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (220)
+                    Signature Algorithm: Unknown Unknown (0xfedd)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (221)
+                    Signature Algorithm: Unknown Unknown (0xfede)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (222)
+                    Signature Algorithm: Unknown Unknown (0xfeda)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (218)
+                    Signature Algorithm: Unknown Unknown (0xfedb)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (219)
+                    Signature Algorithm: Unknown Unknown (0xfedf)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (223)
+                    Signature Algorithm: Unknown Unknown (0xfee0)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (224)
+                    Signature Algorithm: Unknown Unknown (0xfeb3)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (179)
+                    Signature Algorithm: Unknown Unknown (0xfeb4)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (180)
+                    Signature Algorithm: Unknown Unknown (0xfeb5)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (181)
+                    Signature Algorithm: Unknown Unknown (0xfeb6)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (182)
+                    Signature Algorithm: Unknown Unknown (0xfeb7)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (183)
+                    Signature Algorithm: Unknown Unknown (0xfeb8)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (184)
+                    Signature Algorithm: Unknown Unknown (0xfeb9)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (185)
+                    Signature Algorithm: Unknown Unknown (0xfeba)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (186)
+                    Signature Algorithm: Unknown Unknown (0xfec2)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (194)
+                    Signature Algorithm: Unknown Unknown (0xfec3)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (195)
+                    Signature Algorithm: Unknown Unknown (0xfec4)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (196)
+                    Signature Algorithm: Unknown Unknown (0xfeee)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (238)
+                    Signature Algorithm: Unknown Unknown (0xfef2)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (242)
+                    Signature Algorithm: Unknown Unknown (0xfeef)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (239)
+                    Signature Algorithm: Unknown Unknown (0xfef3)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (243)
+                    Signature Algorithm: Unknown Unknown (0xfef0)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (240)
+                    Signature Algorithm: Unknown Unknown (0xfef4)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (244)
+                    Signature Algorithm: Unknown Unknown (0xfef1)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (241)
+                    Signature Algorithm: Unknown Unknown (0xfef5)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (245)
+                    Signature Algorithm: Unknown Unknown (0xfef6)
+                        Signature Hash Algorithm Hash: Unknown (254)
+                        Signature Hash Algorithm Signature: Unknown (246)
+            Extension: supported_versions (len=5) TLS 1.3, TLS 1.2
+                Type: supported_versions (43)
+                Length: 5
+                Supported Versions length: 4
+                Supported Version: TLS 1.3 (0x0304)
+                Supported Version: TLS 1.2 (0x0303)
+            Extension: psk_key_exchange_modes (len=2)
+                Type: psk_key_exchange_modes (45)
+                Length: 2
+                PSK Key Exchange Modes Length: 1
+                PSK Key Exchange Mode: PSK with (EC)DHE key establishment (psk_dhe_ke) (1)
+            Extension: key_share (len=1210) Unknown (12348)
+                Type: key_share (51)
+                Length: 1210
+                Key Share extension
+                    Client Key Share Length: 1208
+                    Key Share Entry: Group: Unknown (12348), Key Exchange length: 1204
+                        Group: Unknown (12348)
+                        Key Exchange Length: 1204
+                        Key Exchange [truncated]: 0000000026259f76a60005876c99f15cc9d24cac314c62b07ca4a109db090a95bb17c95524e58b22ab8b2b60c11a1a61bc8a564445557213800b72b88eb405629ed5bc714b209055a2cb2c4c0e5170a4eb56ba863ccb15854ce526e7e10abe7c89f884cef2a542ac2663c
+            [JA4: t13i300900_1d37bd780c83_9010e3faf92e]
+            [JA4_r [truncated]: t13i300900_002f,0033,0035,0039,003c,003d,0067,006b,009c,009d,009e,009f,1301,1302,1303,c009,c00a,c013,c014,c023,c024,c027,c028,c02b,c02c,c02f,c030,cca8,cca9,ccaa_000a,000d,0016,0017,0023,002b,002d,0033,ff01_0403,0503,0603]
+            [JA3 Fullstring: 771,4866-4867-4865-49196-49200-159-52393-52392-52394-49195-49199-158-49188-49192-107-49187-49191-103-49162-49172-57-49161-49171-51-157-156-61-60-53-47,65281-10-35-22-23-13-43-45-51,12348,]
+            [JA3: a216b0966d7eef52bf4dfde1fe3af9e1]
+
+Frame 9: 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface lo, id 0
+    Section number: 1
+    Interface id: 0 (lo)
+        Interface name: lo
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Feb  8, 2025 16:11:25.844419188 CET
+    UTC Arrival Time: Feb  8, 2025 15:11:25.844419188 UTC
+    Epoch Arrival Time: 1739027485.844419188
+    [Time shift for this packet: 0.000000000 seconds]
+    [Time delta from previous captured frame: 0.000011740 seconds]
+    [Time delta from previous displayed frame: 0.000011740 seconds]
+    [Time since reference or first frame: 0.578145391 seconds]
+    Frame Number: 9
+    Frame Length: 66 bytes (528 bits)
+    Capture Length: 66 bytes (528 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:tcp]
+Ethernet II, Src: 00:00:00_00:00:00 (00:00:00:00:00:00), Dst: 00:00:00_00:00:00 (00:00:00:00:00:00)
+    Destination: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        Address: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        Address: 00:00:00_00:00:00 (00:00:00:00:00:00)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        0000 00.. = Differentiated Services Codepoint: Default (0)
+        .... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    Total Length: 52
+    Identification: 0x5c50 (23632)
+    010. .... = Flags: 0x2, Don't fragment
+        0... .... = Reserved bit: Not set
+        .1.. .... = Don't fragment: Set
+        ..0. .... = More fragments: Not set
+    ...0 0000 0000 0000 = Fragment Offset: 0
+    Time to Live: 64
+    Protocol: TCP (6)
+    Header Checksum: 0xe071 [validation disabled]
+    [Header checksum status: Unverified]
+    Source Address: 127.0.0.1
+    Destination Address: 127.0.0.1
+Transmission Control Protocol, Src Port: 4433, Dst Port: 60160, Seq: 1, Ack: 1563, Len: 0
+    Source Port: 4433
+    Destination Port: 60160
+    [Stream index: 0]
+    [Conversation completeness: Incomplete, DATA (15)]
+        ..0. .... = RST: Absent
+        ...0 .... = FIN: Absent
+        .... 1... = Data: Present
+        .... .1.. = ACK: Present
+        .... ..1. = SYN-ACK: Present
+        .... ...1 = SYN: Present
+        [Completeness Flags: ··DASS]
+    [TCP Segment Len: 0]
+    Sequence Number: 1    (relative sequence number)
+    Sequence Number (raw): 1024762095
+    [Next Sequence Number: 1    (relative sequence number)]
+    Acknowledgment Number: 1563    (relative ack number)
+    Acknowledgment number (raw): 450149373
+    1000 .... = Header Length: 32 bytes (8)
+    Flags: 0x010 (ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Accurate ECN: Not set
+        .... 0... .... = Congestion Window Reduced: Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 0... = Push: Not set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······A····]
+    Window: 636
+    [Calculated window size: 81408]
+    [Window size scaling factor: 128]
+    Checksum: 0xfe28 [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - Timestamps: TSval 2650443429, TSecr 2650443429
+            Kind: Time Stamp Option (8)
+            Length: 10
+            Timestamp value: 2650443429
+            Timestamp echo reply: 2650443429
+    [Timestamps]
+        [Time since first frame in this TCP stream: 0.578145391 seconds]
+        [Time since previous frame in this TCP stream: 0.000011740 seconds]
+    [SEQ/ACK analysis]
+        [This is an ACK to the segment in frame: 8]
+        [The RTT to ACK the segment was: 0.000011740 seconds]
+        [iRTT: 0.000037514 seconds]
+

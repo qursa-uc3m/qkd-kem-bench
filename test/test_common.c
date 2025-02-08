@@ -51,7 +51,16 @@ OSSL_PROVIDER *load_default_provider(OSSL_LIB_CTX *libctx) {
 /* Loads the oqs-provider from a shared module (.so). */
 void load_oqs_provider(OSSL_LIB_CTX *libctx, const char *modulename,
                        const char *configfile) {
+    // Load de OpenSSL config 
     T(OSSL_LIB_CTX_load_config(libctx, configfile));
+    // Load the provider
+    OSSL_PROVIDER *provider = OSSL_PROVIDER_load(libctx, modulename);
+    if (!provider) {
+        fprintf(stderr, "Failed to load provider %s\n", modulename);
+        ERR_print_errors_fp(stderr);
+        return;
+    }
+    // Checks if the provider is available
     T(OSSL_PROVIDER_available(libctx, modulename));
 }
 
@@ -61,10 +70,10 @@ extern OSSL_provider_init_fn OQS_PROVIDER_ENTRYPOINT_NAME;
 
 /* Loads the statically linked oqs-provider. */
 void load_oqs_provider(OSSL_LIB_CTX *libctx, const char *modulename,
-                       const char *configfile) {
+                      const char *configfile) {
     (void)configfile;
     T(OSSL_PROVIDER_add_builtin(libctx, modulename,
-                                OQS_PROVIDER_ENTRYPOINT_NAME));
+                               OQS_PROVIDER_ENTRYPOINT_NAME));
     T(OSSL_PROVIDER_load(libctx, "default"));
 }
 

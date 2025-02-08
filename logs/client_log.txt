@@ -1,0 +1,65 @@
+Connecting to 127.0.0.1
+QKD DEBUG: qkd_kem_key_new:1112: qkd_kem_key_new()
+QKD DEBUG: qkd_kem_key_new:1146: PQ key sizes: public=1184, private=2400, ciphertext=1088, shared=32
+QKD DEBUG: oqsx_key_gen:1524: oqsx_key_gen()
+QKD DEBUG: oqsx_comp_set_offsets:278: Offset for PQC privkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:279: Offset for QKD privkey pointer = 2404
+QKD DEBUG: oqsx_comp_set_offsets:354: Offset for PQC pubkey pointer = 4
+QKD DEBUG: oqsx_comp_set_offsets:355: Offset for QKD pubkey pointer = 1188
+QKD DEBUG: oqsx_key_gen_qkd:1365: Starting QKD key generation
+QKD DEBUG: oqsx_key_gen_qkd:1368: Got QKD index: 1
+QKD DEBUG: oqsx_key_gen_qkd:1372: Checking key pointer: 0x629d7fe02690
+QKD DEBUG: oqsx_key_gen_qkd:1377: QKD context pointer: 0x629d7fe027a0
+QKD DEBUG: oqsx_key_gen_qkd:1387: Allocating QKD components
+QKD DEBUG: oqsx_key_gen_qkd:1392: Pubkey pointer: 0x629d7fe02e20, Privkey pointer: 0x629d7fe02e40
+QKD DEBUG: qkd_get_key:334: 
+ETSI014: Requesting key from KME with source=https://kme-1.acct-2507.etsi-qkd-api.qukaydee.com, dest=https://kme-2.acct-2507.etsi-qkd-api.qukaydee.com
+libqkd: GET_KEY:46: GET_KEY(): Active backend name: qkd_etsi014_backend
+
+libqkd: init_cert_config:55: Master certificate configuration initialized:
+libqkd: init_cert_config:56:   Cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.crt
+libqkd: init_cert_config:57:   Key path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/sae-1.key
+libqkd: init_cert_config:58:   CA cert path: /home/dsobral/Repositories/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt
+libqkd: handle_http_response:350: [HTTP_RESPONSE_HANDLER] - JSON parsed successfully.
+QKD DEBUG: qkd_get_key:338: 
+ETSI014: GET_KEY returned 200
+QKD DEBUG: qkd_get_key:341: [SUCCESS]: ALICE got key with ID: 5fbf5127-6c05-457a-8279-c0b3ac9f47bd
+
+QKD DEBUG: qkd_get_key:353: ETSI014: Received key ID: 5fbf5127-6c05-457a-8279-c0b3ac9f47bd
+QKD DEBUG: qkd_get_key:360: ETSI014: Successfully encoded UUID to binary
+QKD DEBUG: qkd_get_key:372: Algorithm: X25519, outlen = 32
+QKD DEBUG: qkd_get_key:373: Decoded key (hex dump):
+CE 63 0E 5D 80 D6 28 58 6B 6E C1 BD 53 6B CE B8 96 86 06 E2 94 29 86 0B B0 F2 14 6F DE 7B 15 BF 
+QKD DEBUG: qkd_get_key:410: ETSI014: Key successfully retrieved and stored
+QKD DEBUG: oqsx_key_gen_qkd:1474: Generated QKD key material:
+QKD DEBUG: oqsx_key_gen_qkd:1475: Key ID:
+5fbf51276c05457a8279c0b3ac9f47bd
+QKD DEBUG: oqsx_key_gen_qkd:1488: Key Material (32 bytes):
+ce630e5d80d628586b6ec1bd536bceb8968606e29429860bb0f2146fde7b15bf
+QKD DEBUG: oqsx_key_gen_qkd:1499: QKD key material retrieved!!!
+QKD DEBUG: oqsx_key_gen_qkd:1503: Successfully generated QKD key material
+QKD DEBUG: oqsx_key_gen:1574: _____PQC public key (idx 0, 1184 bytes):
+
+QKD DEBUG: oqsx_key_gen:1585: _____QKD public key (idx 1, 16 bytes):
+5fbf51276c05457a8279c0b3ac9f47bd
+QKD DEBUG: oqsx_key_gen:1593: OQSKM: OQSX_KEY privkeylen 2436 & pubkeylen: 1204
+
+407C02D2AA7C0000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:ssl/record/rec_layer_s3.c:908:SSL alert number 80
+CONNECTED(00000003)
+---
+no peer certificate available
+---
+No client certificate CA names sent
+---
+SSL handshake has read 7 bytes and written 1562 bytes
+Verification: OK
+---
+New, (NONE), Cipher is (NONE)
+Protocol: TLSv1.3
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 0 (ok)
+---

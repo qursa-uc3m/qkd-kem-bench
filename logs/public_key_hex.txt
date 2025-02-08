@@ -1,0 +1,18 @@
+                Key Share extension
+                    Client Key Share Length: 1208
+                    Key Share Entry: Group: Unknown (12348), Key Exchange length: 1204
+                        Group: Unknown (12348)
+                        Key Exchange Length: 1204
+                        Key Exchange [truncated]: 0000000026259f76a60005876c99f15cc9d24cac314c62b07ca4a109db090a95bb17c95524e58b22ab8b2b60c11a1a61bc8a564445557213800b72b88eb405629ed5bc714b209055a2cb2c4c0e5170a4eb56ba863ccb15854ce526e7e10abe7c89f884cef2a542ac2663c
+            [JA4: t13i300900_1d37bd780c83_9010e3faf92e]
+            [JA4_r [truncated]: t13i300900_002f,0033,0035,0039,003c,003d,0067,006b,009c,009d,009e,009f,1301,1302,1303,c009,c00a,c013,c014,c023,c024,c027,c028,c02b,c02c,c02f,c030,cca8,cca9,ccaa_000a,000d,0016,0017,0023,002b,002d,0033,ff01_0403,0503,0603]
+            [JA3 Fullstring: 771,4866-4867-4865-49196-49200-159-52393-52392-52394-49195-49199-158-49188-49192-107-49187-49191-103-49162-49172-57-49161-49171-51-157-156-61-60-53-47,65281-10-35-22-23-13-43-45-51,12348,]
+            [JA3: a216b0966d7eef52bf4dfde1fe3af9e1]
+Frame 9: 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface lo, id 0
+    Section number: 1
+    Interface id: 0 (lo)
+        Interface name: lo
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Feb  8, 2025 16:11:25.844419188 CET
+    UTC Arrival Time: Feb  8, 2025 15:11:25.844419188 UTC
+    Epoch Arrival Time: 1739027485.844419188

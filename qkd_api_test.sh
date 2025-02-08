@@ -202,7 +202,7 @@ ACCOUNT_ID="2507"
 
 # Assign paths to variables for easier reference
 
-export QKD_CA_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt"
+export QKD_CA_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/account-${ACCOUNT_ID}-server-ca-qukaydee-com.crt"
 
 export MASTER_SAE_ID="sae-1"
 export SLAVE_SAE_ID="sae-2"
@@ -210,11 +210,11 @@ export SLAVE_SAE_ID="sae-2"
 export QKD_MASTER_KME_HOSTNAME="https://kme-1.acct-${ACCOUNT_ID}.etsi-qkd-api.qukaydee.com"
 export QKD_SLAVE_KME_HOSTNAME="https://kme-2.acct-${ACCOUNT_ID}.etsi-qkd-api.qukaydee.com"
 
-export QKD_MASTER_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-1.crt"
-export QKD_MASTER_KEY_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-1.key"
+export QKD_MASTER_CERT_PATH="$(pwd)/qkd_certs/sae-1.crt"
+export QKD_MASTER_KEY_PATH="$(pwd)/qkd_certs/sae-1.key"
 
-export QKD_SLAVE_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-2.crt"
-export QKD_SLAVE_KEY_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-2.key"
+export QKD_SLAVE_CERT_PATH="$(pwd)/qkd_certs/sae-2.crt"
+export QKD_SLAVE_KEY_PATH="$(pwd)/qkd_certs/sae-2.key"
 
 
 CACERT="${QKD_MASTER_CA_CERT_PATH}"

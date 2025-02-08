@@ -1,0 +1,107 @@
+Checking OpenSSL providers...
+Provider modules status:
+  oqsprovider.so      : ✅ Found and readable
+  qkdkemprovider.so   : ✅ Found and readable
+✅ All providers found and accessible
+Running QKD KEM benchmarks with 1 iterations...
+Running from directory: /home/dsobral/Repositories/qkd-kem-bench/_build/bin
+Starting KEM benchmarks with 1 iterations...
+Results will be saved to: ../../benchmarks/data/kem_bench_qkdkemprovider_1_iter_20250208.csv
+
+
+
+
+Benchmarking: qkd_frodo640aes      [==================================================] 100.0%[1;32m  Benchmark completed: qkd_frodo640aes[m
+
+
+
+
+Benchmarking: qkd_frodo640shake    [==================================================] 100.0%[1;32m  Benchmark completed: qkd_frodo640shake[m
+
+
+
+
+Benchmarking: qkd_frodo976aes      [==================================================] 100.0%[1;32m  Benchmark completed: qkd_frodo976aes[m
+
+
+
+
+Benchmarking: qkd_frodo976shake    [==================================================] 100.0%[1;32m  Benchmark completed: qkd_frodo976shake[m
+
+
+
+
+Benchmarking: qkd_frodo1344aes     [==================================================] 100.0%[1;32m  Benchmark completed: qkd_frodo1344aes[m
+
+
+
+
+Benchmarking: qkd_frodo1344shake   [==================================================] 100.0%[1;32m  Benchmark completed: qkd_frodo1344shake[m
+
+
+
+
+Benchmarking: qkd_kyber512         [==================================================] 100.0%[1;32m  Benchmark completed: qkd_kyber512[m
+
+
+
+
+Benchmarking: qkd_kyber768         [==================================================] 100.0%[1;32m  Benchmark completed: qkd_kyber768[m
+
+
+
+
+Benchmarking: qkd_kyber1024        [==================================================] 100.0%[1;32m  Benchmark completed: qkd_kyber1024[m
+
+
+
+
+Benchmarking: qkd_mlkem512         [==================================================] 100.0%[1;32m  Benchmark completed: qkd_mlkem512[m
+
+
+
+
+Benchmarking: qkd_mlkem768         [==================================================] 100.0%[1;32m  Benchmark completed: qkd_mlkem768[m
+
+
+
+
+Benchmarking: qkd_mlkem1024        [==================================================] 100.0%[1;32m  Benchmark completed: qkd_mlkem1024[m
+
+
+
+
+Benchmarking: qkd_bikel1           [==================================================] 100.0%[1;32m  Benchmark completed: qkd_bikel1[m
+
+
+
+
+Benchmarking: qkd_bikel3           [==================================================] 100.0%[1;32m  Benchmark completed: qkd_bikel3[m
+
+
+
+
+Benchmarking: qkd_bikel5           [==================================================] 100.0%[1;32m  Benchmark completed: qkd_bikel5[m
+
+
+
+
+Benchmarking: qkd_hqc128           [==================================================] 100.0%[1;32m  Benchmark completed: qkd_hqc128[m
+
+
+
+
+Benchmarking: qkd_hqc192           [==================================================] 100.0%[1;32m  Benchmark completed: qkd_hqc192[m
+
+
+
+
+Benchmarking: qkd_hqc256           [==================================================] 100.0%[1;32m  Benchmark completed: qkd_hqc256[m
+
+
+Benchmark Summary:
+Total algorithms tested: 18
+Algorithms with failed benchmarks: 0
+Results saved to: ../../benchmarks/data/kem_bench_qkdkemprovider_1_iter_20250208.csv
+[1;32m  Test passed[m
+✅ KEM benchmarks completed

@@ -107,7 +107,7 @@ run_kem_bench() {
     cd _build/bin
     echo "Running from directory: $(pwd)"
 
-    ./oqs_bench_kems "$provider" "${OPENSSL_CONF}" "$iterations"
+    ./oqs_bench_kems "$provider" "${OPENSSL_CONF}" "$iterations" 
     local result=$?
     
     cd "${BASE_DIR}"
