@@ -13,8 +13,8 @@
 # EnvVar liboqs_DIR: If set, needs to point to a directory where liboqs has been installed to
 
 # Check QKD backend configuration first
-if [ "${QKD_BACKEND}" = "cerberis_xgr" ]; then
-    echo "Building with Cerberis XGR (QuKayDee) backend"
+if [ "${QKD_BACKEND}" = "qukaydee" ]; then
+    echo "Building with QuKayDee backend"
     if [ -z "${ACCOUNT_ID}" ]; then
         echo "Error: ACCOUNT_ID must be set for Cerberis XGR backend"
         exit 1
@@ -84,24 +84,37 @@ fi
 
 if [ -z "$OPENSSL_INSTALL" ]; then
  openssl version | grep "OpenSSL 3" > /dev/null 2>&1
- #if [ \($? -ne 0 \) -o \( ! -z "$OPENSSL_BRANCH" \) ]; then
  if [ $? -ne 0 ] || [ ! -z "$OPENSSL_BRANCH" ]; then
    if [ -z "$OPENSSL_BRANCH" ]; then
       export OPENSSL_BRANCH="master"
    fi
-   # No OSSL3 installation given/found, or specific branch build requested
+   
+   # Get number of CPU cores
+   export NUM_CORES=$(nproc)
+   echo "-- Detected ${NUM_CORES} CPU cores, utilizing them for parallel build"
    echo "OpenSSL3 to be built from source at branch $OPENSSL_BRANCH."
 
    if [ ! -d "openssl" ]; then
       echo "openssl not specified and doesn't reside where expected: Cloning and building..."
-      # for full debug build add: enable-trace enable-fips --debug
-      export OSSL_PREFIX=`pwd`/.local && git clone --depth 1 --branch $OPENSSL_BRANCH https://github.com/openssl/openssl.git && cd openssl && LDFLAGS="-Wl,-rpath -Wl,${OSSL_PREFIX}/lib64" ./config --prefix=$OSSL_PREFIX && make $MAKE_PARAMS && make install_sw install_ssldirs && cd ..
+      export OSSL_PREFIX=`pwd`/.local
+      
+      # Split commands for clarity and add parallelization
+      git clone --depth 1 --branch $OPENSSL_BRANCH https://github.com/openssl/openssl.git
+      cd openssl
+      LDFLAGS="-Wl,-rpath -Wl,${OSSL_PREFIX}/lib64" ./config --prefix=$OSSL_PREFIX
+      make -j${NUM_CORES} $MAKE_PARAMS
+      make -j${NUM_CORES} install_sw install_ssldirs
+      cd ..
+      
       if [ $? -ne 0 ]; then
         echo "openssl build failed. Exiting."
         exit -1
       else
-         # some cmake versions don't look in "lib64", so aid their search with this softlink
-         cd $OSSL_PREFIX && if [ -d "lib64" ]; then ln -s lib64 lib; fi && cd ..
+         cd $OSSL_PREFIX
+         if [ -d "lib64" ]; then 
+            ln -s lib64 lib
+         fi
+         cd ..
          export OPENSSL_INSTALL=$OSSL_PREFIX
       fi
    else
@@ -188,6 +201,12 @@ if [ "$FLAG_L" = true ]; then
       echo "Warning: .local directory not found. Proceeding without setting OPENSSL_INSTALL."
       export OPENSSL_INSTALL=""
    fi
+
+   #BUILD_TYPE="-DCMAKE_BUILD_TYPE=Debug"
+   BUILD_TYPE="-DCMAKE_BUILD_TYPE=Release"
+
+   CMAKE_PARAMS="-Wno-dev" # suppress developer warnings
+   #CMAKE_PARAMS=""
 
    echo "Running CMake with the following parameters:"
    echo "CMAKE_PARAMS: $CMAKE_PARAMS"
