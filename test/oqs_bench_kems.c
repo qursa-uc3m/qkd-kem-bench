@@ -42,13 +42,21 @@ static void print_progress_bar(int current, int total, const char* algorithm) {
     float progress = (float)current / total;
     int filled = (int)(bar_width * progress);
 
-    printf("\rBenchmarking: %-20s [", algorithm);
+    fprintf(stderr, "\r\033[K");  // ANSI escape code to clear the line
+
+    fprintf(stderr, "\rBenchmarking: %-20s [", algorithm);
     for (int i = 0; i < bar_width; i++) {
-        if (i < filled) printf("=");
-        else printf(" ");
+        fprintf(stderr, "%c", i < filled ? '=' : ' ');
     }
-    printf("] %.1f%%", progress * 100);
-    fflush(stdout);
+    fprintf(stderr, "] %.1f%%", progress * 100);
+
+    // Only print newline when complete
+    if (current == total) {
+        fprintf(stderr, "\n");
+    }
+    
+    // Explicit flush to ensure immediate display
+    fflush(stderr);
 }
 
 static inline double get_time_ms(void) {
