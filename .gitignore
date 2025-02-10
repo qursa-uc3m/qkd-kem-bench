@@ -9,8 +9,11 @@ build
 /certs*
 /qkd_certs/qukaydee-generate-client-certificates*
 liboqs/_build
-benchmarks/__pycache__/*.pyc
-scripts/__pycache__/*.pycç
+*.pyc
+*.pyc
 .vscode
+logs/*
+*.txt
+*.pcap
 
 
