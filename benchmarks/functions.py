@@ -834,7 +834,7 @@ def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.pn
         print(percentages.round(2))
     
 def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)', 
-                       overhead=False, log_scale=False, plot_title=None):
+                       overhead=False, y_start=None, y_end=None, log_scale=False, plot_title=None):
     """
     Creates a comparative plot of standard vs QKD versions of KEMs, adding std dev error bars.
     """
@@ -863,6 +863,10 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)'
     }
     
     fig, ax = plt.subplots(figsize=(20, 10))
+
+    # Set logarithmic scale if requested
+    if log_scale:
+        ax.set_yscale('log')
     
     # Set colors
     colors = list(mcolors.LinearSegmentedColormap.from_list("",
@@ -1013,7 +1017,23 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)'
     ax.set_xlabel(r'\textbf{Algorithm}',
                   fontsize=FONT_SIZES['axes_label'],
                   labelpad=AXES_STYLE['label_pad'])
-    ax.yaxis.set_minor_locator(AutoMinorLocator())
+    
+    # Set y-axis limits if specified
+    if y_start or y_end is not None:
+        ax.set_ylim(y_start, y_end)
+    
+    # Handle y-axis scale-specific configurations
+    if ax.get_yscale() == 'log':
+        # Configure log-scale specific locators and formatters for y-axis
+        ax.yaxis.set_major_locator(LogLocator(base=10.0, numticks=15))
+        ax.yaxis.set_minor_locator(LogLocator(base=10.0, subs=np.arange(2, 10) * 0.1, numticks=15))
+        ax.yaxis.set_minor_formatter(NullFormatter())
+    else:
+        ax.yaxis.set_minor_locator(AutoMinorLocator())
+
+    # Handle x-axis minor ticks
+    if not ax.get_xscale() == 'log':
+        ax.xaxis.set_minor_locator(AutoMinorLocator())
     
     handles, labels = ax.get_legend_handles_labels()
     if labels:
@@ -1032,7 +1052,7 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)'
     
     plt.show()
     
-def plot_tls_kem_families(input_df, cert_type='rsa_2048', plot_title=None):
+def plot_tls_kem_families(input_df, cert_type='rsa_2048', y_start=None, y_end=None, log_scale=False, plot_title=None):
     """
     Plots TLS handshake times for different KEM families using a specific certificate.
     Handles both single provider data and OQS vs QKD comparison with hierarchical index.
@@ -1061,6 +1081,9 @@ def plot_tls_kem_families(input_df, cert_type='rsa_2048', plot_title=None):
     
     # Create figure
     fig, ax = plt.subplots(figsize=(20, 10))
+
+    if log_scale:
+        ax.set_yscale('log')
     
     # Get x positions
     x = np.arange(len(ordered_kems))
@@ -1099,7 +1122,7 @@ def plot_tls_kem_families(input_df, cert_type='rsa_2048', plot_title=None):
                        zorder=3)
         
         # Add legend
-        ax.legend(frameon=True, fontsize=FONT_SIZES['legend'])
+        ax.legend(frameon=True, fontsize=FONT_SIZES['legend'], loc='upper left', bbox_to_anchor=(0, 1.01), ncol=2)
         
     else:
         # Original single provider plotting
@@ -1136,8 +1159,9 @@ def plot_tls_kem_families(input_df, cert_type='rsa_2048', plot_title=None):
             linewidth=AXES_STYLE['grid_linewidth'], 
             alpha=0.3)
     
-    # Add minor ticks
-    ax.yaxis.set_minor_locator(AutoMinorLocator())
+    # Set y-axis limits if specified
+    if y_start or y_end is not None:
+        ax.set_ylim(y_start, y_end)
     
     # Add title specifying certificate type
     ax.set_title(f'Using {cert_type} Signatures', 

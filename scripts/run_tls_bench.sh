@@ -35,10 +35,10 @@ fi
 
 OUTPUT_FILE="${BENCH_DIR}/tls_bench_${PROVIDER}_${ITERATIONS}_iter_$(date +%Y%m%d).csv"
 
-KEMS=("mlkem512" #"mlkem768" "mlkem1024" 
-      "bikel1" #"bikel3" "bikel5" 
-      "frodo640aes" #"frodo640shake" "frodo976aes" "frodo976shake" "frodo1344aes" "frodo1344shake"
-      "hqc128" #"hqc192" "hqc256"
+KEMS=("mlkem512" "mlkem768" "mlkem1024" 
+      "bikel1" "bikel3" "bikel5" 
+      "frodo640aes" "frodo640shake" "frodo976aes" "frodo976shake" "frodo1344aes" "frodo1344shake"
+      "hqc128" "hqc192" "hqc256"
       )
 
 CERTS=("rsa_2048" #"rsa_3072" "rsa_4096" 
