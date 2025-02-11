@@ -16,5 +16,9 @@ liboqs/_build
 benchmarks/__pycache__/*.pyc
 scripts/__pycache__/*.pyc
 test/test_oqs_qkd_etsi_wrapper.c
+qkd_certs
+*.crt
+*.key
+*.pem
 
 

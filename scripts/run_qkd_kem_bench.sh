@@ -8,8 +8,9 @@ show_help() {
     echo "Run OQS KEM benchmarks"
     echo ""
     echo "Options:"
-    echo "  -b, --bench N    Run benchmarks with N iterations"
+    echo "  -i, --iterations N    Run benchmarks with N iterations"
     echo "  -p, --provider P Choose provider (qkdkemprovider or oqs)"
+    echo "  -d, --delay D    Delay between iterations in seconds"
     echo "  -h, --help       Show this help message"
     echo ""
     echo "Example: $0 --bench 1000"
@@ -84,6 +85,7 @@ check_providers() {
 run_kem_bench() {
     local iterations=$1
     local provider=$2
+    local delay=$3
 
     case $provider in 
         qkdkemprovider)
@@ -107,7 +109,7 @@ run_kem_bench() {
     cd _build/bin
     echo "Running from directory: $(pwd)"
 
-    ./oqs_bench_kems "$provider" "${OPENSSL_CONF}" "$iterations"
+    ./oqs_bench_kems "$provider" "${OPENSSL_CONF}" "$iterations" "$delay"
     local result=$?
     
     cd "${BASE_DIR}"
@@ -129,7 +131,7 @@ main() {
     # Parse command line arguments
     while [[ $# -gt 0 ]]; do
         case $1 in
-            -b|--bench)
+            -i|--iterations)
                 shift
                 if [[ $# -gt 0 && $1 =~ ^[0-9]+$ ]]; then
                     bench_iterations=$1
@@ -147,6 +149,17 @@ main() {
                     shift
                 else
                     echo "Error: --provider requires a provider name (qkdkemprovider or oqs)"
+                    show_help
+                    exit 1
+                fi
+                ;;
+            -d|--delay)
+                shift
+                if [[ $# -gt 0 && $1 =~ ^[0-9]+$ ]]; then
+                    delay_seconds=$1
+                    shift
+                else
+                    echo "Error: --delay requires a number of seconds"
                     show_help
                     exit 1
                 fi
@@ -180,7 +193,7 @@ main() {
 
 
     # Run benchmarks
-    run_kem_bench $bench_iterations $provider
+    run_kem_bench $bench_iterations $provider $delay_seconds
     exit $?
 }
 

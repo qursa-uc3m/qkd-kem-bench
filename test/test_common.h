@@ -3,6 +3,7 @@
 #include <openssl/err.h>
 #include <openssl/provider.h>
 #include <stdio.h>
+#include <unistd.h>
 
 /* For controlled success */
 #define T(e)                                                                   \

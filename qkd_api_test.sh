@@ -63,12 +63,12 @@ get_status() {
     print_info "Querying status for Slave SAE: ${SLAVE_SAE_ID}"
     print_info "Using KME endpoint: ${QKD_MASTER_KME_HOSTNAME}"
     
-    response=$(curl --silent --show-error -i \
+    response=$(curl -Ss --silent --show-error -i \
         --cacert "${CACERT}" \
         --cert "${MASTER_CERT}" \
         --key "${MASTER_KEY}" \
         --header "Accept: application/json" \
-        "${QKD_MASTER_KME_HOSTNAME}/api/v1/keys/${SLAVE_SAE_ID}/status")
+        -k "https://${QKD_MASTER_KME_HOSTNAME}/api/v1/keys/${SLAVE_SAE_ID}/status")
     
     # Extract HTTP status code
     http_code=$(echo "$response" | grep HTTP | awk '{print $2}')
@@ -102,12 +102,12 @@ get_enc_keys() {
     print_info "Requesting encryption keys for Slave SAE: ${SLAVE_SAE_ID}"
     print_info "Using KME endpoint: ${QKD_MASTER_KME_HOSTNAME}"
     
-    response=$(curl --silent --show-error -i \
+    response=$(curl -sS --silent --show-error -i \
         --cacert "${CACERT}" \
         --cert "${MASTER_CERT}" \
         --key "${MASTER_KEY}" \
         --header "Accept: application/json" \
-        "${QKD_MASTER_KME_HOSTNAME}/api/v1/keys/${SLAVE_SAE_ID}/enc_keys")
+        -k "https://${QKD_MASTER_KME_HOSTNAME}/api/v1/keys/${SLAVE_SAE_ID}/enc_keys")
     
     # Extract HTTP status code
     http_code=$(echo "$response" | grep HTTP | awk '{print $2}')
@@ -159,14 +159,14 @@ get_dec_keys() {
     print_info "Request Payload:"
     print_json "$json_payload"
     
-    response=$(curl --silent --show-error -i \
+    response=$(curl -Ss --silent --show-error -i \
         --cacert "${CACERT}" \
         --cert "${SLAVE_CERT}" \
         --key "${SLAVE_KEY}" \
         --header "Accept: application/json" \
         --header "Content-Type: application/json" \
         --data "${json_payload}" \
-        "${QKD_SLAVE_KME_HOSTNAME}/api/v1/keys/${MASTER_SAE_ID}/dec_keys")
+        -k "https://${QKD_SLAVE_KME_HOSTNAME}/api/v1/keys/${MASTER_SAE_ID}/dec_keys")
     
     # Extract HTTP status code
     http_code=$(echo "$response" | grep HTTP | awk '{print $2}')
@@ -199,25 +199,48 @@ get_dec_keys() {
 
 # Replace with your actual account ID
 ACCOUNT_ID="2507"
+#QKD_BACKEND="qukaydee"
 
 # Assign paths to variables for easier reference
 
-export QKD_CA_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/account-2507-server-ca-qukaydee-com.crt"
+if [ "${QKD_BACKEND}" = "qukaydee" ]; then
+    echo "Setting up QuKayDee environment:"
+    export QKD_CA_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/account-${ACCOUNT_ID}-server-ca-qukaydee-com.crt"
 
-export MASTER_SAE_ID="sae-1"
-export SLAVE_SAE_ID="sae-2"
+    export MASTER_SAE_ID="sae-1"
+    export SLAVE_SAE_ID="sae-2"
 
-export QKD_MASTER_KME_HOSTNAME="https://kme-1.acct-${ACCOUNT_ID}.etsi-qkd-api.qukaydee.com"
-export QKD_SLAVE_KME_HOSTNAME="https://kme-2.acct-${ACCOUNT_ID}.etsi-qkd-api.qukaydee.com"
+    export QKD_MASTER_KME_HOSTNAME="kme-1.acct-${ACCOUNT_ID}.etsi-qkd-api.qukaydee.com"
+    export QKD_SLAVE_KME_HOSTNAME="kme-2.acct-${ACCOUNT_ID}.etsi-qkd-api.qukaydee.com"
 
-export QKD_MASTER_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-1.crt"
-export QKD_MASTER_KEY_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-1.key"
+    export QKD_MASTER_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-1.crt"
+    export QKD_MASTER_KEY_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-1.key"
 
-export QKD_SLAVE_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-2.crt"
-export QKD_SLAVE_KEY_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-2.key"
+    export QKD_SLAVE_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-2.crt"
+    export QKD_SLAVE_KEY_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-2.key"
+
+elif [ "${QKD_BACKEND}" = "cerberis-xgr" ]; then
+    echo "Setting up Cerberis-XGR environment:"
+    export QKD_CA_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/ChrisCA.pem"
+
+    export MASTER_SAE_ID="CONSA"
+    export SLAVE_SAE_ID="CONSB"
+
+    export QKD_MASTER_KME_HOSTNAME="castor.det.uvigo.es:444"
+    export QKD_SLAVE_KME_HOSTNAME="castor.det.uvigo.es:442"
+
+    export QKD_MASTER_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/ETSIA.pem"
+    export QKD_MASTER_KEY_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/ETSIA-key.pem"
+
+    export QKD_SLAVE_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/ETSIB.pem"
+    export QKD_SLAVE_KEY_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/ETSIB-key.pem"
+else
+    echo "Unknown QKD_BACKEND: ${QKD_BACKEND}"
+    exit 1
+fi
 
 
-CACERT="${QKD_MASTER_CA_CERT_PATH}"
+CACERT="${QKD_CA_CERT_PATH}"
 
 MASTER_CERT="${QKD_MASTER_CERT_PATH}"
 MASTER_KEY="${QKD_MASTER_KEY_PATH}"
@@ -229,7 +252,7 @@ SLAVE_KEY="${QKD_SLAVE_KEY_PATH}"
 # Main Script
 # ------------------------------
 
-print_header "QuKayDee ETSI014 API Testing Script"
+print_header "ETSI014 API Testing Script"
 
 # Pre-flight checks
 print_header "Pre-flight Checks"

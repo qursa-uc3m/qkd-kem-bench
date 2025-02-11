@@ -19,12 +19,20 @@ echo ""
 ITERATIONS=10
 PROVIDER="oqs"  # default value
 
-while getopts "n:p:" opt; do
-   case $opt in
-       n) ITERATIONS="$OPTARG" ;;
-       p) PROVIDER="$OPTARG" ;;
-       *) echo "Usage: $0 [-n iterations] [-p provider (oqs/qkd)]" >&2; exit 1 ;;
-   esac
+while getopts "i:p:d:" opt; do
+    case $opt in
+        i) ITERATIONS="$OPTARG" ;;
+        p) PROVIDER="$OPTARG" ;;
+        d) 
+            if [[ "$OPTARG" =~ ^[0-9]+$ ]]; then
+                DELAY="$OPTARG"
+            else
+                echo "Error: delay must be a non-negative integer" >&2
+                exit 1
+            fi
+            ;;
+        *) echo "Usage: $0 [-i iterations] [-p provider (oqs/qkd)] [-d delay_seconds]" >&2; exit 1 ;;
+    esac
 done
 
 # Validate provider argument
@@ -40,17 +48,17 @@ KEMS=("mlkem512" "mlkem768" "mlkem1024"
       "frodo640aes" "frodo640shake" "frodo976aes" "frodo976shake" "frodo1344aes" "frodo1344shake"
       "hqc128" "hqc192" "hqc256")
 
-#CERTS=("rsa_2048" "rsa_3072" "rsa_4096" 
-#        "mldsa44" "mldsa65" "mldsa87" 
-#        "falcon512" "falcon1024") 
-        #"sphincssha2128fsimple" "sphincssha2128ssimple" "sphincssha2192fsimple" 
-        #"sphincsshake128fsimple")
-
-CERTS=("rsa_2048"  
-        "mldsa44"  
-        "falcon512"
-        "sphincssha2128fsimple" 
+CERTS=("rsa_2048" "rsa_3072" "rsa_4096" 
+        "mldsa44" "mldsa65" "mldsa87" 
+        "falcon512" "falcon1024" 
+        "sphincssha2128fsimple" "sphincssha2128ssimple" "sphincssha2192fsimple" 
         "sphincsshake128fsimple")
+
+#CERTS=("rsa_2048"  
+#        "mldsa44"  
+#        "falcon512"
+#        "sphincssha2128fsimple" 
+#        "sphincsshake128fsimple")
 
 echo "KEM,Cert,Iteration,Time" > "$OUTPUT_FILE"
 
@@ -87,7 +95,6 @@ for kem in "${KEMS[@]}"; do
             
             # Extract the time from the result line
             time=$(echo "$result" | awk '{print $9}')
-
             echo "$out_kem,$cert,$i,$time" >> "$OUTPUT_FILE"
         done
         
@@ -95,6 +102,14 @@ for kem in "${KEMS[@]}"; do
             echo -e "\n${GREEN}${TICK} Success${NC}"
         else
             echo -e "\n${RED}${CROSS} Failed${NC}"
+        fi
+        # Add delay if it's not the last combination and delay is greater than 0
+        is_last_kem=$([[ "$kem" == "${KEMS[-1]}" ]] && echo true || echo false)
+        is_last_cert=$([[ "$cert" == "${CERTS[-1]}" ]] && echo true || echo false)
+        
+        if [ $DELAY -gt 0 ] && ! ($is_last_kem && $is_last_cert); then
+            echo -e "\nPausing for ${DELAY} seconds before next combination ..."
+            sleep "$DELAY"
         fi
     done
 done

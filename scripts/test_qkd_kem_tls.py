@@ -127,7 +127,7 @@ def run_tls_test(kem_type='kyber768', cert_variant='rsa_2048', provider='qkd', v
                                 stderr=subprocess.DEVNULL if not verbose else None)
         
         # Give the server a moment to start
-        time.sleep(0.02) # You might have to increase this value if running non-local server.
+        time.sleep(0.05) # You might have to increase this value if running non-local server.
         
         # Run client
         

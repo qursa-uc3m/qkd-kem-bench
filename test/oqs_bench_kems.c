@@ -190,13 +190,14 @@ int main(int argc, char *argv[]) {
     OSSL_PROVIDER *oqsprov = NULL;
     const OSSL_ALGORITHM *kemalgs;
     size_t num_iterations;
+    unsigned int delay_seconds;
     char csv_path[PATH_MAX];
     char timestamp[32];
     char benchmark_dir[PATH_MAX];
 
     // Verify arguments
-    if (argc != 4) {
-        fprintf(stderr, "Usage: %s <provider_module> <config_file> <iterations>\n", argv[0]);
+    if (argc != 5) {
+        fprintf(stderr, "Usage: %s <provider_module> <config_file> <iterations> <delay_seconds>\n", argv[0]);
         return 1;
     }
 
@@ -204,6 +205,7 @@ int main(int argc, char *argv[]) {
     modulename = argv[1];
     configfile = argv[2];
     num_iterations = (size_t)atoi(argv[3]);
+    delay_seconds = (unsigned int)atoi(argv[4]);
 
     if (num_iterations < 1) {
         fprintf(stderr, "Number of iterations must be positive\n");
@@ -247,15 +249,24 @@ int main(int argc, char *argv[]) {
 
     kemalgs = OSSL_PROVIDER_query_operation(oqsprov, OSSL_OP_KEM, &query_nocache);
     if (kemalgs) {
-        for (; kemalgs->algorithm_names != NULL; kemalgs++) {
-            if (bench_oqs_kems(kemalgs->algorithm_names, num_iterations)) {
+        const OSSL_ALGORITHM *current = kemalgs;
+        while (current->algorithm_names != NULL) {
+            if (bench_oqs_kems(current->algorithm_names, num_iterations)) {
                 fprintf(stderr, cGREEN "  Benchmark completed: %s" cNORM "\n",
-                        kemalgs->algorithm_names);
+                        current->algorithm_names);
+                
+                // Add delay if there's another algorithm to test
+                current++;
+                if (current->algorithm_names != NULL && delay_seconds > 0) {
+                    printf("\nPausing for %u seconds before next algorithm ...\n", delay_seconds);
+                    sleep(delay_seconds);
+                }
             } else {
                 fprintf(stderr, cRED "  Benchmark failed: %s" cNORM "\n",
-                        kemalgs->algorithm_names);
+                        current->algorithm_names);
                 ERR_print_errors_fp(stderr);
                 errcnt++;
+                current++;
             }
         }
     }
