@@ -44,16 +44,16 @@ MATPLOTLIB_PARAMS = {
     "text.usetex": True,
     "font.family": "serif",
     "font.serif": ["Computer Modern Roman"],
-    "font.size": 22
+    "font.size": 34
 }
 
 FONT_SIZES = {
-    'fig_title': 28,     # For main figure titles
-    'axes_title': 24,    # For main axes titles
-    'axes_label': 24,    # For x and y labels
-    'tick_label': 20,    # For tick labels
-    'legend': 20,        # For legend text
-    'annotation': 16     # For any additional text/annotations
+    'fig_title': 36,     # For main figure titles
+    'axes_title': 34,    # For main axes titles
+    'axes_label': 32,    # For x and y labels
+    'tick_label': 34,    # For tick labels
+    'legend': 30,        # For legend text
+    'annotation': 20     # For any additional text/annotations
 }
 
 AXES_STYLE = {
@@ -62,8 +62,8 @@ AXES_STYLE = {
     'grid_linestyle': ':',
     'grid_linewidth': 0.5,
     'grid_color': 'black',
-    'major_tick_length': 10,
-    'minor_tick_length': 5,
+    'major_tick_length': 12,
+    'minor_tick_length': 6,
     'major_tick_width': 2,
     'minor_tick_width': 1,
     'label_pad': 10

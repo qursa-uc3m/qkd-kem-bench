@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
-from matplotlib.ticker import AutoMinorLocator, MultipleLocator
+from matplotlib.ticker import AutoMinorLocator, MultipleLocator, LogLocator, NullFormatter
 import os
 
 from config import (KEM_FAMILIES, KEM_COMPARISON, 
@@ -159,7 +159,7 @@ def tls_data_summary(csv_path):
 
 def apply_axes_style(ax, xlabel=None, ylabel=None, title=None):
     """
-    Applies consistent styling to plot axes.
+    Applies consistent styling to plot axes, supporting both linear and logarithmic scales.
     
     Args:
         ax: matplotlib axes object
@@ -169,47 +169,55 @@ def apply_axes_style(ax, xlabel=None, ylabel=None, title=None):
     """
     # Set labels and title if provided
     if xlabel:
-        ax.set_xlabel(r'\textbf{' + xlabel + '}', 
-                     fontsize=FONT_SIZES['axes_label'], 
+        ax.set_xlabel(r'\textbf{' + xlabel + '}',
+                     fontsize=FONT_SIZES['axes_label'],
                      labelpad=AXES_STYLE['label_pad'])
     if ylabel:
-        ax.set_ylabel(r'\textbf{' + ylabel + '}', 
-                     fontsize=FONT_SIZES['axes_label'], 
+        ax.set_ylabel(r'\textbf{' + ylabel + '}',
+                     fontsize=FONT_SIZES['axes_label'],
                      labelpad=AXES_STYLE['label_pad'])
     if title:
-        ax.set_title(title, 
-                    fontsize=FONT_SIZES['axes_title'], 
+        ax.set_title(title,
+                    fontsize=FONT_SIZES['axes_title'],
                     pad=20)
 
     # Configure grid
-    ax.grid(AXES_STYLE['grid'], 
-            alpha=AXES_STYLE['grid_alpha'], 
+    ax.grid(AXES_STYLE['grid'],
+            alpha=AXES_STYLE['grid_alpha'],
             zorder=0)
-    ax.grid(which='minor', 
+    ax.grid(which='minor',
             color=AXES_STYLE['grid_color'],
-            linestyle=AXES_STYLE['grid_linestyle'], 
-            linewidth=AXES_STYLE['grid_linewidth'], 
+            linestyle=AXES_STYLE['grid_linestyle'],
+            linewidth=AXES_STYLE['grid_linewidth'],
             alpha=0.3)
 
     # Configure ticks
-    ax.tick_params(axis='both', 
+    ax.tick_params(axis='both',
                   which='major',
                   length=AXES_STYLE['major_tick_length'],
                   width=AXES_STYLE['major_tick_width'],
                   labelsize=FONT_SIZES['tick_label'])
-    ax.tick_params(axis='both', 
+    ax.tick_params(axis='both',
                   which='minor',
                   length=AXES_STYLE['minor_tick_length'],
                   width=AXES_STYLE['minor_tick_width'])
 
-    # Add minor ticks
-    ax.yaxis.set_minor_locator(AutoMinorLocator())
+    # Handle y-axis scale-specific configurations
+    if ax.get_yscale() == 'log':
+        # Configure log-scale specific locators and formatters for y-axis
+        ax.yaxis.set_major_locator(LogLocator(base=10.0, numticks=15))
+        ax.yaxis.set_minor_locator(LogLocator(base=10.0, subs=np.arange(2, 10) * 0.1, numticks=15))
+        ax.yaxis.set_minor_formatter(NullFormatter())
+    else:
+        ax.yaxis.set_minor_locator(AutoMinorLocator())
+
+    # Handle x-axis minor ticks
     if not ax.get_xscale() == 'log':
         ax.xaxis.set_minor_locator(AutoMinorLocator())
         
 
 
-def plot_kem_times(input_df, error_suffix="_std", plot_title="kem_times.png", y_start=None):
+def plot_kem_times(input_df, error_suffix="_std", plot_title="kem_times.png", y_start=None, y_end=None, log_scale=False):
     """
     Plots KEM timing measurements (KeyGen, Encaps, Decaps) for different algorithms.
     
@@ -218,6 +226,8 @@ def plot_kem_times(input_df, error_suffix="_std", plot_title="kem_times.png", y_
         error_suffix: Suffix for error columns (default: "_std")
         plot_title: Output filename for the plot
         y_start: Starting point for y-axis (optional)
+        y_end: End point for y-axis (optional)
+        log_scale: Boolean to enable logarithmic scale on y-axis (default: False)
     """
 
     # Extract all algorithm names from KEM_FAMILIES
@@ -234,7 +244,7 @@ def plot_kem_times(input_df, error_suffix="_std", plot_title="kem_times.png", y_
     filter_df = input_df[input_df.index.isin(algo_names)].copy()
     
     # Sort algorithms by total time
-    filter_df = filter_df.sort_values('TotalTime(ms)_mean')
+    #filter_df = filter_df.sort_values('TotalTime(ms)_mean')
     
     # Setup plot dimensions
     width = 0.25  # width of the bars
@@ -246,6 +256,13 @@ def plot_kem_times(input_df, error_suffix="_std", plot_title="kem_times.png", y_
     
     # Create figure and axis
     fig, ax = plt.subplots(figsize=(20, 10))
+     # Set plot title based on dataset type
+    provider_title = "QKD-KEM Provider" if has_qkd_prefix else "OQS Provider"
+    ax.set_title(provider_title, fontsize=FONT_SIZES['axes_title'], pad=20)
+    
+    # Set logarithmic scale if requested
+    if log_scale:
+        ax.set_yscale('log')
     
     # Plot bars for each operation
     operations = ['KeyGen(ms)', 'Encaps(ms)', 'Decaps(ms)']
@@ -281,14 +298,11 @@ def plot_kem_times(input_df, error_suffix="_std", plot_title="kem_times.png", y_
     
     # Set x-ticks with LaTeX formatting for underscores
     ax.set_xticks(x)
-    ax.set_xticklabels([alg.replace('_', '\_') for alg in algorithms], 
-                       rotation=45, 
-                       horizontalalignment='right',
-                       fontsize=FONT_SIZES['tick_label'])
-    
-    # Set major and minor tick locators
-    # # ax.yaxis.set_major_locator(MultipleLocator())  # Major ticks every 2 units
-    ax.yaxis.set_minor_locator(AutoMinorLocator())  # Minor ticks between majors
+    clean_labels = [alg.replace('qkd_', '') if has_qkd_prefix else alg for alg in algorithms]
+    ax.set_xticklabels([label.replace('_', '\_') for label in clean_labels],
+                   rotation=45,
+                   horizontalalignment='right',
+                   fontsize=FONT_SIZES['tick_label'])
     
     # Add grid with custom styling
     ax.grid(True, which='major', 
@@ -301,26 +315,36 @@ def plot_kem_times(input_df, error_suffix="_std", plot_title="kem_times.png", y_
             linewidth=AXES_STYLE['grid_linewidth'], 
             alpha=0.3)
     
+    # Add legend below the title
+    handles, labels = ax.get_legend_handles_labels()
+    if labels:
+        # Place legend below the plot title in a single row
+        ax.legend(frameon=True, 
+                 fontsize=FONT_SIZES['legend'],
+                 loc='upper left',
+                 bbox_to_anchor=(0, 1.01),
+                 ncol=len(labels))
+    
     # Add legend
-    ax.legend(loc='upper left',
-             frameon=True, 
-             fontsize=FONT_SIZES['legend'])
+    #ax.legend(loc='upper left',
+    #         frameon=True, 
+    #         fontsize=FONT_SIZES['legend'])
     
     # Set y-axis limits if specified
-    if y_start is not None:
-        ax.set_ylim(y_start, None)
+    if y_start or y_end is not None:
+        ax.set_ylim(y_start, y_end)
     
     plt.tight_layout()
     
-    # Save plot
-    if not os.path.exists("./plots"):
-        os.makedirs("./plots")
+     # Handle plot saving and display
+    if plot_title:  # Only save if plot_title is provided
+        if not os.path.exists("./plots"):
+            os.makedirs("./plots")
+        plt.savefig(os.path.join(".", "plots", plot_title), bbox_inches='tight', dpi=300)
+        plt.show()  # Always show the plot
     
-    plt.savefig(os.path.join(".", "plots", plot_title), bbox_inches='tight', dpi=300)
-    plt.show()
-
 # Additional utility function to create a simplified version showing only total times
-def plot_kem_total_times(input_df, error_suffix="_std", plot_title="kem_total_times.png", y_start=None):
+def plot_kem_total_times(input_df, error_suffix="_std", plot_title="kem_total_times.png", y_start=None, log_scale=False):
     """
     Plots total KEM timing measurements for different algorithms.
     
@@ -364,7 +388,9 @@ def plot_kem_total_times(input_df, error_suffix="_std", plot_title="kem_total_ti
     # Create plot
     fig, ax = plt.subplots(figsize=(20, 10))
     
-    # Setup plot dimensions
+    # Set logarithmic scale if requested
+    if log_scale:
+        ax.set_yscale('log')
     
     algorithms = filter_df.index.tolist()  # algorithms are in the index
     x = np.arange(len(algorithms))  # label locations
@@ -391,10 +417,6 @@ def plot_kem_total_times(input_df, error_suffix="_std", plot_title="kem_total_ti
                        horizontalalignment='right',
                        fontsize=FONT_SIZES['tick_label'])
     
-    # Set major and minor tick locators
-    # ax.yaxis.set_major_locator(MultipleLocator())  # Major ticks every 2 units
-    ax.yaxis.set_minor_locator(AutoMinorLocator())  # Minor ticks between majors
-    
     # Add grid with custom styling
     ax.grid(True, which='major', 
             alpha=AXES_STYLE['grid_alpha'], 
@@ -419,7 +441,7 @@ def plot_kem_total_times(input_df, error_suffix="_std", plot_title="kem_total_ti
                 dpi=300)
     plt.show()
 
-def plot_kems_fast(input_df, error_suffix="_std", plot_title="fast_kems.png", y_start=None):
+def plot_kems_fast(input_df, error_suffix="_std", plot_title="fast_kems.png", y_start=None, y_end=None, log_scale=False):
     """
     Plots KEM timing measurements for fast algorithms (up to qkd_frodo976aes).
     
@@ -434,6 +456,16 @@ def plot_kems_fast(input_df, error_suffix="_std", plot_title="fast_kems.png", y_
     cutoff_str = "frodo976aes"  # Common identifier for both datasets
     input_df = input_df.sort_values('TotalTime(ms)_mean')
     
+    # Extract all algorithm names from KEM_FAMILIES
+    algo_names = [alg for family in KEM_FAMILIES.values() for alg in family]
+
+    # Check if the input_df index contains the 'qkd_' prefix
+    has_qkd_prefix = any(idx.startswith('qkd_') for idx in input_df.index)
+    
+    # Add 'qkd_' prefix to algorithm names if necessary
+    if has_qkd_prefix:
+        algo_names = ['qkd_' + alg for alg in algo_names]
+    
     # Find the cutoff index using string matching
     cutoff_idx = None
     for idx, alg in enumerate(input_df.index):
@@ -443,8 +475,12 @@ def plot_kems_fast(input_df, error_suffix="_std", plot_title="fast_kems.png", y_
             
     if cutoff_idx is None:
         raise ValueError(f"Cutoff algorithm containing '{cutoff_str}' not found in dataset")
-        
-    fast_df = input_df.iloc[:cutoff_idx]
+    
+    
+    fast_df_ = input_df.iloc[:cutoff_idx]
+    
+    # Filter the DataFrame based on the algorithm names
+    fast_df = fast_df_[fast_df_.index.isin(algo_names)].copy()
     
     # Setup plot dimensions
     width = 0.25  # width of the bars
@@ -453,6 +489,9 @@ def plot_kems_fast(input_df, error_suffix="_std", plot_title="fast_kems.png", y_
     
     # Create figure
     fig, ax = plt.subplots(figsize=(20, 10))
+    
+    if log_scale:
+        ax.set_yscale('log')
     
     # Define colors and operations
     colors = list(mcolors.LinearSegmentedColormap.from_list("", ["#9fcf69", "#33acdc"])(np.linspace(0, 1, 3)))
@@ -495,10 +534,6 @@ def plot_kems_fast(input_df, error_suffix="_std", plot_title="fast_kems.png", y_
                        horizontalalignment='right',
                        fontsize=FONT_SIZES['tick_label'])
     
-    # Set major and minor tick locators
-    # ax.yaxis.set_major_locator(MultipleLocator())  # Major ticks every 2 units
-    ax.yaxis.set_minor_locator(AutoMinorLocator())  # Minor ticks between majors
-    
     # Add grid with custom styling
     ax.grid(True, which='major', 
             alpha=AXES_STYLE['grid_alpha'], 
@@ -510,14 +545,24 @@ def plot_kems_fast(input_df, error_suffix="_std", plot_title="fast_kems.png", y_
             linewidth=AXES_STYLE['grid_linewidth'], 
             alpha=0.3)
     
+    # Add legend below the title
+    handles, labels = ax.get_legend_handles_labels()
+    if labels:
+        # Place legend below the plot title in a single row
+        ax.legend(frameon=True, 
+                 fontsize=FONT_SIZES['legend'],
+                 loc='upper left',
+                 bbox_to_anchor=(0, 1.01),
+                 ncol=len(labels))
+    
     # Add legend with consistent styling
-    ax.legend(loc='upper left',
-             frameon=True, 
-             fontsize=FONT_SIZES['legend'])
+    #ax.legend(loc='best',
+    #         frameon=True, 
+    #         fontsize=FONT_SIZES['legend'])
     
     # Set y-axis limits if specified
-    if y_start is not None:
-        ax.set_ylim(bottom=y_start)
+    if y_start or y_end is not None:
+        ax.set_ylim(y_start, y_end)
     
     plt.tight_layout()
     
@@ -562,6 +607,9 @@ def plot_kem_family(input_df, family, error_suffix="_std", plot_title=None, log_
     # Create figure
     fig, ax = plt.subplots(figsize=(20, 10))
     
+    if log_scale:
+        ax.set_yscale('log')
+    
     # Define colors and operations
     colors = list(mcolors.LinearSegmentedColormap.from_list("", ["#9fcf69", "#33acdc"])(np.linspace(0, 1, 3)))
     operations = ['KeyGen(ms)', 'Encaps(ms)', 'Decaps(ms)']
@@ -599,10 +647,6 @@ def plot_kem_family(input_df, family, error_suffix="_std", plot_title=None, log_
                        rotation=45, 
                        horizontalalignment='right',
                        fontsize=FONT_SIZES['tick_label'])
-    
-    # Set major and minor tick locators
-    # ax.yaxis.set_major_locator(MultipleLocator())  # Major ticks every 2 units
-    ax.yaxis.set_minor_locator(AutoMinorLocator())  # Minor ticks between majors
     
     # Add grid with custom styling
     ax.grid(True, which='major', 
@@ -790,7 +834,7 @@ def plot_ops_percent(input_df, family=None, plot_title="operation_percentages.pn
         print(percentages.round(2))
     
 def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)', 
-                       overhead=False, plot_title=None):
+                       overhead=False, y_start=None, y_end=None, log_scale=False, plot_title=None):
     """
     Creates a comparative plot of standard vs QKD versions of KEMs, adding std dev error bars.
     """
@@ -819,6 +863,10 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)'
     }
     
     fig, ax = plt.subplots(figsize=(20, 10))
+
+    # Set logarithmic scale if requested
+    if log_scale:
+        ax.set_yscale('log')
     
     # Set colors
     colors = list(mcolors.LinearSegmentedColormap.from_list("",
@@ -969,7 +1017,23 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)'
     ax.set_xlabel(r'\textbf{Algorithm}',
                   fontsize=FONT_SIZES['axes_label'],
                   labelpad=AXES_STYLE['label_pad'])
-    ax.yaxis.set_minor_locator(AutoMinorLocator())
+    
+    # Set y-axis limits if specified
+    if y_start or y_end is not None:
+        ax.set_ylim(y_start, y_end)
+    
+    # Handle y-axis scale-specific configurations
+    if ax.get_yscale() == 'log':
+        # Configure log-scale specific locators and formatters for y-axis
+        ax.yaxis.set_major_locator(LogLocator(base=10.0, numticks=15))
+        ax.yaxis.set_minor_locator(LogLocator(base=10.0, subs=np.arange(2, 10) * 0.1, numticks=15))
+        ax.yaxis.set_minor_formatter(NullFormatter())
+    else:
+        ax.yaxis.set_minor_locator(AutoMinorLocator())
+
+    # Handle x-axis minor ticks
+    if not ax.get_xscale() == 'log':
+        ax.xaxis.set_minor_locator(AutoMinorLocator())
     
     handles, labels = ax.get_legend_handles_labels()
     if labels:
@@ -988,7 +1052,7 @@ def plot_kem_comparison(comparison_stats, family=None, operation='TotalTime(ms)'
     
     plt.show()
     
-def plot_tls_kem_families(input_df, cert_type='rsa_2048', plot_title=None):
+def plot_tls_kem_families(input_df, cert_type='rsa_2048', y_start=None, y_end=None, log_scale=False, plot_title=None):
     """
     Plots TLS handshake times for different KEM families using a specific certificate.
     Handles both single provider data and OQS vs QKD comparison with hierarchical index.
@@ -1017,6 +1081,9 @@ def plot_tls_kem_families(input_df, cert_type='rsa_2048', plot_title=None):
     
     # Create figure
     fig, ax = plt.subplots(figsize=(20, 10))
+
+    if log_scale:
+        ax.set_yscale('log')
     
     # Get x positions
     x = np.arange(len(ordered_kems))
@@ -1045,7 +1112,7 @@ def plot_tls_kem_families(input_df, cert_type='rsa_2048', plot_title=None):
         # Plot QKD bars
         rects2 = ax.bar(x + width/2, 
                        [qkd_data.loc[f"qkd_{kem}"]['Time_mean'] for kem in ordered_kems],
-                       width, label='QKD',
+                       width, label='QKD-KEM',
                        yerr=[qkd_data.loc[f"qkd_{kem}"]['Time_std'] for kem in ordered_kems],
                        capsize=3,
                        color=colors[1],
@@ -1055,7 +1122,7 @@ def plot_tls_kem_families(input_df, cert_type='rsa_2048', plot_title=None):
                        zorder=3)
         
         # Add legend
-        ax.legend(frameon=True, fontsize=FONT_SIZES['legend'])
+        ax.legend(frameon=True, fontsize=FONT_SIZES['legend'], loc='upper left', bbox_to_anchor=(0, 1.01), ncol=2)
         
     else:
         # Original single provider plotting
@@ -1071,8 +1138,8 @@ def plot_tls_kem_families(input_df, cert_type='rsa_2048', plot_title=None):
     
     # Apply consistent styling
     apply_axes_style(ax, 
-                    xlabel=r'\textbf{KEM Algorithm}',
-                    ylabel=r'\textbf{TLS Handshake Time (ms)}')
+                    xlabel=r'\textbf{Algorithm}',
+                    ylabel=r'\textbf{Handshake Time (ms)}')
     
     # Set x-ticks with LaTeX formatting for underscores
     ax.set_xticks(x)
@@ -1092,11 +1159,12 @@ def plot_tls_kem_families(input_df, cert_type='rsa_2048', plot_title=None):
             linewidth=AXES_STYLE['grid_linewidth'], 
             alpha=0.3)
     
-    # Add minor ticks
-    ax.yaxis.set_minor_locator(AutoMinorLocator())
+    # Set y-axis limits if specified
+    if y_start or y_end is not None:
+        ax.set_ylim(y_start, y_end)
     
     # Add title specifying certificate type
-    ax.set_title(f'{cert_type} Certificate', 
+    ax.set_title(f'Using {cert_type} Signatures', 
                 fontsize=FONT_SIZES['fig_title'], 
                 pad=20)
     
