@@ -42,12 +42,18 @@ static void print_progress_bar(int current, int total, const char* algorithm) {
     float progress = (float)current / total;
     int filled = (int)(bar_width * progress);
 
-    printf("\rBenchmarking: %-20s [", algorithm);
+    // Clear the entire line before printing new progress
+    printf("\r\033[K");  // \033[K clears from cursor to end of line
+    
+    // Print the progress bar components
+    printf("Benchmarking: %-20s [", algorithm);
     for (int i = 0; i < bar_width; i++) {
         if (i < filled) printf("=");
         else printf(" ");
     }
     printf("] %.1f%%", progress * 100);
+    
+    // Flush stdout without newline
     fflush(stdout);
 }
 
@@ -72,7 +78,7 @@ static void write_csv_result(const char* alg_name, size_t iteration,
                 times->keygen_time,
                 times->encaps_time,
                 times->decaps_time);
-        fflush(csv_file);  // Ensure data is written immediately
+        //fflush(csv_file);  // Ensure data is written immediately
     }
 }
 
@@ -252,14 +258,16 @@ int main(int argc, char *argv[]) {
         const OSSL_ALGORITHM *current = kemalgs;
         while (current->algorithm_names != NULL) {
             if (bench_oqs_kems(current->algorithm_names, num_iterations)) {
+                printf("\r"); // Clear the progress bar line
                 fprintf(stderr, cGREEN "  Benchmark completed: %s" cNORM "\n",
                         current->algorithm_names);
                 
                 // Add delay if there's another algorithm to test
                 current++;
                 if (current->algorithm_names != NULL && delay_seconds > 0) {
-                    printf("\nPausing for %u seconds before next algorithm ...\n", delay_seconds);
+                    printf("Pausing for %u seconds before next algorithm ...", delay_seconds);
                     sleep(delay_seconds);
+                    printf("\033[2K\r"); // Clear the entire line
                 }
             } else {
                 fprintf(stderr, cRED "  Benchmark failed: %s" cNORM "\n",

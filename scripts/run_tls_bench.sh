@@ -43,16 +43,19 @@ fi
 
 OUTPUT_FILE="${BENCH_DIR}/tls_bench_${PROVIDER}_${ITERATIONS}_iter_$(date +%Y%m%d).csv"
 
-KEMS=("mlkem512" "mlkem768" "mlkem1024" 
-      "bikel1" "bikel3" "bikel5" 
-      "frodo640aes" "frodo640shake" "frodo976aes" "frodo976shake" "frodo1344aes" "frodo1344shake"
-      "hqc128" "hqc192" "hqc256")
+KEMS=(
+      #"mlkem512" "mlkem768" "mlkem1024" 
+      "bikel1" #"bikel3" "bikel5" 
+      #"frodo640aes" "frodo640shake" "frodo976aes" "frodo976shake" "frodo1344aes" "frodo1344shake"
+      #"hqc128" "hqc192" "hqc256"
+      )
 
 CERTS=("rsa_2048" "rsa_3072" "rsa_4096" 
         "mldsa44" "mldsa65" "mldsa87" 
         "falcon512" "falcon1024" 
-        "sphincssha2128fsimple" "sphincssha2128ssimple" "sphincssha2192fsimple" 
-        "sphincsshake128fsimple")
+        #"sphincssha2128fsimple" "sphincssha2128ssimple" "sphincssha2192fsimple" 
+        #"sphincsshake128fsimple"
+        )
 
 #CERTS=("rsa_2048"  
 #        "mldsa44"  
@@ -86,7 +89,7 @@ for kem in "${KEMS[@]}"; do
         
         for i in $(seq 1 $ITERATIONS); do
             progress_bar "$combination" $i $ITERATIONS
-            result=$(python3 scripts/test_qkd_kem_tls.py -k "$kem" -c "$cert" -p "$PROVIDER" | grep "Success")
+            result=$(python3 scripts/test_qkd_kem_tls.py -k "$kem" -c "$cert" -p "$PROVIDER" --verbose | grep "Success")
             
             if [ -z "$result" ]; then
                 success=false

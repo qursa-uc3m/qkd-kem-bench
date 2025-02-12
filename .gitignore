@@ -20,5 +20,6 @@ qkd_certs
 *.crt
 *.key
 *.pem
+debug_logs
 
 

@@ -32,9 +32,25 @@ if [ "${QKD_BACKEND}" = "qukaydee" ]; then
             exit 1
         fi
     done
-    echo "QuKayDee configuration verified"
+    echo "Backend configuration verified"
+elif [ "${QKD_BACKEND}" = "cerberis-xgr" ]; then
+   echo "Building backend with Cerberis-XGR support"
+    # Verify QKD certificates directory exists
+    if [ ! -d "qkd_certs" ]; then
+        echo "Error: qkd_certs directory not found. Please create it and add Cerberis-XGR nodes certificates"
+        exit 1
+    fi
+    # Check for required certificates
+    required_certs=("ChrisCA.pem" "ETSIA.pem" "ETSIA-key.pem" "ETSIB.pem" "ETSIB-key.pem")
+    for cert in "${required_certs[@]}"; do
+        if [ ! -f "qkd_certs/$cert" ]; then
+            echo "Error: Required certificate $cert not found in qkd_certs/"
+            exit 1
+        fi
+    done
+    echo "Backend configuration verified"
 else
-    echo "Using default/simulated QKD backend"
+   echo "Using default/simulated QKD backend"
 fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -185,13 +201,14 @@ if [ "$FLAG_L" = true ]; then
 
    if [ -d ".local" ]; then
       export OPENSSL_INSTALL="$(pwd)/.local"
+      export OPENSSL_LIBRARIES="-DOPENSSL_LIBRARIES=$(pwd)/.local/lib64"
    else
       echo "Warning: .local directory not found. Proceeding without setting OPENSSL_INSTALL."
       export OPENSSL_INSTALL=""
    fi
 
-   BUILD_TYPE="-DCMAKE_BUILD_TYPE=Debug"
-   #BUILD_TYPE="-DCMAKE_BUILD_TYPE=Release"
+   #BUILD_TYPE="-DCMAKE_BUILD_TYPE=Debug"
+   BUILD_TYPE="-DCMAKE_BUILD_TYPE=Release"
 
    echo "Running CMake with the following parameters:"
    echo "CMAKE_PARAMS: $CMAKE_PARAMS"
@@ -200,7 +217,7 @@ if [ "$FLAG_L" = true ]; then
    echo "OQSPROV_CMAKE_PARAMS: $OQSPROV_CMAKE_PARAMS"
 
    # Re-run CMake to detect changes (if necessary)
-   cmake $CMAKE_PARAMS -DOPENSSL_ROOT_DIR=$OPENSSL_INSTALL $BUILD_TYPE $OQSPROV_CMAKE_PARAMS -S . -B _build && cmake --build _build
+   cmake $CMAKE_PARAMS -DOPENSSL_ROOT_DIR=$OPENSSL_INSTALL $OPENSSL_LIBRARIES $BUILD_TYPE $OQSPROV_CMAKE_PARAMS -S . -B _build && cmake --build _build
 
    # Check if the build was successful
    if [ $? -ne 0 ]; then
@@ -219,6 +236,8 @@ if [ ! -f "_build/lib/qkdkemprovider.$SHLIBEXT" ] || [ ! -f "_build/lib/oqsprovi
    # for full debug build add: -DCMAKE_BUILD_TYPE=Debug
    #BUILD_TYPE="-DCMAKE_BUILD_TYPE=Debug"
    BUILD_TYPE=""
+   
+   .source ./scripts/oqs_env.sh
    
    # for omitting public key in private keys add -DNOPUBKEY_IN_PRIVKEY=ON
    if [ -z "$OPENSSL_INSTALL" ]; then
