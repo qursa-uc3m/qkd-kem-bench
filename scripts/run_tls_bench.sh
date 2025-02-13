@@ -1,120 +1,210 @@
 #!/bin/bash
+# run_tls_bench.sh
+# Benchmark TLS performance with various KEM and certificate combinations
 
-GREEN='\033[1;32m'
-RED='\033[1;31m'
-NC='\033[0m'  # No Color
-TICK="✓"
-CROSS="✗"
+set -e
 
-# Validate and create benchmark directory if needed
-BASE_DIR=$(pwd)
-BENCH_DIR=${BASE_DIR}/benchmarks/data
-mkdir -p "$BENCH_DIR"
+# ------------------------------------------------------------------
+# Source common utilities and environment
+# ------------------------------------------------------------------
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+source "${SCRIPT_DIR}/common.sh"
 
-echo ""
-source ./scripts/oqs_env.sh
-echo ""
+# ------------------------------------------------------------------
+# Helper Functions
+# ------------------------------------------------------------------
+usage() {
+    log_info "Usage: $0 [OPTIONS]"
+    msg_info "Run TLS benchmarks using test_qkd_kem_tls.py"
+    msg_info ""
+    msg_info "Options:"
+    msg_info "  -i, --iterations N    Number of iterations per combination (default: 10)"
+    msg_info "  -p, --provider P      Provider to use (qkd or oqs) [default: oqs]"
+    msg_info "  -d, --delay D         Delay between combinations in seconds (default: 0)"
+    msg_info "  -h, --help            Show this help message"
+    msg_info ""
+    msg_info "Example: $0 --iterations 100 --provider qkd"
+    exit 1
+}
 
-# Parse arguments
+# ------------------------------------------------------------------
+# Main Script Setup
+# ------------------------------------------------------------------
+
+# Set default parameters
 ITERATIONS=10
-PROVIDER="oqs"  # default value
+PROVIDER="oqs"
+DELAY=0
 
-while getopts "i:p:d:" opt; do
-    case $opt in
-        i) ITERATIONS="$OPTARG" ;;
-        p) PROVIDER="$OPTARG" ;;
-        d) 
-            if [[ "$OPTARG" =~ ^[0-9]+$ ]]; then
-                DELAY="$OPTARG"
+# Parse command-line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -i|--iterations)
+            shift
+            if [[ $# -gt 0 && $1 =~ ^[0-9]+$ ]]; then
+                ITERATIONS=$1
+                shift
             else
-                echo "Error: delay must be a non-negative integer" >&2
-                exit 1
+                log_error "Error: --iterations requires a non-negative integer"
+                usage
             fi
             ;;
-        *) echo "Usage: $0 [-i iterations] [-p provider (oqs/qkd)] [-d delay_seconds]" >&2; exit 1 ;;
+        -p|--provider)
+            shift
+            if [[ $# -gt 0 ]]; then
+                PROVIDER=$1
+                shift
+            else
+                log_error "Error: --provider requires a provider name (qkd or oqs)"
+                usage
+            fi
+            ;;
+        -d|--delay)
+            shift
+            if [[ $# -gt 0 && $1 =~ ^[0-9]+$ ]]; then
+                DELAY=$1
+                shift
+            else
+                log_error "Error: --delay requires a non-negative integer"
+                usage
+            fi
+            ;;
+        -h|--help)
+            usage
+            ;;
+        *)
+            log_error "Unknown option: $1"
+            usage
+            ;;
     esac
 done
 
-# Validate provider argument
-if [[ "$PROVIDER" != "oqs" && "$PROVIDER" != "qkd" ]]; then
-   echo "Error: provider must be 'oqs' or 'qkd'" >&2
-   exit 1
+BASE_DIR=$(pwd)
+BENCH_DIR="${BASE_DIR}/benchmarks/data"
+ensure_dir "$BENCH_DIR"
+
+if [ "$ITERATIONS" -eq 0 ]; then
+        usage
 fi
 
+# Setup OpenSSL environment using common.sh function
+if ! setup_openssl_env "$BASE_DIR"; then
+    log_error "OpenSSL environment setup failed"
+    exit 1
+fi
+
+# Check OpenSSL providers using common.sh function
+if ! check_openssl_providers "${OPENSSL_MODULES}"; then
+    log_error "Provider check failed"
+    exit 1
+fi
+
+if [[ "$PROVIDER" != "oqs" && "$PROVIDER" != "qkd" ]]; then
+    log_error "Error: provider must be 'oqs' or 'qkd'"
+    usage
+fi
+
+
 OUTPUT_FILE="${BENCH_DIR}/tls_bench_${PROVIDER}_${ITERATIONS}_iter_$(date +%Y%m%d).csv"
-
-KEMS=(
-      #"mlkem512" "mlkem768" "mlkem1024" 
-      "bikel1" #"bikel3" "bikel5" 
-      #"frodo640aes" "frodo640shake" "frodo976aes" "frodo976shake" "frodo1344aes" "frodo1344shake"
-      #"hqc128" "hqc192" "hqc256"
-      )
-
-CERTS=("rsa_2048" "rsa_3072" "rsa_4096" 
-        "mldsa44" "mldsa65" "mldsa87" 
-        "falcon512" "falcon1024" 
-        #"sphincssha2128fsimple" "sphincssha2128ssimple" "sphincssha2192fsimple" 
-        #"sphincsshake128fsimple"
-        )
-
-#CERTS=("rsa_2048"  
-#        "mldsa44"  
-#        "falcon512"
-#        "sphincssha2128fsimple" 
-#        "sphincsshake128fsimple")
-
 echo "KEM,Cert,Iteration,Time" > "$OUTPUT_FILE"
 
-progress_bar() {
-    local combination=$1
-    local current=$2
-    local total=$3
-    local percent=$((100 * current / total))
-    if [ $current -eq 1 ]; then
-        echo -e "\nBenchmarking $combination"
-    fi
-    printf "\r[%-50s] %3d%%" $(head -c $(($percent/2)) < /dev/zero | tr '\0' '=') $percent
-}
+# Define KEM and CERT arrays
+KEMS=(
+    "mlkem512" "mlkem768" "mlkem1024" 
+    "bikel1" "bikel3" "bikel5" 
+    #"frodo640aes" "frodo640shake" "frodo976aes" "frodo976shake" "frodo1344aes" "frodo1344shake"
+    #"hqc128" "hqc192" "hqc256"
+)
 
-# Iterate through all combinations
+CERTS=(
+    "rsa_2048" "rsa_3072" "rsa_4096" 
+    #"mldsa44" "mldsa65" "mldsa87" 
+    #"falcon512" "falcon1024"
+    # Optionally, add more certificates as needed.
+)
+
+log_section "TLS Benchmarking Script"
+log_info "Provider: ${PROVIDER}"
+log_info "Iterations per combination: ${ITERATIONS}"
+if [ "$DELAY" -gt 0 ]; then
+    log_info "Delay between combinations: ${DELAY} seconds"
+fi
+log_info "Results will be saved to: ${OUTPUT_FILE}\n"
+
+failed_combinations=0
+
+# Loop over each KEM and CERT combination
 for kem in "${KEMS[@]}"; do
     for cert in "${CERTS[@]}"; do
         success=true
-        if [ "$PROVIDER" = "qkd" ]; then
-                out_kem="qkd_${kem}"
-        else
-                out_kem="$kem"
-        fi
-        combination="$out_kem with $cert"
+        combination="${PROVIDER}-${kem} x ${cert}"
         
-        for i in $(seq 1 $ITERATIONS); do
-            progress_bar "$combination" $i $ITERATIONS
-            result=$(python3 scripts/test_qkd_kem_tls.py -k "$kem" -c "$cert" -p "$PROVIDER" --verbose | grep "Success")
-            
+        for i in $(seq 1 "$ITERATIONS"); do
+            # Use fixed-width prefix (60 characters) for uniform progress bars.
+            prefix=$(printf "%-60s" "Benchmarking ${combination}")
+            show_progress "$i" "$ITERATIONS" "$prefix"
+            result=$(python3 "${SCRIPT_DIR}/test_qkd_kem_tls.py" -k "$kem" -c "$cert" -p "$PROVIDER" | grep "Success")
             if [ -z "$result" ]; then
                 success=false
                 break
             fi
-            
-            # Extract the time from the result line
-            time=$(echo "$result" | awk '{print $9}')
-            echo "$out_kem,$cert,$i,$time" >> "$OUTPUT_FILE"
+            time_val=$(echo "$result" | awk '{print $9}')
+            echo "${PROVIDER},${kem},${cert},${i},${time_val}" >> "$OUTPUT_FILE"
         done
         
-        if $success; then
-            echo -e "\n${GREEN}${TICK} Success${NC}"
-        else
-            echo -e "\n${RED}${CROSS} Failed${NC}"
-        fi
-        # Add delay if it's not the last combination and delay is greater than 0
-        is_last_kem=$([[ "$kem" == "${KEMS[-1]}" ]] && echo true || echo false)
-        is_last_cert=$([[ "$cert" == "${CERTS[-1]}" ]] && echo true || echo false)
+        # End the progress bar line.
+        printf "\n"
         
-        if [ $DELAY -gt 0 ] && ! ($is_last_kem && $is_last_cert); then
-            echo -e "\nPausing for ${DELAY} seconds before next combination ..."
+        if $success; then
+            msg_success "  Benchmark completed: ${combination}"
+        else
+            msg_error "  Benchmark failed: ${combination}"
+        fi
+
+        if ! $success; then
+            ((failed_combinations++))
+        fi
+        
+        # If delay is specified and this is not the last combination, show a temporary pause message.
+        kem_index=0
+        cert_index=0
+        for index in "${!KEMS[@]}"; do
+            if [ "${KEMS[$index]}" = "$kem" ]; then
+                kem_index=$index
+                break
+            fi
+        done
+        for index in "${!CERTS[@]}"; do
+            if [ "${CERTS[$index]}" = "$cert" ]; then
+                cert_index=$index
+                break
+            fi
+        done
+        last_kem_index=$((${#KEMS[@]} - 1))
+        last_cert_index=$((${#CERTS[@]} - 1))
+        
+        if [ "$DELAY" -gt 0 ] && { [ "$kem_index" -ne "$last_kem_index" ] || [ "$cert_index" -ne "$last_cert_index" ]; }; then
+            printf "Pausing for %s seconds..." "$DELAY"
             sleep "$DELAY"
+            printf "\r\033[2K"
         fi
     done
 done
 
-echo -e "\nResults saved to $OUTPUT_FILE"
+# Compute total_combinations as number of KEMS * number of CERTS
+total_combinations=$(( ${#KEMS[@]} * ${#CERTS[@]} ))
+
+echo ""
+log_section "Benchmark Summary"
+echo -e "Total KEM algorithms tested: ${#KEMS[@]}"
+echo -e "Total Certificate algorithms tested: ${#CERTS[@]}"
+echo -e "Total combinations tested: ${total_combinations}"
+echo -e "Combinations with failed benchmarks: ${failed_combinations}"
+echo -e "Results saved to: ${OUTPUT_FILE}"
+echo ""
+if [ "$failed_combinations" -eq 0 ]; then
+    msg_success "Test passed"
+else
+    msg_error "Some combinations failed"
+fi
+log_success "TLS benchmarks completed"

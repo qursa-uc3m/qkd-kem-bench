@@ -1,134 +1,100 @@
 #!/bin/bash
+# run_qkd_kem_bench.sh
+#
+# Benchmark QKD KEM performance by running the benchmark binary for a given
+# number of iterations. The provider can be "qkd" or "oqs" and an optional delay
+# (in seconds) can be specified between iterations.
+#
+# Usage: $0 [OPTIONS]
+#   -i, --iterations N    Run benchmarks with N iterations
+#   -p, --provider P      Choose provider (qkd or oqs) [default: qkd]
+#   -d, --delay D         Delay between iterations in seconds [default: 0]
+#   -h, --help            Show this help message
+
+set -e
+
+# ------------------------------------------------------------------
+# Source common utilities
+# ------------------------------------------------------------------
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+source "${SCRIPT_DIR}/common.sh"
 
 BASE_DIR="$(pwd)"
 
-# Help function
-show_help() {
-    echo "Usage: $0 [OPTIONS]"
-    echo "Run OQS KEM benchmarks"
-    echo ""
-    echo "Options:"
-    echo "  -i, --iterations N    Run benchmarks with N iterations"
-    echo "  -p, --provider P Choose provider (qkdkemprovider or oqs)"
-    echo "  -d, --delay D    Delay between iterations in seconds"
-    echo "  -h, --help       Show this help message"
-    echo ""
-    echo "Example: $0 --bench 1000"
+# ------------------------------------------------------------------
+# Usage function
+# ------------------------------------------------------------------
+usage() {
+    log_info "Usage: $0 [OPTIONS]"
+    msg_info "Run QKD KEM benchmarks"
+    msg_info ""
+    msg_info "Options:"
+    msg_info "  -i, --iterations N    Run benchmarks with N iterations"
+    msg_info "  -p, --provider P      Choose provider (qkd or oqs)"
+    msg_info "  -d, --delay D         Delay between iterations in seconds"
+    msg_info "  -h, --help            Show this help message"
+    msg_info ""
+    msg_info "Example: $0 --iterations 1000 --provider qkd"
+    exit 1
 }
 
-# Set up environment variables
-setup_environment() {
-    export OPENSSL_APP=openssl
-    export OPENSSL_MODULES="${BASE_DIR}/_build/lib"
-    export OPENSSL_CONF="${BASE_DIR}/scripts/openssl-ca.cnf"
-
-    # Set up library paths
-    if [ -d "${BASE_DIR}/.local/lib64" ]; then
-        export LD_LIBRARY_PATH="${BASE_DIR}/.local/lib64"
-    elif [ -d "${BASE_DIR}/.local/lib" ]; then
-        export LD_LIBRARY_PATH="${BASE_DIR}/.local/lib"
-    else
-        echo "❌ Neither lib64 nor lib directory found in .local/"
-        return 1
-    fi
-
-    # Set OSX specific library path if needed
-    if [ -z "${DYLD_LIBRARY_PATH}" ]; then
-        export DYLD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
-    fi
-
-    return 0
-}
-
-# Check if OpenSSL providers are available
-check_providers() {
-    # Map provider names to their corresponding .so files
-    declare -A provider_files=(
-        ["qkdkemprovider"]="qkdkemprovider.so"
-        ["oqs"]="oqsprovider.so"
-    )
-    local missing_providers=()
-    local has_error=0
-
-    echo "Checking OpenSSL providers..."
-    echo "Provider modules status:"
-    for provs in "${!provider_files[@]}"; do
-        printf "  %-20s: " "${provider_files[$provs]}"
-        if [ -f "${OPENSSL_MODULES}/${provider_files[$provs]}" ]; then
-            if [ -r "${OPENSSL_MODULES}/${provider_files[$provs]}" ]; then
-                echo "✅ Found and readable"
-            else
-                echo "❌ Found but not readable"
-                has_error=1
-            fi
-        else
-            echo "❌ Not found"
-            missing_providers+=("$provs")
-            has_error=1
-        fi
-    done
-
-    # Final status check
-    if [ $has_error -eq 1 ]; then
-        echo "❌ Provider check failed:"
-        if [ ${#missing_providers[@]} -gt 0 ]; then
-            echo "   Missing providers: ${missing_providers[*]}"
-        fi
-        return 1
-    else
-        echo "✅ All providers found and accessible"
-        return 0
-    fi
-}
-
-# Run KEM benchmarks
+# ------------------------------------------------------------------
+# run_kem_bench function
+# ------------------------------------------------------------------
 run_kem_bench() {
     local iterations=$1
     local provider=$2
     local delay=$3
 
     case $provider in 
-        qkdkemprovider)
-            echo "Running QKD KEM benchmarks with $iterations iterations..."
+        qkd)
+            log_info "Running QKD KEM benchmarks with ${iterations} iterations..."
             ;;
         oqs)
-            echo "Running OQS KEM benchmarks with $iterations iterations..."
+            log_info "Running OQS KEM benchmarks with ${iterations} iterations..."
             ;;
         *)
-            echo "❌ Invalid provider: $provider"
-            echo "Valid options are: qkdkemprovider, oqs"
+            log_error "Invalid provider: ${provider}. Valid options are: qkd, oqs"
             return 1
             ;;
     esac
     
-    if [ ! -f "_build/bin/oqs_bench_kems" ]; then
-        echo "❌ Benchmark binary not found"
+    local bench_bin="${BASE_DIR}/_build/bin/oqs_bench_kems"
+    if ! check_file "$bench_bin" "Benchmark binary"; then
         return 1
     fi
 
-    cd _build/bin
-    echo "Running from directory: $(pwd)"
-
-    ./oqs_bench_kems "$provider" "${OPENSSL_CONF}" "$iterations" "$delay"
-    local result=$?
-    
-    cd "${BASE_DIR}"
-    
-    if [ $result -eq 0 ]; then
-        echo "✅ KEM benchmarks completed"
+    if [[ "$provider" == qkd ]]; then
+        log_info "Using QKD provider"
+        provider_name=qkdkemprovider
     else
-        echo "❌ KEM benchmarks failed"
-        echo "Return code: $result"
+        log_info "Using OQS provider"
+        provider_name="$provider"
     fi
-    
+
+    pushd "${BASE_DIR}/_build/bin" > /dev/null
+    log_info "Running benchmark binary from $(pwd)"
+    ./oqs_bench_kems "$provider_name" "${OPENSSL_CONF}" "$iterations" "$delay"
+    local result=$?
+    popd > /dev/null
+
+    if [ $result -eq 0 ]; then
+        log_success "KEM benchmarks completed"
+    else
+        log_error "KEM benchmarks failed with return code: $result"
+    fi
+
     return $result
 }
 
+# ------------------------------------------------------------------
+# Main function
+# ------------------------------------------------------------------
 main() {
     local bench_iterations=0
-    local provider="qkdkemprovider" # Default provider
+    local provider="qkd"   # default provider is "qkd"
+    local delay_seconds=0
 
-    # Parse command line arguments
     while [[ $# -gt 0 ]]; do
         case $1 in
             -i|--iterations)
@@ -137,9 +103,8 @@ main() {
                     bench_iterations=$1
                     shift
                 else
-                    echo "Error: --bench requires a number of iterations"
-                    show_help
-                    exit 1
+                    log_error "Error: --iterations requires a non-negative integer"
+                    usage
                 fi
                 ;;
             -p|--provider)
@@ -148,9 +113,8 @@ main() {
                     provider=$1
                     shift
                 else
-                    echo "Error: --provider requires a provider name (qkdkemprovider or oqs)"
-                    show_help
-                    exit 1
+                    log_error "Error: --provider requires a provider name (qkd or oqs)"
+                    usage
                 fi
                 ;;
             -d|--delay)
@@ -159,43 +123,44 @@ main() {
                     delay_seconds=$1
                     shift
                 else
-                    echo "Error: --delay requires a number of seconds"
-                    show_help
-                    exit 1
+                    log_error "Error: --delay requires a non-negative integer"
+                    usage
                 fi
                 ;;
             -h|--help)
-                show_help
-                exit 0
+                usage
                 ;;
             *)
-                echo "Unknown option: $1"
-                show_help
-                exit 1
+                log_error "Unknown option: $1"
+                usage
                 ;;
         esac
     done
 
-    # If no iterations specified, show help
-    if [ $bench_iterations -eq 0 ]; then
-        show_help
+    if [ "$bench_iterations" -eq 0 ]; then
+        usage
+    fi
+
+    # Setup OpenSSL environment using common.sh function
+    if ! setup_openssl_env "$BASE_DIR"; then
+        log_error "OpenSSL environment setup failed"
         exit 1
     fi
 
-    # Setup environment
-    setup_environment
-
-    # Providers check
-    if ! check_providers; then
-        echo "Fatal: Provider check failed"
+    # Check OpenSSL providers using common.sh function
+    if ! check_openssl_providers "${OPENSSL_MODULES}"; then
+        log_error "Provider check failed"
         exit 1
     fi
 
+    if [[ "$provider" != "oqs" && "$provider" != "qkd" ]]; then
+        log_error "Error: provider must be 'oqs' or 'qkd'"
+        usage
+    fi
 
-    # Run benchmarks
-    run_kem_bench $bench_iterations $provider $delay_seconds
+    run_kem_bench "$bench_iterations" "$provider" "$delay_seconds"
     exit $?
 }
 
-# Execute main with all arguments
+# Execute main with all provided arguments
 main "$@"

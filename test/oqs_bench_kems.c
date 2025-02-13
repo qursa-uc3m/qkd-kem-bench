@@ -259,18 +259,19 @@ int main(int argc, char *argv[]) {
         while (current->algorithm_names != NULL) {
             if (bench_oqs_kems(current->algorithm_names, num_iterations)) {
                 printf("\r"); // Clear the progress bar line
-                fprintf(stderr, cGREEN "  Benchmark completed: %s" cNORM "\n",
+                fprintf(stdout, cGREEN "  Benchmark completed: %s" cNORM "\n",
                         current->algorithm_names);
                 
                 // Add delay if there's another algorithm to test
                 current++;
                 if (current->algorithm_names != NULL && delay_seconds > 0) {
-                    printf("Pausing for %u seconds before next algorithm ...", delay_seconds);
+                    fprintf(stdout, "Pausing for %u seconds before next algorithm ...", delay_seconds);
+                    fflush(stdout);
                     sleep(delay_seconds);
                     printf("\033[2K\r"); // Clear the entire line
                 }
             } else {
-                fprintf(stderr, cRED "  Benchmark failed: %s" cNORM "\n",
+                fprintf(stdout, cRED "  Benchmark failed: %s" cNORM "\n",
                         current->algorithm_names);
                 ERR_print_errors_fp(stderr);
                 errcnt++;
