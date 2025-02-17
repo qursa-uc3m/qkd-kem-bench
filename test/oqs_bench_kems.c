@@ -78,7 +78,7 @@ static void write_csv_result(const char* alg_name, size_t iteration,
                 times->keygen_time,
                 times->encaps_time,
                 times->decaps_time);
-        //fflush(csv_file);  // Ensure data is written immediately
+        fflush(csv_file);  // Ensure data is written immediately
     }
 }
 

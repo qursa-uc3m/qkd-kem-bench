@@ -91,7 +91,7 @@ include(FetchContent)
 FetchContent_Declare(
     oqsprov_qkd
     GIT_REPOSITORY https://github.com/qursa-uc3m/qkd-kem-provider.git
-    GIT_TAG qukaydee
+    GIT_TAG main
 )
 
 # OQS Provider (standard version)

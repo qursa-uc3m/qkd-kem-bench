@@ -23,6 +23,7 @@ else
 fi
 
 # Export environment variables
+export OPENSSL_INSTALL="${OPENSSL_PATH}"
 export OPENSSL_CONF="${PROJECT_DIR}/scripts/openssl-ca.cnf"
 export OPENSSL_MODULES="${PROVIDER_PATH}"
 export PATH="${OPENSSL_PATH}/bin:$PATH"
@@ -30,6 +31,7 @@ export LD_LIBRARY_PATH="${OPENSSL_PATH}/lib64:${OPENSSL_PATH}/lib:$LD_LIBRARY_PA
 
 # Print settings
 echo "Environment variables set:"
+echo "OPENSSL_INSTALL=$OPENSSL_INSTALL"
 echo "OPENSSL_CONF=$OPENSSL_CONF"
 echo "OPENSSL_MODULES=$OPENSSL_MODULES"
 echo "PATH updated to include: ${OPENSSL_PATH}/bin"

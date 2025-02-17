@@ -154,7 +154,7 @@ ACCOUNT_ID="2507"
 
 if [ "${QKD_BACKEND}" = "qukaydee" ]; then
     log_info "Setting up QuKayDee environment:"
-    export QKD_CA_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/account-${ACCOUNT_ID}-server-ca-qukaydee-com.crt"
+    export QKD_CA_CERT_PATH="$(pwd)/qkd_certs/account-${ACCOUNT_ID}-server-ca-qukaydee-com.crt"
 
     export MASTER_SAE_ID="sae-1"
     export SLAVE_SAE_ID="sae-2"
@@ -162,15 +162,15 @@ if [ "${QKD_BACKEND}" = "qukaydee" ]; then
     export QKD_MASTER_KME_HOSTNAME="kme-1.acct-${ACCOUNT_ID}.etsi-qkd-api.qukaydee.com"
     export QKD_SLAVE_KME_HOSTNAME="kme-2.acct-${ACCOUNT_ID}.etsi-qkd-api.qukaydee.com"
 
-    export QKD_MASTER_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-1.crt"
-    export QKD_MASTER_KEY_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-1.key"
+    export QKD_MASTER_CERT_PATH="$(pwd)/qkd_certs/sae-1.crt"
+    export QKD_MASTER_KEY_PATH="$(pwd)/qkd_certs/sae-1.key"
 
-    export QKD_SLAVE_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-2.crt"
-    export QKD_SLAVE_KEY_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/sae-2.key"
+    export QKD_SLAVE_CERT_PATH="$(pwd)/qkd_certs/sae-2.crt"
+    export QKD_SLAVE_KEY_PATH="$(pwd)/qkd_certs/sae-2.key"
 
 elif [ "${QKD_BACKEND}" = "cerberis-xgr" ]; then
     log_info "Setting up Cerberis-XGR environment:"
-    export QKD_CA_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/ChrisCA.pem"
+    export QKD_CA_CERT_PATH="$(pwd)/qkd_certs/ChrisCA.pem"
 
     export MASTER_SAE_ID="CONSA"
     export SLAVE_SAE_ID="CONSB"
@@ -178,11 +178,11 @@ elif [ "${QKD_BACKEND}" = "cerberis-xgr" ]; then
     export QKD_MASTER_KME_HOSTNAME="castor.det.uvigo.es:444"
     export QKD_SLAVE_KME_HOSTNAME="castor.det.uvigo.es:442"
 
-    export QKD_MASTER_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/ETSIA.pem"
-    export QKD_MASTER_KEY_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/ETSIA-key.pem"
+    export QKD_MASTER_CERT_PATH="$(pwd)/qkd_certs/ETSIA.pem"
+    export QKD_MASTER_KEY_PATH="$(pwd)/qkd_certs/ETSIA-key.pem"
 
-    export QKD_SLAVE_CERT_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/ETSIB.pem"
-    export QKD_SLAVE_KEY_PATH="/home/dsobral/Repos/qkd-kem-bench/qkd_certs/ETSIB-key.pem"
+    export QKD_SLAVE_CERT_PATH="$(pwd)/qkd_certs/ETSIB.pem"
+    export QKD_SLAVE_KEY_PATH="$(pwd)/qkd_certs/ETSIB-key.pem"
 else
     log_error "Unknown QKD_BACKEND: ${QKD_BACKEND}"
     exit 1

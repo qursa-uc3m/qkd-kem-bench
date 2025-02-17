@@ -2,13 +2,15 @@
 # run_tls_bench.sh
 # Benchmark TLS performance with various KEM and certificate combinations
 
-set -e
+# set -e
 
 # ------------------------------------------------------------------
 # Source common utilities and environment
 # ------------------------------------------------------------------
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
 source "${SCRIPT_DIR}/common.sh"
+source "${SCRIPT_DIR}/oqs_env.sh"
+echo ""
 
 # ------------------------------------------------------------------
 # Helper Functions
@@ -27,6 +29,35 @@ usage() {
     exit 1
 }
 
+check_key_status() {
+    local response
+    local stored_keys
+    
+    response=$(curl -Ss --silent --show-error -i \
+        --cacert "${QKD_MASTER_CA_CERT_PATH}" \
+        --cert "${QKD_MASTER_CERT_PATH}" \
+        --key "${QKD_MASTER_KEY_PATH}" \
+        --header "Accept: application/json" \
+        -k "${QKD_MASTER_KME_HOSTNAME}/api/v1/keys/${QKD_SLAVE_SAE}/status")
+    
+    local http_code=$(echo "$response" | grep HTTP | awk '{print $2}')
+    
+    if [[ "$http_code" -eq 200 ]]; then
+        stored_keys=$(echo "$response" | sed -n '/^\r$/,$p' | tail -n +2 | jq -r '.stored_key_count')
+        
+        if [[ $stored_keys -lt 100 ]]; then
+            msg_info "Low key count detected (${stored_keys}). Waiting ${DELAY}s for replenishment..."
+            sleep $DELAY
+            return 1
+        fi
+        msg_info "Current key count: ${stored_keys}\n"
+        return 0
+    else
+        msg_error "Failed to check key status (HTTP ${http_code})"
+        return 2
+    fi
+}
+
 # ------------------------------------------------------------------
 # Main Script Setup
 # ------------------------------------------------------------------
@@ -35,6 +66,10 @@ usage() {
 ITERATIONS=10
 PROVIDER="oqs"
 DELAY=0
+
+# Key Check Parameters
+KEYS_CHECK_INTERVAL=100 # Check every 100 iterations
+total_iterations=0
 
 # Parse command-line arguments
 while [[ $# -gt 0 ]]; do
@@ -112,22 +147,24 @@ echo "KEM,Cert,Iteration,Time" > "$OUTPUT_FILE"
 KEMS=(
     "mlkem512" "mlkem768" "mlkem1024" 
     "bikel1" "bikel3" "bikel5" 
-    #"frodo640aes" "frodo640shake" "frodo976aes" "frodo976shake" "frodo1344aes" "frodo1344shake"
-    #"hqc128" "hqc192" "hqc256"
+    "frodo640aes" "frodo640shake" "frodo976aes" "frodo976shake" "frodo1344aes" "frodo1344shake"
+    "hqc128" "hqc192" "hqc256"
 )
 
 CERTS=(
     "rsa_2048" "rsa_3072" "rsa_4096" 
-    #"mldsa44" "mldsa65" "mldsa87" 
-    #"falcon512" "falcon1024"
+    "mldsa44" "mldsa65" "mldsa87" 
+    "falcon512" "falcon1024"
     # Optionally, add more certificates as needed.
+    # 'sphincssha2128fsimple', 'sphincssha2128ssimple', 'sphincssha2192fsimple'
+    # 'sphincsshake128fsimple'
 )
 
 log_section "TLS Benchmarking Script"
 log_info "Provider: ${PROVIDER}"
 log_info "Iterations per combination: ${ITERATIONS}"
-if [ "$DELAY" -gt 0 ]; then
-    log_info "Delay between combinations: ${DELAY} seconds"
+if [[ "$PROVIDER" == "qkd" ]]; then
+    log_info "Key replenishment wait time: ${DELAY} seconds"
 fi
 log_info "Results will be saved to: ${OUTPUT_FILE}\n"
 
@@ -140,16 +177,27 @@ for kem in "${KEMS[@]}"; do
         combination="${PROVIDER}-${kem} x ${cert}"
         
         for i in $(seq 1 "$ITERATIONS"); do
-            # Use fixed-width prefix (60 characters) for uniform progress bars.
-            prefix=$(printf "%-60s" "Benchmarking ${combination}")
+            # Only check keys for QKD provider
+            if [[ "$PROVIDER" == "qkd" && $((total_iterations % KEYS_CHECK_INTERVAL)) -eq 0 ]]; then
+                echo ""
+                msg_info "Checking key availability at iteration ${total_iterations}..."
+                check_key_status
+                echo ""
+            fi
+            
+            prefix=$(printf "%-50s" "Benchmarking ${combination}")
             show_progress "$i" "$ITERATIONS" "$prefix"
             result=$(python3 "${SCRIPT_DIR}/test_qkd_kem_tls.py" -k "$kem" -c "$cert" -p "$PROVIDER" | grep "Success")
+            
             if [ -z "$result" ]; then
                 success=false
                 break
             fi
+            
             time_val=$(echo "$result" | awk '{print $9}')
             echo "${PROVIDER},${kem},${cert},${i},${time_val}" >> "$OUTPUT_FILE"
+            
+            ((total_iterations++))
         done
         
         # End the progress bar line.
@@ -163,30 +211,6 @@ for kem in "${KEMS[@]}"; do
 
         if ! $success; then
             ((failed_combinations++))
-        fi
-        
-        # If delay is specified and this is not the last combination, show a temporary pause message.
-        kem_index=0
-        cert_index=0
-        for index in "${!KEMS[@]}"; do
-            if [ "${KEMS[$index]}" = "$kem" ]; then
-                kem_index=$index
-                break
-            fi
-        done
-        for index in "${!CERTS[@]}"; do
-            if [ "${CERTS[$index]}" = "$cert" ]; then
-                cert_index=$index
-                break
-            fi
-        done
-        last_kem_index=$((${#KEMS[@]} - 1))
-        last_cert_index=$((${#CERTS[@]} - 1))
-        
-        if [ "$DELAY" -gt 0 ] && { [ "$kem_index" -ne "$last_kem_index" ] || [ "$cert_index" -ne "$last_cert_index" ]; }; then
-            printf "Pausing for %s seconds..." "$DELAY"
-            sleep "$DELAY"
-            printf "\r\033[2K"
         fi
     done
 done

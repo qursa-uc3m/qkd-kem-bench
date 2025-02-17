@@ -1111,9 +1111,9 @@ def plot_tls_kem_families(input_df, cert_type='rsa_2048', y_start=None, y_end=No
         
         # Plot QKD bars
         rects2 = ax.bar(x + width/2, 
-                       [qkd_data.loc[f"qkd_{kem}"]['Time_mean'] for kem in ordered_kems],
+                       [qkd_data.loc[f"{kem}"]['Time_mean'] for kem in ordered_kems],
                        width, label='QKD-KEM',
-                       yerr=[qkd_data.loc[f"qkd_{kem}"]['Time_std'] for kem in ordered_kems],
+                       yerr=[qkd_data.loc[f"{kem}"]['Time_std'] for kem in ordered_kems],
                        capsize=3,
                        color=colors[1],
                        edgecolor='black',
