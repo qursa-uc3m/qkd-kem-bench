@@ -1,32 +1,137 @@
-# QKD-KEM Provider Benchmarking Analysis
+# QKD-KEM Provider Benchmarking Suite
 
-This directory contains tools and scripts for analyzing the performance of both the QKD-KEM provider and the standard OQS provider. The analysis focuses on three key metrics:
-- Key generation time (ms)
-- Encapsulation time (ms)
-- Decapsulation time (ms)
+This repository contains tools and scripts for analyzing the performance our QKD-KEM Provider, and allows for comparison with the standard OQS Provider. The suite evaluates performance in two scenarios:
+
+1. **Isolated KEM Operations**: Measure the execution tme (ms) for:
+    - Key generation
+    - Encapsulation
+    - Decapsulation
+
+2. **TLS Integration**: Measures successful TLS Handshake completion time (ms).
 
 ## Directory Structure
+
+Raw benchmark data is collected using the dedicated scripts located in the root `scripts/` directory. These scripts are designed to be run from the repository's root directory and generate CSV files containing timing measurements of the chosen provider, storing them in the `benchmarks/data/` folder. The `benchmarks/` directory also contains two scripts and a Python noteboook which you can use for analyzing the data.    
+
 ```bash
 benchmarks/
-├── data/          # Contains benchmark CSV output files
-└── plots/         # Generated plots and visualizations
+├── data/          # Benchmark CSV output files
+├── plots/         # Generated plots and visualizations
+├── config.py      # Configuration parameters
+└── functions.py   # Analysis and visualization functions
 ```
 
-## Analysis Components
 
-Raw benchmark data is collected using the dedicated script located in the root `scripts/` directory. The script generates CSV files containing timing measurements of the chosen provider. 
+## Prerequisites
 
-### Output format
+### System Requirements
+
+You might need to install LaTeX dependencies for nice fonts for your plots. Otherwise, you can set to False the LaTeX option (text.usetex) in [config.py](./config.py).
+```bash
+sudo apt-get install texlive-latex-extra dvipng cm-super
+```
+
+### Python environment
+
+It is convenient to create and configure a Python environment (virtual env or conda):
+```bash
+# Create virtual environment 
+python -m venv <env_name>
+source <env_name>/bin/activate  # or conda activate your_env
+
+# Install dependencies
+pip install -r benchmarks/requirements.txt
+```
+
+## Running the Bechmark suite
+
+### 1. Environment Setup
+
+Configure OpenSSL and paths environment variables. Depending on the API backend type you are working with, you might set:
+```bash
+ # For QuKayDee backend. Check for your <id_number> in the CA certificate you download from their site.
+export QKD_BACKEND=qukaydee && export ACCOUNT_ID="<id_number>" 
+
+# For Cerberis-XGR backend.
+export QKD_BACKEND=cerberis-xgr
+```
+
+From the repository's root dir:
+```bash
+source scripts/oqs_env.sh [OPENSSL_PATH]
+```
+- If `OPENSSL_INSTALL` is set: Uses system installation.
+- If `.local/bin/openssl`exists: Uses self-contained setup within the repository's root.
+- Otherwise: Uses manual installation path (default to `/opt/oqs_openssl3`)
+
+### 2. Isolated KEM Operations Benchmarks
+
+```bash
+./scripts/run_qkd_kem_bench.sh [OPTIONS]
+
+Options:
+  -i, --iterations N    Number of iterations (required)
+  -p, --provider P      Provider type (qkd or oqs) [default: qkd]
+  -d, --delay D         Delay between iterations in seconds [default: 0]
+```
+
+### 3. TLS Handshake Benchmarks
+
+```bash
+./scripts/run_tls_bench.sh [OPTIONS]
+
+Options:
+  -i, --iterations N    Number of iterations (default: 10)
+  -p, --provider P      Provider type (qkd or oqs) [default: oqs]
+  -d, --delay D         Delay between combinations in seconds (default: 0)
+```
+
+## Data Analysis
+
+### CSV Output format
 
 The CSV files have the following column structure:
 
-- `Algorithm`: Name of the KEM algorithm. If generated for the QKD-KEM provider, all these names will start by `qkd_`.
-- `Iteration`: Benchmark iteration number. 
-- `KeyGen(ms)`: Key Generation time in miliseconds.
-- `Encaps(ms)`: Encapsulation time in miliseconds.
-- `Decaps(ms)`: Decapsulation time in miliseconds.
+```csv
+# Isolated KEM Operations file
+Algorithm,Iteration,KeyGen(ms),Encaps(ms),Decaps(ms)
 
-### Analysis scripts
+# TLS Handshake file
+KEM,Cert,Iteration,Time
+```
+
+### Supported Algorithms
+
+Currently, we have support for the following KEM families:
+
+- MLKEM (512, 768, 1024)
+- BIKE (L1, L3, L5)
+- FrodoKEM (640, 976, 1344; with AES/SHAKE variants)
+- HQC (128, 192, 256)
+
+For the TLS Handshake Benchmarks, we can use the following signature algorithms:
+
+- RSA (2048, 3072, 4096)
+- MLDSA (44, 65, 87)
+- Falcon (512, 1024)
+- SPHINCS+ (To be Added Manually)
+
+### Running the analysis
+
+You can run the analysis using the Python scripts in `benchmarks` in a Jupyter notebook
+```bash
+cd benchmarks
+jupyter notebook
+```
+If you want to create your own notebook, import the utility functions and configuration variables
+```python
+from functions import *
+import config as cfg
+```
+
+#### Analysis scripts
+
+The Python analysis suite consists in (work in progress):
 
 __`config.py`__: Defines global configurations including:
 
@@ -36,62 +141,31 @@ __`config.py`__: Defines global configurations including:
 - Font configurations.
 - Axes styling parameters.
 
-__`functions.py`__: Provides functions for:
-- Data processing and statistical analysis.
-- Visualization of benchmark results.
-- Comparative analysis between providers.
+__`functions.py`__: Provides functions for the statistical analysis and data visualization:
 
-### Key visualizations
+Data processing and computations:
+- `kem_data_process()`: Reads and process the .csv files to Pandas Data Frames.
+- `kem_data_summary()`: Computes the summary statistics for the KEM operations.
+- `compute_ops_percent()`: calculates the weight of each operation with respect to the total time, in percentage.
+- `tls_data_summary()`: Computes the summary statistics for the TLS benchmark data.
 
-The analysis produces several types of plots (work in progress):
+Data Visualization:
+- `plot_kem_times()`: Basic KEM operation timings.
+- `plot_kem_total_times()`: Agreggated timing analysis.
+- `plot_kem_fast()`: For plotting "faster" KEM variants. You can select the name of the last       algorithm plotted. 
+- `plot_kem_family()`: Plot only a selected family of KEM algorithms.
+- `plot_ops_percent()`: Operation percentage breakdown
+- `plot_kem_comparison()`: For QKD-KEM vs OQS Provider comparison.
+- `plot_tls_kem_families()`: TLS Performance by KEM family, for a given signature algorithm.
+- `plot_tls_certs_families()`: TLS Performance by signature algorithm, for a given KEM type.
 
-1. Individual algorithm performance breakdown.
-2. Family-wise comparisons.
-3. Operation percentage analysis.
-4. Standard vs QKD implementation comparisons.
-
-### Supported KEM families
-
-The analysis covers the following KEM families. 
-
-- Kyber (512, 768, 1024)
-- ML-KEM (512, 768, 1024)
-- BIKE (L1, L3, L5)
-- FrodoKEM (640, 976, 1344, with AES/SHAKE variants)
-- HQC (128, 192, 256)
-
-## Running the analysis
-
-The statistical analysis and data visualization operations are done in Python. You might need (or prefer) to set up a dedicated Python environment for this project. Please, check the `requirements.txt` for reference or run
-```bash
-pip install -r requirements.txt
-```
-
-1. Collect the data. From the project's root directory, run:
-
-```bash
-# Run benchmarks with 100 iterations for each provider
-./scripts/run_qkd_kem_bench.sh -b 100 -p qkdkemprovider
-./scripts/run_qkd_kem_bench.sh -b 100 -p oqs
-```
-
-2. Analyze the data:
-```bash
-cd benchmarks
-jupyter notebook data_analysis.ipynb
-```
-Or load the notebook with your favourite IDE. This notebook will make use of the utility functions defined in `functions.py` to perform the analysis and visualize the data:
-
-- Load and process the benchmark data. The data processing will add an additional column with the Total Time of the KEM operation.
-- Generate the summary statistics.
-- Generate visualization plots based upon the summary statistics. 
-- Provide comparative analyses. 
+Details about function usage and input variables can be found in the function docstrings.
 
 ### Notes
 
 Several important notes regarding the analysis:
 
-- The analysis excludes the first few iterations as warmup
+- The analysis (optionally) excludes the first few iterations as warmup
 - Times are reported in miliseconds (ms)
 - Summary statistics includes: __mean, standard deviation, min and max values__. 
-- Generated plots use LaTeX formatting for consistent, publication-ready output. Make sure you have a working LaTeX distribution availble in your machine and that Matplotlib can find it. See the `requirements.txt` file for reference about what you need to install in your system.
+- Generated plots use LaTeX formatting for consistent, publication-ready output. Make sure you have a working LaTeX distribution availble in your machine and that Matplotlib can find it.
