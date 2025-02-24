@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  nginx-server:
+    build:
+      context: ..
+      dockerfile: containers/nginx-server/Dockerfile
+      args:
+        - OPENSSL_BRANCH=openssl-3.4.0
+        - LIBOQS_BRANCH=main
+        - OQSPROV_BRANCH=0.8.0
+        - QKDKEMPROV_BRANCH=main
+        - QKD_BACKEND=cerberis-xgr
+        - DEFAULT_GROUPS=x25519:x448:kyber512:p256_kyber512:kyber768:p384_kyber768:kyber1024:p521_kyber1024
+    ports:
+      - "4433:4433"
+    environment:
+      - DEFAULT_GROUPS=x25519:x448:kyber512:p256_kyber512:kyber768:p384_kyber768:kyber1024:p521_kyber1024
+      - QKD_BACKEND=cerberis-xgr
+    volumes:
+      - ../qkd_certs:/opt/qkd_certs
+    
+  h2load-bench:
+    build:
+      context: ..
+      dockerfile: containers/h2load-bench/Dockerfile
+      args:
+        - OPENSSL_BRANCH=openssl-3.4.0
+        - LIBOQS_BRANCH=main
+        - OQSPROV_BRANCH=0.8.0
+        - QKDKEMPROV_BRANCH=main
+        - QKD_BACKEND=cerberis-xgr
+    network_mode: "host"
+    environment:
+      - QKD_BACKEND=cerberis-xgr
+    volumes:
+      - ../qkd_certs:/opt/qkd_certs
+      - ../benchmarks/data:/benchmarks/data

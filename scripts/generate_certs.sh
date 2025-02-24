@@ -10,7 +10,9 @@ echo "Base directory: $BASE_DIR"
 if [ ! -z "$OPENSSL_INSTALL" ]; then
     # Case 1: User specified custom OpenSSL installation
     OPENSSL="${OPENSSL_INSTALL}/bin/openssl"
-    PROVIDER_PATH="${OPENSSL_INSTALL}/lib/ossl-modules"
+    #PROVIDER_PATH="${OPENSSL_INSTALL}/lib/ossl-modules"
+    #PROVIDER_PATH="${OPENSSL_INSTALL}/lib"
+    PROVIDER_PATH="${BASE_DIR}/_build/lib" # Temporary fix for Docker containers
 elif [ -f "${BASE_DIR}/.local/bin/openssl" ]; then
     # Case 2: Local installation in project directory
     OPENSSL="${BASE_DIR}/.local/bin/openssl"

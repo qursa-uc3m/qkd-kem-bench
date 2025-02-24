@@ -30,6 +30,7 @@ export PATH="${OPENSSL_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${OPENSSL_PATH}/lib64:${OPENSSL_PATH}/lib:$LD_LIBRARY_PATH"
 
 # Print settings
+echo ""
 echo "Environment variables set:"
 echo "OPENSSL_INSTALL=$OPENSSL_INSTALL"
 echo "OPENSSL_CONF=$OPENSSL_CONF"
