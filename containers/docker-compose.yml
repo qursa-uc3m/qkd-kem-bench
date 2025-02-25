@@ -13,13 +13,16 @@ services:
         - QKD_ETSI_API_BRANCH=${QKD_ETSI_API_BRANCH}
         - QKD_BACKEND=${QKD_BACKEND}
         - DEFAULT_GROUPS=${DEFAULT_GROUPS}
+        - SSL_CERT_DIR=${SSL_CERT_DIR}   
+        - SSL_CERT_TYPE=${SSL_CERT_TYPE} 
     ports:
       - "4433:4433"
     environment:
-      - DEFAULT_GROUPS=${DEFAULT_GROUPS}
-      - QKD_BACKEND=${QKD_BACKEND}
-      - SSL_CERT_TYPE=${SSL_CERT_TYPE}
-      - ACCOUNT_ID=${ACCOUNT_ID}
+    - DEFAULT_GROUPS=${DEFAULT_GROUPS}
+    - QKD_BACKEND=${QKD_BACKEND}
+    - SSL_CERT_DIR=${SSL_CERT_DIR}
+    - SSL_CERT_TYPE=${SSL_CERT_TYPE}
+    - ACCOUNT_ID=${ACCOUNT_ID}
     volumes:
       - ../qkd_certs:/opt/qkd_certs
     

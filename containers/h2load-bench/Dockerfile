@@ -39,7 +39,7 @@ RUN mkdir -p ${BASEDIR}/qkd_certs
 # Copy scripts and configs
 COPY scripts/openssl-ca.cnf ${BASEDIR}/scripts/
 COPY scripts/oqs_env.sh ${BASEDIR}/scripts/
-COPY scripts/generate_certs.sh ${BASEDIR}/scripts/
+#COPY scripts/generate_certs.sh ${BASEDIR}/scripts/
 
 # Build liboqs
 WORKDIR ${BASEDIR}/liboqs
@@ -90,12 +90,12 @@ RUN mkdir -p build && \
 # Source the environment script
 WORKDIR ${BASEDIR}
 RUN chmod +x ${BASEDIR}/scripts/oqs_env.sh && \
-    . ${BASEDIR}/scripts/oqs_env.sh
+    bash -c '. ${BASEDIR}/scripts/oqs_env.sh'
 
 # Generate certificates
-RUN chmod +x ${BASEDIR}/scripts/generate_certs.sh && \
-    . ${BASEDIR}/scripts/oqs_env.sh && \
-    ${BASEDIR}/scripts/generate_certs.sh
+#RUN chmod +x ${BASEDIR}/scripts/generate_certs.sh && \
+#    . ${BASEDIR}/scripts/oqs_env.sh && \
+#    ${BASEDIR}/scripts/generate_certs.sh
 
 # Build nghttp2 with h2load
 WORKDIR ${BASEDIR}/nghttp2
@@ -110,7 +110,7 @@ RUN autoreconf -i && \
 FROM alpine:latest
 
 ARG BASEDIR="/opt"
-ARG QKD_BACKEND="simulated"
+ARG QKD_BACKEND="cerberis-xgr"
 
 # Install runtime dependencies
 RUN apk add --no-cache bash python3 py3-pandas py3-matplotlib py3-scipy libstdc++ libev curl-dev zlib c-ares jansson
@@ -120,14 +120,15 @@ COPY --from=intermediate /usr/local/bin/h2load /usr/local/bin/
 COPY --from=intermediate ${BASEDIR}/.local ${BASEDIR}/.local
 COPY --from=intermediate ${BASEDIR}/scripts ${BASEDIR}/scripts
 COPY --from=intermediate ${BASEDIR}/_build ${BASEDIR}/_build
-COPY --from=intermediate ${BASEDIR}/certs ${BASEDIR}/certs
+COPY --from=intermediate ${BASEDIR}/qkd-etsi-api/build/libqkd-etsi-api.so ${BASEDIR}/.local/lib64/
+#COPY --from=intermediate ${BASEDIR}/certs ${BASEDIR}/certs
 COPY --from=intermediate ${BASEDIR}/qkd_certs ${BASEDIR}/qkd_certs
 
 # Copy benchmarking scripts
-COPY containers/h2load-bench/h2load-benchmarks.sh /usr/local/bin/
-COPY containers/h2load-bench/check_algorithms.sh /usr/local/bin/
-COPY containers/h2load-bench/benchmark_results_parser.py /usr/local/bin/
-RUN chmod +x /usr/local/bin/h2load-benchmarks.sh /usr/local/bin/check_algorithms.sh
+#COPY containers/h2load-bench/h2load-benchmarks.sh /usr/local/bin/
+#COPY containers/h2load-bench/check_algorithms.sh /usr/local/bin/
+#COPY containers/h2load-bench/benchmark_results_parser.py /usr/local/bin/
+#RUN chmod +x /usr/local/bin/h2load-benchmarks.sh /usr/local/bin/check_algorithms.sh
 
 # Set environment variables for runtime
 ENV QKD_BACKEND=${QKD_BACKEND}
