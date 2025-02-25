@@ -109,8 +109,8 @@ RUN wget nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
                 --with-http_v2_module \
                 --without-http_gzip_module \
                 --with-cc-opt="-I${OPENSSL_INSTALL}/include" \
-                --with-ld-opt="-L${OPENSSL_INSTALL}/lib64 -Wl,-rpath,${OPENSSL_INSTALL}/lib64"
-    #make ${MAKE_DEFINES} && make install
+                --with-ld-opt="-L${OPENSSL_INSTALL}/lib64 -Wl,-rpath,${OPENSSL_INSTALL}/lib64" && \
+    make ${MAKE_DEFINES} && make install
 
 # Generate certificates
 RUN chmod +x ${BASEDIR}/scripts/generate_certs.sh && \

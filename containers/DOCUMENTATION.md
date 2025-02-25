@@ -85,7 +85,16 @@ This container provides HTTP/2 load testing tools for benchmarking the TLS hands
 Navigate to the `containers` directory and run:
 
 ```bash
-docker-compose build
+docker-compose build --progress=plain --no-cache
+```
+
+To build the containers individually using Docker Compose:
+```bash
+# Build just the nginx server
+docker-compose build --progress=plain --no-cache nginx-server
+
+# Build just the h2load container
+docker-compose build --progress=plain --no-cache h2load-bench
 ```
 
 This builds both the nginx-server and h2load containers with default settings.

@@ -104,7 +104,7 @@ RUN autoreconf -i && \
     autoconf && \
     . ${BASEDIR}/scripts/oqs_env.sh && \
     ./configure && \
-    make -j$(nproc) && \
+    make ${MAKE_DEFINES} && \
     make install
 
 FROM alpine:latest
