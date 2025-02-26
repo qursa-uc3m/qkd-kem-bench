@@ -21,5 +21,7 @@ qkd_certs
 *.key
 *.pem
 debug_logs
+containers/.h2load-bench
+*.pyc
 
 

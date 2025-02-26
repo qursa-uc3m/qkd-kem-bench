@@ -21,7 +21,7 @@ echo ""
 
 # Source the environment script and check provider loading
 echo "Check providers loading ..."
-. /opt/scripts/oqs_env.sh
+#. /opt/scripts/oqs_env.sh
 openssl list -providers
 echo ""
 

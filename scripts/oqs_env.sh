@@ -64,6 +64,13 @@ if [ "${QKD_BACKEND}" = "qukaydee" ]; then
         
         echo "QKD_MASTER_KME_HOSTNAME=$QKD_MASTER_KME_HOSTNAME"
         echo "QKD_SLAVE_KME_HOSTNAME=$QKD_SLAVE_KME_HOSTNAME"
+        echo "QKD_MASTER_CA_CERT_PATH=$QKD_MASTER_CA_CERT_PATH"
+        echo "QKD_SLAVE_CA_CERT_PATH=$QKD_SLAVE_CA_CERT_PATH"
+        echo "QKD_MASTER_CERT_PATH=$QKD_MASTER_CERT_PATH"
+        echo "QKD_MASTER_KEY_PATH=$QKD_MASTER_KEY_PATH"
+        echo "QKD_SLAVE_CERT_PATH=$QKD_SLAVE_CERT_PATH"
+        echo "QKD_SLAVE_KEY_PATH=$QKD_SLAVE_KEY_PATH"
+        echo ""
     fi
 elif [ "${QKD_BACKEND}" = "cerberis-xgr" ]; then
     echo "Setting up Cerberis-XGR environment:"
@@ -87,6 +94,13 @@ elif [ "${QKD_BACKEND}" = "cerberis-xgr" ]; then
         
     echo "QKD_MASTER_KME_HOSTNAME=$QKD_MASTER_KME_HOSTNAME"
     echo "QKD_SLAVE_KME_HOSTNAME=$QKD_SLAVE_KME_HOSTNAME"
+    echo "QKD_MASTER_CA_CERT_PATH=$QKD_MASTER_CA_CERT_PATH"
+    echo "QKD_SLAVE_CA_CERT_PATH=$QKD_SLAVE_CA_CERT_PATH"
+    echo "QKD_MASTER_CERT_PATH=$QKD_MASTER_CERT_PATH"
+    echo "QKD_MASTER_KEY_PATH=$QKD_MASTER_KEY_PATH"
+    echo "QKD_SLAVE_CERT_PATH=$QKD_SLAVE_CERT_PATH"
+    echo "QKD_SLAVE_KEY_PATH=$QKD_SLAVE_KEY_PATH"
+    echo ""
 else
     echo "Using default QKD backend (simulated)"
 fi

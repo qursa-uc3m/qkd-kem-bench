@@ -1,36 +1,56 @@
 #!/bin/bash
 
-# Start the h2load container interactively
-docker-compose run h2load-bench bash
+# Test script to verify h2load-bench container configuration
 
-# Inside the container, check the environment variables
-echo "QKD_BACKEND: $QKD_BACKEND"
+echo "=== Testing h2load-bench container configuration ==="
 
-# Source the environment script and check provider loading
-. /opt/scripts/oqs_env.sh
-openssl list -providers
+echo -e "\n1. Checking if container image exists:"
+docker images | grep h2load-bench
 
-# Check that QKD-KEM provider is loaded and configured
-openssl list -providers -verbose | grep -A 20 qkdkemprovider
+echo -e "\n2. Running basic container test with environment check:"
+docker run --rm containers_h2load-bench /bin/bash -c "
+    echo '== Container environment variables =='
+    echo \"OPENSSL_INSTALL: \$OPENSSL_INSTALL\"
+    echo \"OPENSSL_CONF: \$OPENSSL_CONF\"
+    echo \"OPENSSL_MODULES: \$OPENSSL_MODULES\"
+    echo \"LD_LIBRARY_PATH: \$LD_LIBRARY_PATH\"
+    echo \"QKD_BACKEND: \$QKD_BACKEND\"
+    
+    echo -e '\n== File existence checks =='
+    echo \"OpenSSL config file exists: \$(test -f \$OPENSSL_CONF && echo Yes || echo No)\"
+    echo \"OpenSSL modules directory exists: \$(test -d \$OPENSSL_MODULES && echo Yes || echo No)\"
+    echo \"OpenSSL binary exists: \$(which openssl || echo Not found)\"
+    echo \"h2load binary exists: \$(which h2load || echo Not found)\"
+    echo \"h2load-wrapper exists: \$(test -f /usr/local/bin/h2load-wrapper && echo Yes || echo No)\"
+    
+    echo -e '\n== Library checks =='
+    echo \"oqsprovider.so exists: \$(test -f \$OPENSSL_MODULES/oqsprovider.so && echo Yes || echo No)\"
+    echo \"qkdkemprovider.so exists: \$(test -f \$OPENSSL_MODULES/qkdkemprovider.so && echo Yes || echo No)\"
+    echo \"libqkd-etsi-api.so exists: \$(find \$OPENSSL_INSTALL -name \"libqkd-etsi-api.so\" || echo Not found)\"
+    
+    echo -e '\n== Source environment script and check OpenSSL providers =='
+    . /opt/scripts/oqs_env.sh
+    openssl list -providers
+    
+    echo -e '\n== Test h2load version =='
+    h2load --version
+    
+    echo -e '\n== Check h2load-wrapper content =='
+    cat /usr/local/bin/h2load-wrapper
+"
 
-# Verify ETSI014 API configuration for cerberis-xgr
-echo "QKD_MASTER_KME_HOSTNAME: $QKD_MASTER_KME_HOSTNAME"
-echo "QKD_SLAVE_KME_HOSTNAME: $QKD_SLAVE_KME_HOSTNAME"
+echo -e "\n3. Testing basic HTTPS connection to nginx-server:"
+docker run --rm --network=host containers_h2load-bench /bin/bash -c "
+    . /opt/scripts/oqs_env.sh
+    echo 'Attempting TLS connection to nginx-server:4433...'
+    timeout 5 openssl s_client -connect nginx-server:4433 -brief || echo 'Connection failed'
+"
 
-# Check connectivity to NGINX server
-apk add --no-cache curl
-curl -k --connect-timeout 5 https://localhost:4433
-echo "Status of curl to NGINX server: $?"
+echo -e "\n4. Testing h2load basic command:"
+docker run --rm --network=host containers_h2load-bench /bin/bash -c "
+    . /opt/scripts/oqs_env.sh
+    echo 'Attempting simple h2load request...'
+    h2load -n 1 -c 1 https://nginx-server:4433 || echo 'h2load request failed'
+"
 
-# Check connectivity to cerberis nodes (if QKD_BACKEND=cerberis-xgr)
-if [ "$QKD_BACKEND" = "cerberis-xgr" ]; then
-  curl -k --connect-timeout 5 $QKD_MASTER_KME_HOSTNAME
-  echo "Status of curl to QKD_MASTER_KME_HOSTNAME: $?"
-fi
-
-# Test a basic h2load command
-echo "Testing h2load with default settings..."
-h2load -n 1 -c 1 https://localhost:4433 --groups kyber512
-
-# Exit container
-exit
+echo -e "\n=== Test completed ==="
