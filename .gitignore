@@ -23,5 +23,7 @@ qkd_certs
 debug_logs
 containers/.h2load-bench
 *.pyc
+.python-version
+*.log
 
 

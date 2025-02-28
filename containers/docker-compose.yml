@@ -2,6 +2,7 @@ version: '3'
 
 services:
   nginx-server:
+    container_name: nginx-server  # Fixed container name
     build:
       context: ..
       dockerfile: containers/nginx-server/Dockerfile
@@ -15,18 +16,22 @@ services:
         - DEFAULT_GROUPS=${DEFAULT_GROUPS}
         - SSL_CERT_DIR=${SSL_CERT_DIR}   
         - SSL_CERT_TYPE=${SSL_CERT_TYPE} 
+    networks:
+      - qkd-network
     ports:
-      - "4433:4433"
+      - "443:443"
     environment:
-    - DEFAULT_GROUPS=${DEFAULT_GROUPS}
-    - QKD_BACKEND=${QKD_BACKEND}
-    - SSL_CERT_DIR=${SSL_CERT_DIR}
-    - SSL_CERT_TYPE=${SSL_CERT_TYPE}
-    - ACCOUNT_ID=${ACCOUNT_ID}
+      - DEFAULT_GROUPS=${DEFAULT_GROUPS}
+      - QKD_BACKEND=${QKD_BACKEND}
+      - SSL_CERT_DIR=${SSL_CERT_DIR}
+      - SSL_CERT_TYPE=${SSL_CERT_TYPE}
+      - ACCOUNT_ID=${ACCOUNT_ID}
     volumes:
       - ../qkd_certs:/opt/qkd_certs
-    
+      - certs_data:/opt/certs
+
   h2load-bench:
+    container_name: h2load-bench  # Fixed container name
     build:
       context: ..
       dockerfile: containers/h2load-bench/Dockerfile
@@ -37,10 +42,23 @@ services:
         - QKDKEMPROV_BRANCH=${QKDKEMPROV_BRANCH}
         - QKD_ETSI_API_BRANCH=${QKD_ETSI_API_BRANCH}
         - QKD_BACKEND=${QKD_BACKEND}
-    network_mode: "host"
+        - DEFAULT_GROUPS=${DEFAULT_GROUPS}
+    networks:
+      - qkd-network
     environment:
       - QKD_BACKEND=${QKD_BACKEND}
       - ACCOUNT_ID=${ACCOUNT_ID}
+      - DEFAULT_GROUPS=${DEFAULT_GROUPS}
     volumes:
       - ../qkd_certs:/opt/qkd_certs
-      - ../benchmarks/data:/benchmarks/data
+      - certs_data:/opt/certs
+
+# Define custom network with fixed name
+networks:
+  qkd-network:
+    name: qkd-network
+
+# Define volume with fixed name
+volumes:
+  certs_data:
+    name: certs_data

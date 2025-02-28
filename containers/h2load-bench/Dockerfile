@@ -2,7 +2,7 @@ FROM alpine:latest as intermediate
 
 # Build arguments
 ARG BASEDIR="/opt"
-ARG MAKE_DEFINES="-j 18"
+ARG MAKE_DEFINES="-j 20"
 ARG OPENSSL_BRANCH="openssl-3.4.0"
 ARG LIBOQS_BRANCH="main"
 ARG OQSPROV_BRANCH="0.8.0"
@@ -31,7 +31,7 @@ RUN git clone --depth 1 --branch ${LIBOQS_BRANCH} https://github.com/open-quantu
     git clone --depth 1 --branch ${QKD_ETSI_API_BRANCH} https://github.com/qursa-uc3m/qkd-etsi-api.git && \
     git clone --depth 1 --branch ${OQSPROV_BRANCH} https://github.com/open-quantum-safe/oqs-provider.git && \
     git clone --depth 1 --branch ${QKDKEMPROV_BRANCH} https://github.com/qursa-uc3m/qkd-kem-provider.git && \
-    git clone --depth 1 --branch v1.56.0 https://github.com/nghttp2/nghttp2.git 
+    git clone --depth 1 --branch v1.64.0 https://github.com/nghttp2/nghttp2.git 
 
 # Set up directory structure exactly as expected by oqs_env.sh
 RUN mkdir -p ${BASEDIR}/.local
@@ -117,7 +117,7 @@ ARG PATH="${OPENSSL_INSTALL}/bin:$PATH"
 ARG LD_LIBRARY_PATH="${OPENSSL_INSTALL}/lib64:${OPENSSL_INSTALL}/lib:$LD_LIBRARY_PATH"
 
 # Install runtime dependencies
-RUN apk add --no-cache bash libstdc++ libev curl-dev zlib c-ares jansson util-linux
+RUN apk add --no-cache bash libstdc++ libev curl-dev curl zlib c-ares jansson util-linux
 
 # Copy required files from intermediate stage
 COPY --from=intermediate /usr/local/bin/h2load /usr/local/bin/
@@ -126,6 +126,9 @@ COPY --from=intermediate ${BASEDIR}/scripts ${BASEDIR}/scripts
 COPY --from=intermediate ${BASEDIR}/_build ${BASEDIR}/_build
 COPY --from=intermediate ${BASEDIR}/qkd-etsi-api/build/libqkd-etsi-api.so ${BASEDIR}/.local/lib64/
 COPY --from=intermediate ${BASEDIR}/qkd_certs ${BASEDIR}/qkd_certs
+
+# Make certificates executable
+# RUN chmod +x ${BASEDIR}/qkd_certs/*.pem ${BASEDIR}/qkd_certs/*.key ${BASEDIR}/qkd_certs/*.crt
 
 # Set environment variables for runtime
 ENV QKD_BACKEND=${QKD_BACKEND}
@@ -137,13 +140,16 @@ ENV OPENSSL_MODULES=${OPENSSL_MODULES}
 ENV PATH=${PATH}
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
 
-# Copy h2load-wrapper script
+# Copy running scripts
 COPY containers/h2load-bench/config/wrapper.sh /usr/local/bin/h2load-wrapper
-RUN chmod +x /usr/local/bin/h2load-wrapper
+COPY containers/h2load-bench/config/start.sh /opt/start.sh
+RUN chmod +x /usr/local/bin/h2load-wrapper && \
+    chmod +x /opt/start.sh
 
 # Verify h2load is available and executable
 RUN ls -la /usr/local/bin/h2load && \
     chmod +x /usr/local/bin/h2load
 
-WORKDIR /benchmarks
-ENTRYPOINT ["/usr/local/bin/h2load-wrapper"]
+#WORKDIR /benchmarks
+#ENTRYPOINT ["/usr/local/bin/h2load-wrapper"]
+CMD ["/opt/start.sh"]
