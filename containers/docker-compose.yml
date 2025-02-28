@@ -5,7 +5,7 @@ services:
     container_name: nginx-server  # Fixed container name
     build:
       context: ..
-      dockerfile: containers/nginx-server/Dockerfile
+      dockerfile: containers/nginx-server/Dockerfile.dev
       args:
         - OPENSSL_BRANCH=${OPENSSL_BRANCH}
         - LIBOQS_BRANCH=${LIBOQS_BRANCH}
@@ -14,8 +14,8 @@ services:
         - QKD_ETSI_API_BRANCH=${QKD_ETSI_API_BRANCH}
         - QKD_BACKEND=${QKD_BACKEND}
         - DEFAULT_GROUPS=${DEFAULT_GROUPS}
-        - SSL_CERT_DIR=${SSL_CERT_DIR}   
-        - SSL_CERT_TYPE=${SSL_CERT_TYPE} 
+        - SSL_CERT_DIR=${SSL_CERT_DIR}
+        - SSL_CERT_TYPE=${SSL_CERT_TYPE}
     networks:
       - qkd-network
     ports:
@@ -34,7 +34,7 @@ services:
     container_name: h2load-bench  # Fixed container name
     build:
       context: ..
-      dockerfile: containers/h2load-bench/Dockerfile
+      dockerfile: containers/h2load-bench/Dockerfile.dev
       args:
         - OPENSSL_BRANCH=${OPENSSL_BRANCH}
         - LIBOQS_BRANCH=${LIBOQS_BRANCH}

@@ -63,6 +63,7 @@ RUN mkdir -p build && \
           -DENABLE_ETSI014=ON \
           -DQKD_BACKEND=${QKD_BACKEND} \
           -DBUILD_TESTS=OFF \
+          -DQKD_DEBUG_LEVEL=4 \
           -DOPENSSL_ROOT_DIR=${OPENSSL_INSTALL} \
           -DOPENSSL_LIBRARIES=${OPENSSL_INSTALL}/lib64 \
           .. && \
@@ -82,7 +83,8 @@ RUN mkdir build && \
 # Build qkd-kem-provider
 WORKDIR /opt/qkd-kem-provider
 RUN mkdir -p build && \
-    cmake -DCMAKE_BUILD_TYPE=Release \ 
+    cmake -DCMAKE_BUILD_TYPE=Debug \
+          -DQKD_KEY_ID_CH=OFF \
           -DOPENSSL_ROOT_DIR=${OPENSSL_INSTALL} \
           -DCMAKE_PREFIX_PATH=${OPENSSL_INSTALL} \ 
           -S . -B build && \

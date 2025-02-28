@@ -31,9 +31,9 @@ RUN apt-get update && apt-get install -y \
 WORKDIR ${BASEDIR}
 RUN git clone --depth 1 --branch ${LIBOQS_BRANCH} https://github.com/open-quantum-safe/liboqs.git && \
     git clone --depth 1 --branch ${OPENSSL_BRANCH} https://github.com/openssl/openssl.git && \
-    git clone --depth 1 --branch ${OQSPROV_BRANCH} https://github.com/open-quantum-safe/oqs-provider.git && \
-    git clone --depth 1 --branch ${QKDKEMPROV_BRANCH} https://github.com/qursa-uc3m/qkd-kem-provider.git && \
-    git clone --depth 1 --branch ${QKD_ETSI_API_BRANCH} https://github.com/qursa-uc3m/qkd-etsi-api.git
+    git clone --depth 1 --branch ${OQSPROV_BRANCH} https://github.com/open-quantum-safe/oqs-provider.git
+COPY qkd-kem-provider ${BASEDIR}/qkd-kem-provider
+COPY qkd-etsi-api ${BASEDIR}/qkd-etsi-api
 
 # Set up directory structure exactly as expected by oqs_env.sh
 RUN mkdir -p ${BASEDIR}/.local
