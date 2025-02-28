@@ -52,7 +52,7 @@ We support three approaches to build the project (work in progress):
 
 If you have OpenSSL > 3.0 installed in your system (typically in ```/usr/local```):
 
-```
+```bash
 export OPENSSL_INSTALL=/usr/local
 ./scripts/fullbuild.sh -F  # For first build or full rebuild
 ./scripts/fullbuild.sh -f  # For subsequent builds
@@ -64,7 +64,7 @@ Or replace ```/usr/local``` by your local installation path.
 
 This approach builds OpenSSL locally within the project directory. You just need to specify the OpenSSL branch (>3.0):
 
-```
+```bash
 export OPENSSL_BRANCH=openssl-3.4.0  # Or your preferred version
 ./scripts/fullbuild.sh -F            # This will download and build all dependencies
 ./scripts/fullbuild.sh -f            # For subsequent builds
@@ -103,7 +103,7 @@ export LIBOQS_BRANCH="0.12.0"
 
 The build process can be customized using various environment variables
 
-```
+```bash
 # Specify liboqs version/branch
 export LIBOQS_BRANCH="0.12.0"        # Use specific liboqs version
 export LIBOQS_BRANCH="main"          # Use latest development version
@@ -129,6 +129,7 @@ export OQS_ALGS_ENABLED="STD"        # Only include NIST standardized algorithms
 ### Build Output and Dependencies Location
 
 The build process creates:
+
 - `_build/lib/qkdkemprovider.so`: The QKD-KEM provider
 - `_build/lib/oqsprovider.so`: The standard OQS provider
 - `_build/bin/oqs_bench_kems`: The benchmarking utility
@@ -155,6 +156,7 @@ Note: The QKD ETSI API is always required as a system installation in `/usr/loca
 ## Testing and Benchmarking
 
 ### Running Benchmarks
+
 The project includes a benchmarking utility that can evaluate both the QKD-KEM provider and the standard OQS provider. Run the benchmarks using the provided script:
 
 ```bash
@@ -162,6 +164,7 @@ The project includes a benchmarking utility that can evaluate both the QKD-KEM p
 ```
 
 Available options are
+
 - `-b, --bench N`: Run bechmarks with N iterations (required).
 - `-p, --provider P`: Choose provider to benchmark (`qkdkemprovider` or `oqs`, defaults to `qkdkemprovider`).
 - `-h, --help`: Show help message.
@@ -179,12 +182,31 @@ Examples:
 ### Benchmark output
 
 The benchmark utility generates CSV files in the `benchmarks/data` directory containing timing measurements for the KEM relevant operations:
+
 - Key generation time
 - Encapsulation time
 - Decapsulation time
 
-For visualization and analysis instructions, see the documentation in the `benchmarks` directory. 
+For visualization and analysis instructions, see the documentation in the `benchmarks` directory.
 
+## h2load tests
 
+First, if you are using the QuKayDee backend, make sure to set your account ID in the `containers/.env` file. You also need to put the certificates in the `qkd_certs` directory.
 
+Build Docker images without cache:
 
+```bash
+docker compose build --no-cache
+```
+
+Bring up the containers in detached mode:
+
+```bash
+docker compose up -d
+```
+
+Run the benchmark with h2load:
+
+```bash
+docker-compose exec h2load-bench bash -c '. /opt/scripts/oqs_env.sh && h2load -n 50 -c 1 https://nginx-server:443 --groups mlkem512'
+```
