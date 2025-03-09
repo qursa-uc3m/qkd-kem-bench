@@ -117,7 +117,7 @@ ARG PATH="${OPENSSL_INSTALL}/bin:$PATH"
 ARG LD_LIBRARY_PATH="${OPENSSL_INSTALL}/lib64:${OPENSSL_INSTALL}/lib:$LD_LIBRARY_PATH"
 
 # Install runtime dependencies
-RUN apk add --no-cache bash libstdc++ libev curl-dev curl zlib c-ares jansson util-linux
+RUN apk add --no-cache bash libstdc++ libev curl zlib c-ares jansson util-linux
 
 # Copy required files from intermediate stage
 COPY --from=intermediate /usr/local/bin/h2load /usr/local/bin/

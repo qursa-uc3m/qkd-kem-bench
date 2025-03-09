@@ -2,53 +2,48 @@ FROM ubuntu:22.04 as intermediate
 
 # Build arguments
 ARG BASEDIR="/opt"
-ARG INSTALLDIR="${BASEDIR}/nginx"
-ARG NGINX_VERSION="1.23.3"
-ARG DEFAULT_GROUPS="x25519:x448:kyber512:p256_kyber512:kyber768:p384_kyber768:kyber1024:p521_kyber1024"
-ARG OSSLDIR="${BASEDIR}/openssl/.openssl"
 ARG OPENSSL_BRANCH="openssl-3.4.0"
 ARG LIBOQS_BRANCH="main"
 ARG OQSPROV_BRANCH="0.8.0"
 ARG QKDKEMPROV_BRANCH="main"
 ARG QKD_ETSI_API_BRANCH="main"
-ARG QKD_BACKEND=cerberis-xgr
-# 0: no debug ... 4: debug
-ARG QKD_DEBUG=0 
+ARG QKD_BACKEND=qukaydee
+ARG QKD_DEBUG=0
 
 # Environment setup
-ENV DEBIAN_FRONTEND=noninteractive
 ENV OPENSSL_INSTALL="${BASEDIR}/.local"
 ENV QKD_BACKEND=${QKD_BACKEND}
+ENV ACCOUNT_ID=${ACCOUNT_ID}
 ENV QKD_DEBUG=${QKD_DEBUG}
+ENV PROJECT_DIR="${BASEDIR}"
 ENV MAKE_DEFINES="-j20"
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential libcurl4-openssl-dev pkg-config libjansson-dev\
+    build-essential libcurl4-openssl-dev pkg-config libjansson-dev \
     libtool automake autoconf cmake ninja-build \
-    make \
+    make curl net-tools iputils-ping python3 python3-pip \
     openssl libssl-dev \
-    git wget libpcre3-dev uuid-dev \
-    gettext-base 
+    git wget libpcre3-dev uuid-dev libev-dev zlib1g-dev libc-ares-dev
 
 # Clone required repositories
 WORKDIR ${BASEDIR}
 RUN git clone --depth 1 --branch ${LIBOQS_BRANCH} https://github.com/open-quantum-safe/liboqs.git && \
     git clone --depth 1 --branch ${OPENSSL_BRANCH} https://github.com/openssl/openssl.git && \
+    git clone --depth 1 --branch ${QKD_ETSI_API_BRANCH} https://github.com/qursa-uc3m/qkd-etsi-api.git && \
     git clone --depth 1 --branch ${OQSPROV_BRANCH} https://github.com/open-quantum-safe/oqs-provider.git && \
-    git clone --depth 1 --branch ${QKDKEMPROV_BRANCH} https://github.com/qursa-uc3m/qkd-kem-provider.git && \
-    git clone --depth 1 --branch ${QKD_ETSI_API_BRANCH} https://github.com/qursa-uc3m/qkd-etsi-api.git
+    git clone --depth 1 --branch ${QKDKEMPROV_BRANCH} https://github.com/qursa-uc3m/qkd-kem-provider.git 
 
 # Set up directory structure exactly as expected by oqs_env.sh
 RUN mkdir -p ${BASEDIR}/.local
 RUN mkdir -p ${BASEDIR}/_build/lib
 RUN mkdir -p ${BASEDIR}/scripts
 RUN mkdir -p ${BASEDIR}/qkd_certs
+RUN mkdir -p ${BASEDIR}/tests
 
 # Copy scripts and configs
 COPY scripts/openssl-ca.cnf ${BASEDIR}/scripts/
 COPY scripts/oqs_env.sh ${BASEDIR}/scripts/
-COPY scripts/generate_certs.sh ${BASEDIR}/scripts/
 
 # Build liboqs
 WORKDIR ${BASEDIR}/liboqs
@@ -82,7 +77,7 @@ WORKDIR ${BASEDIR}/oqs-provider
 RUN mkdir build && \
     cmake -DCMAKE_BUILD_TYPE=Debug \
           -DOPENSSL_ROOT_DIR=${OPENSSL_INSTALL} \
-          -DCMAKE_PREFIX_PATH=${OPENSSL_INSTALL}\
+          -DCMAKE_PREFIX_PATH=${OPENSSL_INSTALL} \
           -S . -B build && \
     cmake --build build && \
     cp build/lib/oqsprovider.so ${BASEDIR}/_build/lib/
@@ -97,71 +92,46 @@ RUN mkdir -p build && \
     cmake --build build && \
     cp build/lib/qkdkemprovider.so ${BASEDIR}/_build/lib/
 
-# Source the environment script to ensure consistent environment
+# Source the environment script
 WORKDIR ${BASEDIR}
 RUN chmod +x ${BASEDIR}/scripts/oqs_env.sh && \
     bash -c '. ${BASEDIR}/scripts/oqs_env.sh'
 
-# Build NGINX with OpenSSL support
-WORKDIR ${BASEDIR}
-RUN wget nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
-    tar -zxf nginx-${NGINX_VERSION}.tar.gz && \
-    cd nginx-${NGINX_VERSION} && \
-    ./configure --prefix=${INSTALLDIR} \
-                --with-debug \
-                --with-http_ssl_module \ 
-                --with-http_v2_module \
-                --without-http_gzip_module \
-                --with-cc-opt="-I${OPENSSL_INSTALL}/include" \
-                --with-ld-opt="-L${OPENSSL_INSTALL}/lib64 -Wl,-rpath,${OPENSSL_INSTALL}/lib64:${BASEDIR}/_build/lib" && \
-    make ${MAKE_DEFINES} && make install
-
-# Generate certificates
-RUN chmod +x ${BASEDIR}/scripts/generate_certs.sh && \
-    bash -c '. ${BASEDIR}/scripts/oqs_env.sh && \
-    ${BASEDIR}/scripts/generate_certs.sh'
-
 FROM ubuntu:22.04
 
 ARG BASEDIR="/opt"
-ARG INSTALLDIR="${BASEDIR}/nginx"
-ARG DEFAULT_GROUPS=x25519:x448:kyber512:p256_kyber512:kyber768:p384_kyber768:kyber1024:p521_kyber1024
+ARG ACCOUNT_ID="2507"
 ARG QKD_BACKEND="cerberis-xgr"
 ARG QKD_DEBUG=0
-ARG SSL_CERT_DIR="dilithium"
-ARG SSL_CERT_TYPE="dilithium3"
 ARG OPENSSL_INSTALL="${BASEDIR}/.local"
-ARG PROJECT_DIR="/opt"
+ARG PROJECT_DIR="${BASEDIR}"
 ARG OPENSSL_CONF="${PROJECT_DIR}/scripts/openssl-ca.cnf"
 ARG OPENSSL_MODULES="${BASEDIR}/_build/lib"
 ARG PATH="${OPENSSL_INSTALL}/bin:$PATH"
 ARG LD_LIBRARY_PATH="${OPENSSL_INSTALL}/lib64:${OPENSSL_INSTALL}/lib:$LD_LIBRARY_PATH"
-    
+
 # Install runtime dependencies
-RUN apt-get update && apt-get install -y libpcre3 libcurl4 curl libjansson4 gettext-base && rm -rf /var/lib/apt/lists/*
-    
-# Copy built files from intermediate stage
-COPY --from=intermediate ${INSTALLDIR} ${INSTALLDIR}
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    bash libstdc++6 libev4 libcurl4 curl zlib1g \
+    libc-ares2 libjansson4 libssl3 util-linux \
+    net-tools iputils-ping python3 python3-pip git wget nano && \
+    rm -rf /var/lib/apt/lists/*
+
+
+# Copy required files from intermediate stage
 COPY --from=intermediate ${BASEDIR}/.local ${BASEDIR}/.local
 COPY --from=intermediate ${BASEDIR}/scripts ${BASEDIR}/scripts
 COPY --from=intermediate ${BASEDIR}/_build ${BASEDIR}/_build
 COPY --from=intermediate ${BASEDIR}/qkd-etsi-api/build/libqkd-etsi-api.so ${BASEDIR}/.local/lib64/
-COPY --from=intermediate ${BASEDIR}/certs ${BASEDIR}/certs
-COPY --from=intermediate ${BASEDIR}/qkd_certs ${BASEDIR}/qkd_certs
-    
-# Copy external nginx config
-COPY containers/nginx-server/config/nginx.conf ${INSTALLDIR}/conf/nginx.conf
-COPY containers/nginx-server/config/start.sh /opt/start.sh
+COPY --from=intermediate ${BASEDIR}/tests ${BASEDIR}/tests
 
-RUN mkdir -p ${BASEDIR}/tests
-COPY containers/tests/check_nginx_env.sh ${BASEDIR}/tests/check_nginx_env.sh
+# Make certificates executable
+# RUN chmod +x ${BASEDIR}/qkd_certs/*.pem ${BASEDIR}/qkd_certs/*.key ${BASEDIR}/qkd_certs/*.crt
 
 # Set environment variables for runtime
-ENV DEFAULT_GROUPS=${DEFAULT_GROUPS}
 ENV QKD_BACKEND=${QKD_BACKEND}
 ENV QKD_DEBUG=${QKD_DEBUG}
-ENV SSL_CERT_DIR=${SSL_CERT_DIR}
-ENV SSL_CERT_TYPE=${SSL_CERT_TYPE}
+ENV ACCOUNT_ID=${ACCOUNT_ID}
 ENV OPENSSL_INSTALL=${OPENSSL_INSTALL}
 ENV PROJECT_DIR=${PROJECT_DIR}
 ENV OPENSSL_CONF=${OPENSSL_CONF}
@@ -169,9 +139,14 @@ ENV OPENSSL_MODULES=${OPENSSL_MODULES}
 ENV PATH=${PATH}
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
 
-RUN chmod +x /opt/start.sh && \
-    chmod +x ${BASEDIR}/tests/check_nginx_env.sh
-    
-EXPOSE 4433
-    
+RUN pip3 install h2
+
+# Copy running scripts
+COPY containers/qkd-test-client/config/start.sh /opt/start.sh
+RUN chmod +x /opt/start.sh
+
+# Copy directory structure
+COPY containers/tests/ ${BASEDIR}/tests/
+RUN chmod +x ${BASEDIR}/tests/*.sh ${BASEDIR}/tests/*.py
+
 CMD ["/opt/start.sh"]

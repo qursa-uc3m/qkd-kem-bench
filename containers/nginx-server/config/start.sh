@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Source the environment script
+source /opt/scripts/oqs_env.sh
+
 # Verify settings
 echo -e "\nDocker environment settings:"
 echo "PROJECT_DIR=$PROJECT_DIR"
@@ -14,21 +17,49 @@ echo "SSL_CERT_DIR: $SSL_CERT_DIR"
 echo "SSL_CERT_TYPE: $SSL_CERT_TYPE"
 echo "DEFAULT_GROUPS: $DEFAULT_GROUPS"
 
-# Replace placeholders in nginx.conf
-sed -i "s/__DEFAULT_GROUPS__/$DEFAULT_GROUPS/g" /opt/nginx/conf/nginx.conf
-sed -i "s/__SSL_CERT_DIR__/$SSL_CERT_DIR/g" /opt/nginx/conf/nginx.conf
-sed -i "s/__SSL_CERT_TYPE__/$SSL_CERT_TYPE/g" /opt/nginx/conf/nginx.conf
+if [ "$QKD_DEBUG" -gt 0 ]; then
+  echo -e "DEBUG MODE: ACTIVE with level $QKD_DEBUG\n"
+else    
+  echo -e "DEBUG MODE: INACTIVE\n"
+fi
+
+# Copy original nginx.conf to a template file
+cp /opt/nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf.template
+
+# Create a list of variable names for substitution (without $ prefix)
+VARS=$(env | grep -E "^(QKD_|OPENSSL|SSL_CERT_DIR|SSL_CERT_TYPE|DEFAULT_GROUPS)" | cut -d= -f1)
+
+# Create the comma-separated list with $ prefix for envsubst
+DOLLAR_VARS=""
+for var in $VARS; do
+    if [ -z "$DOLLAR_VARS" ]; then
+        DOLLAR_VARS="\$$var"
+    else
+        DOLLAR_VARS="$DOLLAR_VARS,\$$var"
+    fi
+    # Also export the variable to make sure it's available
+    export "$var"
+done
+
+echo "Variables to be substituted: $DOLLAR_VARS"
+
+# Process the template with envsubst
+envsubst "$DOLLAR_VARS" < /opt/nginx/conf/nginx.conf.template > /opt/nginx/conf/nginx.conf
 
 # Debug: Show final configuration
 echo -e "\nFinal NGINX configuration:"
 grep -n "ssl_certificate" /opt/nginx/conf/nginx.conf
 grep -n "ssl_ecdh_curve" /opt/nginx/conf/nginx.conf
 
-# Source the environment script and check provider loading
+# Check providers loading
 echo -e "\nCheck providers loading ..."
-. /opt/scripts/oqs_env.sh
+openssl version
 openssl list -providers
 echo ""
 
-# Start nginx
-exec /opt/nginx/sbin/nginx -g "daemon off;"
+# Make sure our paths include all necessary libraries
+export LD_LIBRARY_PATH="$OPENSSL_INSTALL/lib64:$OPENSSL_INSTALL/lib:$OPENSSL_MODULES:$LD_LIBRARY_PATH:/opt"
+
+# Start NGINX directly - no need for the exec env wrapper
+echo -e "\nStarting Nginx ..."
+/opt/nginx/sbin/nginx -g "daemon off;"

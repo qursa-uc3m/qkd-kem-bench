@@ -2,7 +2,7 @@ version: '3'
 
 services:
   nginx-server:
-    container_name: nginx-server  # Fixed container name
+    container_name: nginx-server 
     build:
       context: ..
       dockerfile: containers/nginx-server/Dockerfile
@@ -13,6 +13,7 @@ services:
         - QKDKEMPROV_BRANCH=${QKDKEMPROV_BRANCH}
         - QKD_ETSI_API_BRANCH=${QKD_ETSI_API_BRANCH}
         - QKD_BACKEND=${QKD_BACKEND}
+        - QKD_DEBUG=${QKD_DEBUG}
         - DEFAULT_GROUPS=${DEFAULT_GROUPS}
         - SSL_CERT_DIR=${SSL_CERT_DIR}   
         - SSL_CERT_TYPE=${SSL_CERT_TYPE} 
@@ -23,15 +24,27 @@ services:
     environment:
       - DEFAULT_GROUPS=${DEFAULT_GROUPS}
       - QKD_BACKEND=${QKD_BACKEND}
+      - QKD_DEBUG=${QKD_DEBUG}
       - SSL_CERT_DIR=${SSL_CERT_DIR}
       - SSL_CERT_TYPE=${SSL_CERT_TYPE}
       - ACCOUNT_ID=${ACCOUNT_ID}
+      - QKD_MASTER_KME_HOSTNAME=${QKD_MASTER_KME_HOSTNAME}
+      - QKD_SLAVE_KME_HOSTNAME=${QKD_SLAVE_KME_HOSTNAME}
+      - QKD_MASTER_CA_CERT_PATH=${QKD_MASTER_CA_CERT_PATH}
+      - QKD_SLAVE_CA_CERT_PATH=${QKD_SLAVE_CA_CERT_PATH}
+      - QKD_MASTER_CERT_PATH=${QKD_MASTER_CERT_PATH}
+      - QKD_MASTER_KEY_PATH=${QKD_MASTER_KEY_PATH}
+      - QKD_SLAVE_CERT_PATH=${QKD_SLAVE_CERT_PATH}
+      - QKD_SLAVE_KEY_PATH=${QKD_SLAVE_KEY_PATH}
+      - QKD_MASTER_SAE=${QKD_MASTER_SAE}
+      - QKD_SLAVE_SAE=${QKD_SLAVE_SAE}
     volumes:
       - ../qkd_certs:/opt/qkd_certs
       - certs_data:/opt/certs
+      - ./html:/usr/share/nginx/html
 
   h2load-bench:
-    container_name: h2load-bench  # Fixed container name
+    container_name: h2load-bench  
     build:
       context: ..
       dockerfile: containers/h2load-bench/Dockerfile
@@ -53,6 +66,64 @@ services:
       - ../qkd_certs:/opt/qkd_certs
       - certs_data:/opt/certs
 
+  qkd-test-client:
+    container_name: qkd-test-client
+    build:
+      context: ..
+      dockerfile: containers/qkd-test-client/Dockerfile
+      args:
+        - OPENSSL_BRANCH=${OPENSSL_BRANCH}
+        - LIBOQS_BRANCH=${LIBOQS_BRANCH}
+        - OQSPROV_BRANCH=${OQSPROV_BRANCH}
+        - QKDKEMPROV_BRANCH=${QKDKEMPROV_BRANCH}
+        - QKD_ETSI_API_BRANCH=${QKD_ETSI_API_BRANCH}
+        - QKD_BACKEND=${QKD_BACKEND}
+        - QKD_DEBUG=${QKD_DEBUG}
+    networks:
+      - qkd-network
+    environment:
+      - QKD_BACKEND=${QKD_BACKEND}
+      - QKD_DEBUG=${QKD_DEBUG}
+      - ACCOUNT_ID=${ACCOUNT_ID}
+      - QKD_MASTER_KME_HOSTNAME=${QKD_MASTER_KME_HOSTNAME}
+      - QKD_SLAVE_KME_HOSTNAME=${QKD_SLAVE_KME_HOSTNAME}
+      - QKD_MASTER_CA_CERT_PATH=${QKD_MASTER_CA_CERT_PATH}
+      - QKD_SLAVE_CA_CERT_PATH=${QKD_SLAVE_CA_CERT_PATH}
+      - QKD_MASTER_CERT_PATH=${QKD_MASTER_CERT_PATH}
+      - QKD_MASTER_KEY_PATH=${QKD_MASTER_KEY_PATH}
+      - QKD_SLAVE_CERT_PATH=${QKD_SLAVE_CERT_PATH}
+      - QKD_SLAVE_KEY_PATH=${QKD_SLAVE_KEY_PATH}
+      - QKD_MASTER_SAE=${QKD_MASTER_SAE}
+      - QKD_SLAVE_SAE=${QKD_SLAVE_SAE}
+    volumes:
+      - ../qkd_certs:/opt/qkd_certs
+      - certs_data:/opt/certs
+      - ./logs:/opt/tests/logs
+    depends_on:
+      - nginx-server
+
+  qkd-web-client:
+    container_name: qkd-web-client
+    build:
+      context: ..
+      dockerfile: containers/qkd-web-client/Dockerfile
+      args:
+        - OPENSSL_BRANCH=${OPENSSL_BRANCH}
+        - LIBOQS_BRANCH=${LIBOQS_BRANCH}
+        - OQSPROV_BRANCH=${OQSPROV_BRANCH}
+        - QKDKEMPROV_BRANCH=${QKDKEMPROV_BRANCH}
+        - QKD_ETSI_API_BRANCH=${QKD_ETSI_API_BRANCH}
+    networks:
+      - qkd-network
+    ports:
+      - "8080:8080"
+    environment:
+      - QKD_BACKEND=${QKD_BACKEND}
+      - ACCOUNT_ID=${ACCOUNT_ID}
+    volumes:
+      - ../qkd_certs:/opt/qkd_certs
+      - certs_data:/opt/certs
+    
 # Define custom network with fixed name
 networks:
   qkd-network:
