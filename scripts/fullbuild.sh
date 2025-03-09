@@ -210,6 +210,7 @@ if [ "$FLAG_L" = true ]; then
    #BUILD_TYPE="-DCMAKE_BUILD_TYPE=Debug"
    BUILD_TYPE="-DCMAKE_BUILD_TYPE=Release"
    CMAKE_PARAMS="-Wno-dev"
+   OQSPROV_CMAKE_PARAMS="-DQKD_KEY_ID_CH=ON"
 
    echo "Running CMake with the following parameters:"
    echo "CMAKE_PARAMS: $CMAKE_PARAMS"
@@ -238,6 +239,7 @@ if [ ! -f "_build/lib/qkdkemprovider.$SHLIBEXT" ] || [ ! -f "_build/lib/oqsprovi
    #BUILD_TYPE="-DCMAKE_BUILD_TYPE=Debug"
    BUILD_TYPE=""
    CMAKE_PARAMS="-Wno-dev"
+   #OQSPROV_CMAKE_PARAMS="-DQKD_KEY_ID_CH=ON"
    
    .source ./scripts/oqs_env.sh
    

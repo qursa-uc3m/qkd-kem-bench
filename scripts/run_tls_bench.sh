@@ -152,9 +152,9 @@ KEMS=(
 )
 
 CERTS=(
-    "rsa_2048" "rsa_3072" "rsa_4096" 
-    "mldsa44" "mldsa65" "mldsa87" 
-    "falcon512" "falcon1024"
+    "rsa_2048" #"rsa_3072" "rsa_4096" 
+    #"mldsa44" "mldsa65" "mldsa87" 
+    #"falcon512" "falcon1024"
     # Optionally, add more certificates as needed.
     # 'sphincssha2128fsimple', 'sphincssha2128ssimple', 'sphincssha2192fsimple'
     # 'sphincsshake128fsimple'
